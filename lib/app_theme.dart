@@ -50,6 +50,7 @@ abstract class AppTheme {
         ),
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         useMaterial3: true,
+        fontFamily: 'Nunito',
       );
 
   static ThemeData get darkTheme => FlexThemeData.dark(
@@ -114,5 +115,6 @@ abstract class AppTheme {
         tones: FlexTones.jolly(Brightness.dark),
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         useMaterial3: true,
+        fontFamily: 'Nunito',
       );
 }
