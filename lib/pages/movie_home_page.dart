@@ -1,27 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-import '../router/router.dart';
+import '../features/movies/movie.dart';
+import '../features/movies/movies_provider.dart';
+import '../widgets/carousel.dart';
 import '../widgets/my_app_bar.dart';
 
-class MovieHomePage extends StatelessWidget {
+class MovieHomePage extends ConsumerWidget {
   const MovieHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final popularMovies = ref.watch(popularMoviesProvider);
+
     return SizedBox.expand(
       child: Material(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const MyAppBar(
               title: Text('Movie Home Page'),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: 100,
-                prototypeItem: const MovieCard(movieId: 0),
-                itemBuilder: (context, index) => MovieCard(movieId: index),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CarouselSection(
+                      title: const Text('Popular Movies'),
+                      asyncItems: popularMovies,
+                      itemBuilder: (context, itemIndex, movie) => MovieCard(
+                        movie: movie,
+                        color: Colors.primaries[itemIndex % Colors.primaries.length],
+                      ),
+                      loadingBuilder: (context, index) => const MovieSkeletonCard(),
+                    ),
+                    CarouselSection(
+                      title: const Text('Upcoming Movies'),
+                      asyncItems: popularMovies,
+                      itemBuilder: (context, itemIndex, movie) => MovieCard(
+                        movie: movie,
+                        color: Colors.primaries[(itemIndex + 5) % Colors.primaries.length],
+                      ),
+                      loadingBuilder: (context, index) => const MovieSkeletonCard(),
+                    ),
+                    CarouselSection(
+                      title: const Text('Top Rated Movies'),
+                      asyncItems: popularMovies,
+                      itemBuilder: (context, itemIndex, movie) => MovieCard(
+                        movie: movie,
+                        color: Colors.primaries[(itemIndex + 10) % Colors.primaries.length],
+                      ),
+                      loadingBuilder: (context, index) => const MovieSkeletonCard(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -34,17 +67,41 @@ class MovieHomePage extends StatelessWidget {
 class MovieCard extends StatelessWidget {
   const MovieCard({
     super.key,
-    required this.movieId,
+    required this.movie,
+    required this.color,
   });
 
-  final int movieId;
+  final Movie movie;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: ListTile(
-        title: Text('Movie $movieId'),
-        onTap: () => MovieDetailsRouteData(movieId: movieId).go(context),
+      color: color,
+      child: Center(
+        child: Text(
+          movie.title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MovieSkeletonCard extends StatelessWidget {
+  const MovieSkeletonCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Skeletonizer.zone(
+      child: Card(
+        child: SizedBox.expand(
+          child: Bone(),
+        ),
       ),
     );
   }
