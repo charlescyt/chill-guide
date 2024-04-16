@@ -26,6 +26,15 @@ class MovieHomePage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    TopCarousel(
+                      height: 200,
+                      asyncItems: popularMovies,
+                      itemBuilder: (context, index, movie) => MovieCard(
+                        movie: movie,
+                        color: Colors.primaries[(index - 5) % Colors.primaries.length],
+                      ),
+                      loadingBuilder: (context, index) => const MovieSkeletonCard(),
+                    ),
                     CarouselSection(
                       title: const Text('Popular Movies'),
                       asyncItems: popularMovies,
