@@ -5,26 +5,33 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run with iPhone simulator",
+            "name": "iPhone",
             "request": "launch",
             "type": "dart",
             "deviceId": "51640510-37FB-4E22-BD2E-BBFEA1D40229",
             "program": "lib/main.dart",
         },
         {
-            "name": "Run with Android Emulator",
+            "name": "Android",
             "request": "launch",
             "type": "dart",
             "deviceId": "emulator-5554",
             "program": "lib/main.dart",
         },
+        {
+            "name": "iPad",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "A0C32A13-C611-49DF-9EE5-6496740B939B",
+            "program": "lib/main.dart",
+        },
     ],
     "compounds": [
         {
-            "name": "Run all devices",
+            "name": "iPhone & Android",
             "configurations": [
-                "Run with iPhone simulator",
-                "Run with Android Emulator"
+                "iPhone",
+                "Android"
             ]
         }
     ]
