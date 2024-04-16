@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show DeviceOrientation, SystemChrome, SystemUiMode, SystemUiOverlayStyle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'app_theme.dart';
 import 'router/router.dart';
 
 class ChillGuideApp extends ConsumerStatefulWidget {
@@ -26,8 +27,8 @@ class _ChillGuideAppState extends ConsumerState<ChillGuideApp> {
     return MaterialApp.router(
       title: 'Chill Guide',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,
       routerConfig: router,
       builder: (context, child) {
