@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'movie.dart';
+import '../models/movie.dart';
 
 part 'movies_provider.g.dart';
 

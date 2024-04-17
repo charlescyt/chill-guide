@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../features/movies/movie.dart';
-import '../features/movies/movies_provider.dart';
-import '../widgets/carousel.dart';
-import '../widgets/my_app_bar.dart';
+import '../../../app/widgets/carousel.dart';
+import '../../../app/widgets/my_app_bar.dart';
+import '../models/movie.dart';
+import '../providers/movies_provider.dart';
 
 class MovieHomePage extends ConsumerWidget {
   const MovieHomePage({super.key});

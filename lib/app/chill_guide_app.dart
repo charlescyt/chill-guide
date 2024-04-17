@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show DeviceOrientation, SystemChrome, SystemUiMode, SystemUiOverlayStyle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'app_theme.dart';
 import 'router/router.dart';
+import 'theme/app_theme.dart';
 
 class ChillGuideApp extends ConsumerStatefulWidget {
   const ChillGuideApp({super.key});

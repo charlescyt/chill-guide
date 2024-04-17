@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/my_app_bar.dart';
+import '../../../app/widgets/my_app_bar.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   const MovieDetailsPage({

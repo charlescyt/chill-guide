@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '/pages/movie_details_page.dart';
-import '/pages/movie_home_page.dart';
-import '/pages/profile_page.dart';
-import '/pages/search_page.dart';
-import '/pages/tv_show_home_page.dart';
-import '/widgets/main_scaffold.dart';
+import '../../features/movies/pages/movie_details_page.dart';
+import '../../features/movies/pages/movie_home_page.dart';
+import '../../features/profile/pages/profile_page.dart';
+import '../../features/search/pages/search_page.dart';
+import '../../features/tv_shows/pages/tv_show_home_page.dart';
+import '../widgets/main_scaffold.dart';
 import 'transition_page.dart';
 
 part 'router.g.dart';
