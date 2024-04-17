@@ -10,6 +10,10 @@
             "type": "dart",
             "deviceId": "51640510-37FB-4E22-BD2E-BBFEA1D40229",
             "program": "lib/main.dart",
+            "args": [
+                "--dart-define-from-file",
+                "config.json"
+            ]
         },
         {
             "name": "Android",
@@ -17,6 +21,10 @@
             "type": "dart",
             "deviceId": "emulator-5554",
             "program": "lib/main.dart",
+            "args": [
+                "--dart-define-from-file",
+                "config.json"
+            ]
         },
         {
             "name": "iPad",
@@ -24,6 +32,10 @@
             "type": "dart",
             "deviceId": "A0C32A13-C611-49DF-9EE5-6496740B939B",
             "program": "lib/main.dart",
+            "args": [
+                "--dart-define-from-file",
+                "config.json"
+            ]
         },
     ],
     "compounds": [
