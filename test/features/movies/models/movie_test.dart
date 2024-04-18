@@ -19,8 +19,8 @@ void main() {
         movie.overview,
         'Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, Paul endeavors to prevent a terrible future only he can foresee.',
       );
-      expect(movie.poster, Poster('/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg'));
-      expect(movie.backdrop, Backdrop('/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg'));
+      expect(movie.poster, const Poster('/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg'));
+      expect(movie.backdrop, const Backdrop('/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg'));
       expect(movie.releaseDate, DateTime(2024, 2, 27));
       expect(movie.voteAverage, 8.3);
       expect(movie.voteCount, 2899);

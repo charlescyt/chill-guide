@@ -1,6 +1,6 @@
 import '../../../tmdb/tmdb_constants.dart';
 
-extension type Backdrop(String path) {
+extension type const Backdrop(String path) {
   String url([BackdropSize size = BackdropSize.large]) => '${TmdbConstants.imageBaseUrl}/${size.value}$path';
 }
 

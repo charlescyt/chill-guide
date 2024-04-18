@@ -1,6 +1,6 @@
 import '../../../tmdb/tmdb_constants.dart';
 
-extension type Poster(String path) {
+extension type const Poster(String path) {
   String url([PosterSize size = PosterSize.large]) => '${TmdbConstants.imageBaseUrl}/${size.value}$path';
 }
 
