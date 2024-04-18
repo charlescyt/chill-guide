@@ -1,19 +1,15 @@
 import '../../../tmdb/tmdb_constants.dart';
+import '../../../tmdb/tmdb_options.dart';
+import 'image_quality.dart';
 
 extension type const Poster(String path) {
-  String url([PosterSize size = PosterSize.large]) => '${TmdbConstants.imageBaseUrl}/${size.value}$path';
-}
+  String url([ImageQuality quality = ImageQuality.high]) {
+    final size = switch (quality) {
+      ImageQuality.low => PosterSize.medium.value,
+      ImageQuality.medium => PosterSize.large.value,
+      ImageQuality.high => PosterSize.extraLarge.value,
+    };
 
-enum PosterSize {
-  extraTiny('w92'),
-  tiny('w154'),
-  small('w185'),
-  medium('w342'),
-  large('w500'),
-  extraLarge('w780'),
-  original('original');
-
-  const PosterSize(this.value);
-
-  final String value;
+    return '${TmdbConstants.imageBaseUrl}/$size$path';
+  }
 }
