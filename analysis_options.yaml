@@ -3,3 +3,10 @@ include: package:choco_lints/app.yaml
 analyzer:
   plugins:
     - custom_lint
+
+  errors:
+    # Temporary disable this since the analyzer is incorrectly
+    # reporting the error for extension types.
+    # The fix is done but not released yet.
+    # https://github.com/dart-lang/sdk/issues/55406
+    pattern_never_matches_value_type: ignore
