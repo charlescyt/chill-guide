@@ -60,6 +60,14 @@ class Movie {
     };
   }
 
+  String get titleAndReleaseYear {
+    if (releaseDate == null) {
+      return title;
+    }
+
+    return '$title (${releaseDate!.year})';
+  }
+
   @override
   String toString() => '${describeIdentity(this)}(${toJson()})';
 }

@@ -33,7 +33,8 @@ class MovieHomePage extends ConsumerWidget {
                   children: [
                     CarouselSection(
                       title: const Text('Trending Movies'),
-                      itemAspectRatio: 16 / 9,
+                      carouselHeight: 240,
+                      itemAspectRatio: 14 / 9,
                       asyncItems: trendingMovies,
                       autoPlay: true,
                       itemBuilder: (context, index, movie) => MovieLandscapeCard(movie: movie),

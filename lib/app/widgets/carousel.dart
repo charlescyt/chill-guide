@@ -31,7 +31,7 @@ class CarouselSection<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleTextStyle = theme.textTheme.titleLarge;
+    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
     final seeAllTextStyle = theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.primary);
 
     final content = switch (asyncItems) {
