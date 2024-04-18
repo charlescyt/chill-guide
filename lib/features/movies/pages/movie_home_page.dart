@@ -31,27 +31,31 @@ class MovieHomePage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // TODO(charlescyt): Should we add a title and see all button?
-                    TopCarousel(
-                      height: 200,
+                    CarouselSection(
+                      title: const Text('Trending Movies'),
+                      itemAspectRatio: 16 / 9,
                       asyncItems: trendingMovies,
+                      autoPlay: true,
                       itemBuilder: (context, index, movie) => MovieLandscapeCard(movie: movie),
                       loadingBuilder: (context, index) => const MovieLandscapeCardSkeleton(),
                     ),
                     CarouselSection(
                       title: const Text('Popular Movies'),
                       asyncItems: popularMovies,
+                      itemAspectRatio: 5 / 9,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(movie: movie),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),
                     ),
                     CarouselSection(
                       title: const Text('Upcoming Movies'),
+                      itemAspectRatio: 5 / 9,
                       asyncItems: upcomingMovies,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(movie: movie),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),
                     ),
                     CarouselSection(
                       title: const Text('Top Rated Movies'),
+                      itemAspectRatio: 5 / 9,
                       asyncItems: topRatedMovies,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(movie: movie),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),

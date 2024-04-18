@@ -2,74 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class TopCarousel<T> extends StatelessWidget {
-  const TopCarousel({
-    super.key,
-    required this.height,
-    this.aspectRatio = 16 / 9,
-    required this.asyncItems,
-    required this.itemBuilder,
-    required this.loadingBuilder,
-    this.autoPlay = true,
-    this.padEnds = false,
-    this.enlargeCenterPage = false,
-  });
-
-  final double height;
-  final double aspectRatio;
-  final AsyncValue<List<T>> asyncItems;
-  final Widget Function(BuildContext context, int index, T item) itemBuilder;
-  final IndexedWidgetBuilder loadingBuilder;
-  final bool autoPlay;
-  final bool padEnds;
-  final bool enlargeCenterPage;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return switch (asyncItems) {
-      AsyncData(value: final items) => Carousel(
-          itemCount: items.length,
-          height: height,
-          aspectRatio: aspectRatio,
-          autoPlay: autoPlay,
-          padEnds: padEnds,
-          enlargeCenterPage: enlargeCenterPage,
-          itemBuilder: (context, index) => itemBuilder(context, index, items[index]),
-        ),
-      AsyncError(:final error) => SizedBox(
-          height: height,
-          child: Card.outlined(
-            color: theme.colorScheme.errorContainer,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error, color: Colors.red),
-                  Text(
-                    '$error',
-                    maxLines: 5,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      _ => Carousel(
-          itemCount: 10,
-          height: height,
-          aspectRatio: aspectRatio,
-          autoPlay: autoPlay,
-          padEnds: padEnds,
-          itemBuilder: loadingBuilder,
-        ),
-    };
-  }
-}
-
 class CarouselSection<T> extends StatelessWidget {
   const CarouselSection({
     super.key,
@@ -77,9 +9,12 @@ class CarouselSection<T> extends StatelessWidget {
     required this.asyncItems,
     required this.itemBuilder,
     required this.loadingBuilder,
-    this.carouselHeight = 240,
+    this.carouselHeight = 200,
     this.itemAspectRatio = 2 / 3,
     this.onSeeAllPressed,
+    this.autoPlay = false,
+    this.padEnds = false,
+    this.enlargeCenterPage = false,
   });
 
   final Widget title;
@@ -89,16 +24,24 @@ class CarouselSection<T> extends StatelessWidget {
   final double carouselHeight;
   final double itemAspectRatio;
   final VoidCallback? onSeeAllPressed;
+  final bool autoPlay;
+  final bool padEnds;
+  final bool enlargeCenterPage;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final titleTextStyle = theme.textTheme.titleLarge;
+    final seeAllTextStyle = theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.primary);
 
     final content = switch (asyncItems) {
       AsyncData(value: final items) => Carousel(
           itemCount: items.length,
           height: carouselHeight,
           aspectRatio: itemAspectRatio,
+          autoPlay: autoPlay,
+          padEnds: padEnds,
+          enlargeCenterPage: enlargeCenterPage,
           itemBuilder: (context, index) => itemBuilder(context, index, items[index]),
         ),
       AsyncError(:final error) => SizedBox(
@@ -126,6 +69,9 @@ class CarouselSection<T> extends StatelessWidget {
           height: carouselHeight,
           aspectRatio: itemAspectRatio,
           itemBuilder: loadingBuilder,
+          autoPlay: autoPlay,
+          padEnds: padEnds,
+          enlargeCenterPage: enlargeCenterPage,
         ),
     };
 
@@ -139,19 +85,15 @@ class CarouselSection<T> extends StatelessWidget {
             children: [
               Expanded(
                 child: DefaultTextStyle.merge(
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: titleTextStyle,
                   child: title,
                 ),
               ),
               TextButton(
                 onPressed: () {},
-                child: const Text(
+                child: Text(
                   'See All',
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
+                  style: seeAllTextStyle,
                 ),
               ),
             ],
