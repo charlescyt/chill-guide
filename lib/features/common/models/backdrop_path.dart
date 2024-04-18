@@ -4,12 +4,12 @@ import 'image_quality.dart';
 
 export 'image_quality.dart';
 
-extension type const Poster(String path) {
+extension type const BackdropPath(String path) {
   String url([ImageQuality quality = ImageQuality.high]) {
     final size = switch (quality) {
-      ImageQuality.low => PosterSize.medium.value,
-      ImageQuality.medium => PosterSize.large.value,
-      ImageQuality.high => PosterSize.extraLarge.value,
+      ImageQuality.low => BackdropSize.small.value,
+      ImageQuality.medium => BackdropSize.medium.value,
+      ImageQuality.high => BackdropSize.large.value,
     };
 
     return '${TmdbConstants.imageBaseUrl}/$size$path';

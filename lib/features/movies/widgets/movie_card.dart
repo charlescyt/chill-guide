@@ -18,7 +18,7 @@ class MovieCard extends StatelessWidget {
     final titleStyle = theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold);
     final subTitleStyle = theme.textTheme.bodySmall?.copyWith();
 
-    final background = switch (movie.poster) {
+    final background = switch (movie.posterPath) {
       null => PlaceholderIcon(
           icon: const Icon(Icons.movie),
           color: theme.colorScheme.primary,

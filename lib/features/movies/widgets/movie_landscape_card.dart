@@ -17,7 +17,7 @@ class MovieLandscapeCard extends StatelessWidget {
     final theme = Theme.of(context);
     final textStyle = theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold);
 
-    final background = switch (movie.backdrop) {
+    final background = switch (movie.backdropPath) {
       null => PlaceholderIcon(
           icon: const Icon(Icons.movie),
           color: theme.colorScheme.primary,
