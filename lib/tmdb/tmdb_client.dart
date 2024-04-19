@@ -85,7 +85,7 @@ class TmdbClient {
     final endpoint = '${TmdbConstants.movieDetails}/$movieId';
     final queryParameters = {
       'language': language,
-      'append_to_response': 'credits',
+      'append_to_response': 'credits,recommendations',
     };
     final json = await _get(endpoint, queryParameters: queryParameters);
 

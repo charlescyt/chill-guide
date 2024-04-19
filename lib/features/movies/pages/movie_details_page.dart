@@ -9,6 +9,7 @@ import '../../../app/widgets/rating_indicator.dart';
 import '../../../app/widgets/section.dart';
 import '../models/movie_details.dart';
 import '../providers/movies_provider.dart';
+import '../widgets/movie_card.dart';
 import '../widgets/movie_cast_card.dart';
 
 class MovieDetailsPage extends ConsumerWidget {
@@ -190,21 +191,20 @@ class _Data extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Section(
-                      title: const Text('Recommendations'),
-                      content: Carousel(
-                        itemCount: 10,
-                        height: 200,
-                        aspectRatio: 16 / 9,
-                        itemBuilder: (context, index) {
-                          return const Placeholder(
-                            fallbackHeight: 200,
-                            fallbackWidth: 140,
-                          );
-                        },
+                    if (movieDetails.recommendations case final recommendations when recommendations.isNotEmpty) ...[
+                      const SizedBox(height: 16),
+                      Section(
+                        title: const Text('Recommendations'),
+                        content: Carousel(
+                          itemCount: recommendations.length,
+                          height: 240,
+                          aspectRatio: 9 / 16,
+                          itemBuilder: (context, index) {
+                            return MovieCard(movie: recommendations[index]);
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),

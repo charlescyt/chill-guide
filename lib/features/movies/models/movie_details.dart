@@ -2,15 +2,15 @@
 
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 
-import '../../common/models/backdrop_path.dart';
 import '../../common/models/genre.dart';
-import '../../common/models/poster_path.dart';
+import 'movie.dart';
 import 'movie_cast.dart';
 import 'movie_crew.dart';
 
-export '../../common/models/backdrop_path.dart';
 export '../../common/models/genre.dart';
-export '../../common/models/poster_path.dart';
+export 'movie.dart';
+export 'movie_cast.dart';
+export 'movie_crew.dart';
 
 @immutable
 class MovieDetails {
@@ -33,6 +33,7 @@ class MovieDetails {
   final List<Genre> genres;
   final List<MovieCast> casts;
   final List<MovieCrew> crews;
+  final List<Movie> recommendations;
 
   String get titleAndYear {
     final year = releaseDate?.year;
@@ -61,6 +62,7 @@ class MovieDetails {
     required this.genres,
     required this.casts,
     required this.crews,
+    required this.recommendations,
   });
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) {
@@ -86,6 +88,8 @@ class MovieDetails {
       genres: (json['genres'] as List).cast<Map<String, dynamic>>().map(Genre.fromJson).toList(),
       casts: (json['credits']['cast'] as List).cast<Map<String, dynamic>>().map(MovieCast.fromJson).toList(),
       crews: (json['credits']['crew'] as List).cast<Map<String, dynamic>>().map(MovieCrew.fromJson).toList(),
+      recommendations:
+          (json['recommendations']['results'] as List).cast<Map<String, dynamic>>().map(Movie.fromJson).toList(),
     );
   }
 
@@ -110,6 +114,7 @@ class MovieDetails {
         'homepage: $homepage, '
         'genres: $genres, '
         'casts: $casts, '
-        'crews: $crews';
+        'crews: $crews, '
+        'recommendations: $recommendations';
   }
 }
