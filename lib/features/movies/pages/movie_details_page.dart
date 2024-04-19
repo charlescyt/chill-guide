@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/utils/formatting.dart';
 import '../../../app/widgets/carousel.dart';
 import '../../../app/widgets/my_app_bar.dart';
 import '../../../app/widgets/placeholder_icon.dart';
@@ -116,18 +117,19 @@ class _Data extends StatelessWidget {
                               },
                             ),
                           ),
-                          const SizedBox(width: 16),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   movieDetails.titleAndYear,
-                                  style: theme.textTheme.titleLarge?.copyWith(
+                                  style: theme.textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
                                   maxLines: 2,
                                 ),
+                                Text(formatRuntime(movieDetails.runtime)),
                                 Text(movieDetails.genres.map((e) => e.name).join(', ')),
                                 RatingIndicator(rating: movieDetails.voteAverage),
                               ],
@@ -139,14 +141,31 @@ class _Data extends StatelessWidget {
                     const SizedBox(height: 8),
                     if (movieDetails.tagline.isNotEmpty)
                       Center(
-                        child: Text(movieDetails.tagline),
+                        child: Text(
+                          movieDetails.tagline,
+                          style: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     const SizedBox(height: 8),
-                    Text(movieDetails.id.toString()),
                     Section(
                       title: const Text('Overview'),
                       content: Text(movieDetails.overview),
                     ),
+                    if (movieDetails.budget > 0) ...[
+                      const SizedBox(height: 16),
+                      Section(
+                        title: const Text('Budget'),
+                        content: Text(formatCurrency(movieDetails.budget)),
+                      ),
+                    ],
+                    if (movieDetails.revenue > 0) ...[
+                      const SizedBox(height: 16),
+                      Section(
+                        title: const Text('Revenue'),
+                        content: Text(formatCurrency(movieDetails.revenue)),
+                      ),
+                    ],
                     const SizedBox(height: 16),
                     Section(
                       title: const Text('Casts'),
