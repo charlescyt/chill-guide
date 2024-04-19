@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../app/router/router.dart';
+import '../../../app/widgets/app_card.dart';
 import '../../../app/widgets/placeholder_icon.dart';
 import '../models/movie.dart';
 
@@ -9,15 +8,15 @@ class MovieCard extends StatelessWidget {
   const MovieCard({
     super.key,
     required this.movie,
+    required this.onTap,
   });
 
   final Movie movie;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleStyle = theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold);
-    final subTitleStyle = theme.textTheme.bodySmall?.copyWith();
 
     final background = switch (movie.posterPath) {
       null => PlaceholderIcon(
@@ -30,72 +29,29 @@ class MovieCard extends StatelessWidget {
         ),
     };
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: Card(
-            child: InkWell(
-              onTap: () => MovieDetailsRouteData(movieId: movie.id).go(context),
-              child: background,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text(
-            movie.title,
-            style: titleStyle,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text(
-            movie.releaseDate?.year.toString() ?? '',
-            style: subTitleStyle,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ],
+    return AppCard(
+      background: background,
+      onTap: onTap,
+      title: movie.title,
+      subTitle: movie.releaseDate?.year.toString() ?? '',
     );
   }
 }
 
 class MovieCardSkeleton extends StatelessWidget {
-  const MovieCardSkeleton({super.key});
+  const MovieCardSkeleton({
+    super.key,
+    this.showSubtitle = true,
+  });
+
+  final bool showSubtitle;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final titleStyle = theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold);
-    final subTitleStyle = theme.textTheme.bodySmall?.copyWith();
-
-    return Skeletonizer.zone(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Expanded(
-            child: Card(
-              child: Skeleton.shade(
-                child: PlaceholderIcon(
-                  icon: Icon(Icons.movie),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Bone.text(width: 100, style: titleStyle),
-          ),
-          const SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Bone.text(width: 40, style: subTitleStyle),
-          ),
-        ],
+    return AppCardSkeleton(
+      showSubTitle: showSubtitle,
+      backgroundPlaceholder: const PlaceholderIcon(
+        icon: Icon(Icons.movie),
       ),
     );
   }

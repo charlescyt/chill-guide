@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/router/router.dart';
 import '../../../app/utils/formatting.dart';
 import '../../../app/widgets/carousel.dart';
 import '../../../app/widgets/my_app_bar.dart';
@@ -11,6 +12,7 @@ import '../models/movie_details.dart';
 import '../providers/movies_provider.dart';
 import '../widgets/movie_card.dart';
 import '../widgets/movie_cast_card.dart';
+import '../widgets/movie_crew_card.dart';
 
 class MovieDetailsPage extends ConsumerWidget {
   const MovieDetailsPage({
@@ -175,7 +177,12 @@ class _Data extends StatelessWidget {
                         height: 240,
                         aspectRatio: 9 / 16,
                         itemBuilder: (context, index) {
-                          return MovieCastCard(cast: movieDetails.casts[index]);
+                          return MovieCastCard(
+                            cast: movieDetails.casts[index],
+                            onTap: () {
+                              // TODO(charlescyt): Push to cast details page
+                            },
+                          );
                         },
                       ),
                     ),
@@ -187,7 +194,12 @@ class _Data extends StatelessWidget {
                         height: 240,
                         aspectRatio: 9 / 16,
                         itemBuilder: (context, index) {
-                          return MovieCrewCard(crew: movieDetails.crews[index]);
+                          return MovieCrewCard(
+                            crew: movieDetails.crews[index],
+                            onTap: () {
+                              // TODO(charlescyt): Push to crew details page
+                            },
+                          );
                         },
                       ),
                     ),
@@ -200,7 +212,11 @@ class _Data extends StatelessWidget {
                           height: 240,
                           aspectRatio: 9 / 16,
                           itemBuilder: (context, index) {
-                            return MovieCard(movie: recommendations[index]);
+                            final movie = recommendations[index];
+                            return MovieCard(
+                              movie: movie,
+                              onTap: () => MovieDetailsRouteData(movieId: movie.id).push<void>(context),
+                            );
                           },
                         ),
                       ),
