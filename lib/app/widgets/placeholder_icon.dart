@@ -16,13 +16,17 @@ class PlaceholderIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return FractionallySizedBox(
       widthFactor: widthFactor,
       heightFactor: heightFactor,
       child: FittedBox(
-        child: Icon(
-          Icons.movie,
-          color: color,
+        child: IconTheme(
+          data: theme.iconTheme.copyWith(
+            color: color,
+          ),
+          child: icon,
         ),
       ),
     );
