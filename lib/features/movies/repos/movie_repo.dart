@@ -4,6 +4,7 @@ import '../../../tmdb/tmdb_client.dart';
 import '../../../tmdb/tmdb_options.dart';
 import '../../common/models/paginated_response.dart';
 import '../models/movie.dart';
+import '../models/movie_details.dart';
 
 @immutable
 class MovieRepo {
@@ -69,5 +70,18 @@ class MovieRepo {
     );
 
     return PaginatedResponse.fromJson(json).results.map(Movie.fromJson).toList();
+  }
+
+  Future<MovieDetails> getMovieDetails({
+    required int movieId,
+    String language = 'en-US',
+  }) async {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    final json = await _client.getMovieDetails(
+      movieId: movieId,
+      language: language,
+    );
+
+    return MovieDetails.fromJson(json);
   }
 }

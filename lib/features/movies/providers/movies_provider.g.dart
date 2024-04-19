@@ -556,5 +556,134 @@ class _TopRatedMoviesProviderElement
   @override
   int get page => (origin as TopRatedMoviesProvider).page;
 }
+
+String _$movieDetailsHash() => r'b2fb748d82c96ecfa1fd8dddeca81aed280c2103';
+
+/// See also [movieDetails].
+@ProviderFor(movieDetails)
+const movieDetailsProvider = MovieDetailsFamily();
+
+/// See also [movieDetails].
+class MovieDetailsFamily extends Family<AsyncValue<MovieDetails>> {
+  /// See also [movieDetails].
+  const MovieDetailsFamily();
+
+  /// See also [movieDetails].
+  MovieDetailsProvider call({
+    required int movieId,
+  }) {
+    return MovieDetailsProvider(
+      movieId: movieId,
+    );
+  }
+
+  @override
+  MovieDetailsProvider getProviderOverride(
+    covariant MovieDetailsProvider provider,
+  ) {
+    return call(
+      movieId: provider.movieId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'movieDetailsProvider';
+}
+
+/// See also [movieDetails].
+class MovieDetailsProvider extends AutoDisposeFutureProvider<MovieDetails> {
+  /// See also [movieDetails].
+  MovieDetailsProvider({
+    required int movieId,
+  }) : this._internal(
+          (ref) => movieDetails(
+            ref as MovieDetailsRef,
+            movieId: movieId,
+          ),
+          from: movieDetailsProvider,
+          name: r'movieDetailsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$movieDetailsHash,
+          dependencies: MovieDetailsFamily._dependencies,
+          allTransitiveDependencies:
+              MovieDetailsFamily._allTransitiveDependencies,
+          movieId: movieId,
+        );
+
+  MovieDetailsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.movieId,
+  }) : super.internal();
+
+  final int movieId;
+
+  @override
+  Override overrideWith(
+    FutureOr<MovieDetails> Function(MovieDetailsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: MovieDetailsProvider._internal(
+        (ref) => create(ref as MovieDetailsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        movieId: movieId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<MovieDetails> createElement() {
+    return _MovieDetailsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MovieDetailsProvider && other.movieId == movieId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, movieId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin MovieDetailsRef on AutoDisposeFutureProviderRef<MovieDetails> {
+  /// The parameter `movieId` of this provider.
+  int get movieId;
+}
+
+class _MovieDetailsProviderElement
+    extends AutoDisposeFutureProviderElement<MovieDetails>
+    with MovieDetailsRef {
+  _MovieDetailsProviderElement(super.provider);
+
+  @override
+  int get movieId => (origin as MovieDetailsProvider).movieId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

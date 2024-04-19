@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../app/router/router.dart';
 import '../../../app/widgets/placeholder_icon.dart';
 import '../models/movie.dart';
 
@@ -36,9 +37,7 @@ class MovieCard extends StatelessWidget {
         Expanded(
           child: Card(
             child: InkWell(
-              onTap: () {
-                // TODO(charlescyt): Navigate to movie details page
-              },
+              onTap: () => MovieDetailsRouteData(movieId: movie.id).go(context),
               child: background,
             ),
           ),

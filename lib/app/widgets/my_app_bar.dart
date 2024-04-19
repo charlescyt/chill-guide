@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class MyAppBar extends StatelessWidget {
   const MyAppBar({
     super.key,
-    required this.title,
+    this.title,
     this.actions,
   });
 
-  final Widget title;
+  final Widget? title;
   final List<Widget>? actions;
 
   @override
@@ -18,6 +18,7 @@ class MyAppBar extends StatelessWidget {
     final useCloseButton = parentRoute is PageRoute && parentRoute.fullscreenDialog;
 
     return Material(
+      type: MaterialType.transparency,
       child: Padding(
         padding: EdgeInsets.only(top: viewPadding.top),
         child: ConstrainedBox(
@@ -25,13 +26,17 @@ class MyAppBar extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              DefaultTextStyle.merge(
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              if (title case final title?)
+                DefaultTextStyle.merge(
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 48),
+                    child: title,
+                  ),
                 ),
-                child: title,
-              ),
               if (canPop)
                 Align(
                   alignment: Alignment.centerLeft,

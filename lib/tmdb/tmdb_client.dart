@@ -78,6 +78,19 @@ class TmdbClient {
     return json;
   }
 
+  Future<Json> getMovieDetails({
+    required int movieId,
+    String language = 'en-US',
+  }) async {
+    final endpoint = '${TmdbConstants.movieDetails}/$movieId';
+    final queryParameters = {
+      'language': language,
+    };
+    final json = await _get(endpoint, queryParameters: queryParameters);
+
+    return json;
+  }
+
   Future<Json> _get(
     String endpoint, {
     QueryParameters? queryParameters,

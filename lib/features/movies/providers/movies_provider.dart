@@ -4,6 +4,7 @@ import '../../../tmdb/tmdb_client_provider.dart';
 import '../../../tmdb/tmdb_options.dart';
 import '../../common/utils/riverpod.dart';
 import '../models/movie.dart';
+import '../models/movie_details.dart';
 import '../repos/movie_repo.dart';
 
 part 'movies_provider.g.dart';
@@ -67,4 +68,17 @@ Future<List<Movie>> topRatedMovies(
   ref.delayDispose(const Duration(hours: 1));
 
   return movies;
+}
+
+@riverpod
+Future<MovieDetails> movieDetails(
+  MovieDetailsRef ref, {
+  required int movieId,
+}) async {
+  final repo = ref.watch(movieRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final details = await repo.getMovieDetails(movieId: movieId, language: language);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return details;
 }
