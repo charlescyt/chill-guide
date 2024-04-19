@@ -29,7 +29,7 @@ class _ChillGuideAppState extends ConsumerState<ChillGuideApp> {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       routerConfig: router,
       builder: (context, child) {
         final theme = Theme.of(context);
