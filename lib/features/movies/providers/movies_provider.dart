@@ -3,7 +3,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../tmdb/tmdb_client_provider.dart';
 import '../../../tmdb/tmdb_options.dart';
 import '../../common/utils/riverpod.dart';
-import '../models/movie.dart';
 import '../models/movie_details.dart';
 import '../repos/movie_repo.dart';
 

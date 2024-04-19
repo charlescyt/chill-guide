@@ -3,7 +3,6 @@ import 'package:meta/meta.dart' show immutable;
 import '../../../tmdb/tmdb_client.dart';
 import '../../../tmdb/tmdb_options.dart';
 import '../../common/models/paginated_response.dart';
-import '../models/movie.dart';
 import '../models/movie_details.dart';
 
 @immutable
