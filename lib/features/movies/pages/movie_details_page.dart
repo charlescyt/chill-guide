@@ -8,6 +8,7 @@ import '../../../app/widgets/rating_indicator.dart';
 import '../../../app/widgets/section.dart';
 import '../models/movie_details.dart';
 import '../providers/movies_provider.dart';
+import '../widgets/movie_cast_card.dart';
 
 class MovieDetailsPage extends ConsumerWidget {
   const MovieDetailsPage({
@@ -148,16 +149,25 @@ class _Data extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Section(
-                      title: const Text('Cast'),
+                      title: const Text('Casts'),
                       content: Carousel(
-                        itemCount: 10,
-                        height: 200,
-                        aspectRatio: 0.7,
+                        itemCount: movieDetails.casts.length,
+                        height: 240,
+                        aspectRatio: 9 / 16,
                         itemBuilder: (context, index) {
-                          return const Placeholder(
-                            fallbackHeight: 200,
-                            fallbackWidth: 140,
-                          );
+                          return MovieCastCard(cast: movieDetails.casts[index]);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Section(
+                      title: const Text('Crews'),
+                      content: Carousel(
+                        itemCount: movieDetails.crews.length,
+                        height: 240,
+                        aspectRatio: 9 / 16,
+                        itemBuilder: (context, index) {
+                          return MovieCrewCard(crew: movieDetails.crews[index]);
                         },
                       ),
                     ),

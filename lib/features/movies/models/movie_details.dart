@@ -1,8 +1,12 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 
 import '../../common/models/backdrop_path.dart';
 import '../../common/models/genre.dart';
 import '../../common/models/poster_path.dart';
+import 'movie_cast.dart';
+import 'movie_crew.dart';
 
 export '../../common/models/backdrop_path.dart';
 export '../../common/models/genre.dart';
@@ -27,11 +31,15 @@ class MovieDetails {
   final int revenue;
   final String homepage;
   final List<Genre> genres;
+  final List<MovieCast> casts;
+  final List<MovieCrew> crews;
 
   String get titleAndYear {
     final year = releaseDate?.year;
     return year == null ? title : '$title ($year)';
   }
+
+  List<MovieCrew> get directors => crews.where((crew) => crew.job == 'Director').toList();
 
   const MovieDetails({
     required this.id,
@@ -51,6 +59,8 @@ class MovieDetails {
     required this.revenue,
     required this.homepage,
     required this.genres,
+    required this.casts,
+    required this.crews,
   });
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) {
@@ -74,6 +84,8 @@ class MovieDetails {
       revenue: json['revenue'] as int,
       homepage: json['homepage'] as String,
       genres: (json['genres'] as List).cast<Map<String, dynamic>>().map(Genre.fromJson).toList(),
+      casts: (json['credits']['cast'] as List).cast<Map<String, dynamic>>().map(MovieCast.fromJson).toList(),
+      crews: (json['credits']['crew'] as List).cast<Map<String, dynamic>>().map(MovieCrew.fromJson).toList(),
     );
   }
 
@@ -96,6 +108,8 @@ class MovieDetails {
         'budget: $budget, '
         'revenue: $revenue, '
         'homepage: $homepage, '
-        'genres: $genres';
+        'genres: $genres, '
+        'casts: $casts, '
+        'crews: $crews';
   }
 }

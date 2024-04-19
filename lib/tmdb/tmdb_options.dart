@@ -28,3 +28,14 @@ enum BackdropSize {
 
   final String value;
 }
+
+enum ProfileSize {
+  small('w45'),
+  medium('w185'),
+  large('h632'),
+  extraLarge('original');
+
+  const ProfileSize(this.value);
+
+  final String value;
+}
