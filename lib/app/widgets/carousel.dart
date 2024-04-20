@@ -135,6 +135,8 @@ class Carousel extends StatelessWidget {
       builder: (context, constraints) {
         final width = height * aspectRatio;
         final viewportFraction = width / constraints.maxWidth;
+        final visibleSlots = (1 / viewportFraction).ceil();
+        final enableInfiniteScroll = this.enableInfiniteScroll && itemCount > visibleSlots;
 
         return FlutterCarousel.builder(
           itemCount: itemCount,
