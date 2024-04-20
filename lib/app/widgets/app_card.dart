@@ -8,12 +8,16 @@ class AppCard extends StatelessWidget {
     required this.onTap,
     required this.title,
     this.subTitle,
+    this.titleAlignment,
+    this.subTitleAlignment,
   });
 
   final Widget background;
   final VoidCallback onTap;
   final String title;
   final String? subTitle;
+  final TextAlign? titleAlignment;
+  final TextAlign? subTitleAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +43,7 @@ class AppCard extends StatelessWidget {
             title,
             style: titleStyle,
             overflow: TextOverflow.ellipsis,
+            textAlign: titleAlignment,
           ),
         ),
         if (subTitle case final subTitle?)
@@ -48,6 +53,7 @@ class AppCard extends StatelessWidget {
               subTitle,
               style: subTitleStyle,
               overflow: TextOverflow.ellipsis,
+              textAlign: subTitleAlignment,
             ),
           ),
       ],
@@ -60,10 +66,14 @@ class AppCardSkeleton extends StatelessWidget {
     super.key,
     required this.backgroundPlaceholder,
     this.showSubTitle = true,
+    this.titleAlignment,
+    this.subTitleAlignment,
   });
 
   final Widget backgroundPlaceholder;
   final bool showSubTitle;
+  final TextAlign? titleAlignment;
+  final TextAlign? subTitleAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +95,21 @@ class AppCardSkeleton extends StatelessWidget {
           const SizedBox(height: 4),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Bone.text(width: 100, style: titleStyle),
+            child: Bone.text(
+              width: 100,
+              style: titleStyle,
+              textAlign: titleAlignment ?? TextAlign.start,
+            ),
           ),
           if (showSubTitle) ...[
             const SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Bone.text(width: 40, style: subTitleStyle),
+              child: Bone.text(
+                width: 40,
+                style: subTitleStyle,
+                textAlign: subTitleAlignment ?? TextAlign.start,
+              ),
             ),
           ],
         ],

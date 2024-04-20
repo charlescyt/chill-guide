@@ -34,6 +34,14 @@ RouteBase get $mainShellRouteData => StatefulShellRouteData.$route(
             GoRouteData.$route(
               path: '/tv-shows',
               factory: $TvShowHomeRouteDataExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: ':tvShowId',
+                  parentNavigatorKey:
+                      TvShowDetailsRouteData.$parentNavigatorKey,
+                  factory: $TvShowDetailsRouteDataExtension._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -117,6 +125,26 @@ extension $TvShowHomeRouteDataExtension on TvShowHomeRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $TvShowDetailsRouteDataExtension on TvShowDetailsRouteData {
+  static TvShowDetailsRouteData _fromState(GoRouterState state) =>
+      TvShowDetailsRouteData(
+        tvShowId: int.parse(state.pathParameters['tvShowId']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/tv-shows/${Uri.encodeComponent(tvShowId.toString())}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $SearchRouteDataExtension on SearchRouteData {
   static SearchRouteData _fromState(GoRouterState state) =>
       const SearchRouteData();
@@ -157,7 +185,7 @@ extension $ProfileRouteDataExtension on ProfileRouteData {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'6fadcb65fbbd3d049942ec0f64b3d1d033ca2980';
+String _$routerHash() => r'0c9ddf61a9792ef192881c2bffcd2c4301816e54';
 
 /// See also [router].
 @ProviderFor(router)

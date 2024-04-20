@@ -6,6 +6,7 @@ import '../../features/movies/pages/movie_details_page.dart';
 import '../../features/movies/pages/movie_home_page.dart';
 import '../../features/profile/pages/profile_page.dart';
 import '../../features/search/pages/search_page.dart';
+import '../../features/tv_shows/pages/tv_show_details_page.dart';
 import '../../features/tv_shows/pages/tv_show_home_page.dart';
 import '../widgets/main_scaffold.dart';
 import 'transition_page.dart';
@@ -19,7 +20,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shellNavigator
 GoRouter router(RouterRef ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: const MovieHomeRouteData().location,
+    initialLocation: const TvShowHomeRouteData().location,
     routes: $appRoutes,
   );
 }
@@ -114,7 +115,12 @@ class TvShowHomeRouteData extends GoRouteData {
   const TvShowHomeRouteData();
 
   static const routes = [
-    TypedGoRoute<TvShowHomeRouteData>(path: '/tv-shows'),
+    TypedGoRoute<TvShowHomeRouteData>(
+      path: '/tv-shows',
+      routes: [
+        TypedGoRoute<TvShowDetailsRouteData>(path: ':tvShowId'),
+      ],
+    ),
   ];
 
   @override
@@ -122,6 +128,24 @@ class TvShowHomeRouteData extends GoRouteData {
     return SlideTransitionPage(
       pageKey: state.pageKey,
       child: const TvShowHomePage(),
+    );
+  }
+}
+
+class TvShowDetailsRouteData extends GoRouteData {
+  const TvShowDetailsRouteData({
+    required this.tvShowId,
+  });
+
+  final int tvShowId;
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return SlideTransitionPage(
+      pageKey: state.pageKey,
+      child: TvShowDetailsPage(tvShowId: tvShowId),
     );
   }
 }

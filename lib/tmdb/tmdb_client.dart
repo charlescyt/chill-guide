@@ -13,12 +13,15 @@ typedef QueryParameters = Map<String, dynamic>;
 class TmdbClient {
   final http.Client _client;
   final String _token;
+  late final TvShowEndpoint tvShow;
 
   TmdbClient({
     http.Client? client,
     required String token,
   })  : _client = client ?? http.Client(),
-        _token = token;
+        _token = token {
+    tvShow = TvShowEndpoint(this);
+  }
 
   Future<Json> getTrendingMovies({
     String language = 'en-US',
@@ -110,6 +113,77 @@ class TmdbClient {
     );
 
     final json = jsonDecode(utf8.decode(response.bodyBytes)) as Json;
+
+    return json;
+  }
+}
+
+class TvShowEndpoint {
+  final TmdbClient _client;
+
+  const TvShowEndpoint(this._client);
+
+  Future<Json> getTrendingTvShows({
+    String language = 'en-US',
+    TimeWindow timeWindow = TimeWindow.day,
+  }) async {
+    final endpoint = '${TmdbConstants.trendingTvShows}/${timeWindow.name}';
+    final queryParameters = {
+      'language': language,
+    };
+    final json = await _client._get(endpoint, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> getAiringTodayTvShows({
+    int page = 1,
+    String language = 'en-US',
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+    };
+    final json = await _client._get(TmdbConstants.airingTodayTvShows, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> getOnTheAirTvShows({
+    int page = 1,
+    String language = 'en-US',
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+    };
+    final json = await _client._get(TmdbConstants.onTheAirTvShows, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> getPopularTvShows({
+    int page = 1,
+    String language = 'en-US',
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+    };
+    final json = await _client._get(TmdbConstants.popularTvShows, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> getTopRatedTvShows({
+    int page = 1,
+    String language = 'en-US',
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+    };
+    final json = await _client._get(TmdbConstants.topRatedTvShows, queryParameters: queryParameters);
 
     return json;
   }
