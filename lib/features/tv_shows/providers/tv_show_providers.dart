@@ -4,6 +4,7 @@ import '../../../tmdb/tmdb_client_provider.dart';
 import '../../../tmdb/tmdb_options.dart';
 import '../../common/utils/riverpod.dart';
 import '../models/tv_show.dart';
+import '../models/tv_show_details.dart';
 import '../repos/tv_show_repo.dart';
 
 part 'tv_show_providers.g.dart';
@@ -77,4 +78,17 @@ Future<List<TvShow>> topRatedTvShows(
   ref.delayDispose(const Duration(hours: 1));
 
   return tvShows;
+}
+
+@riverpod
+Future<TvShowDetails> tvShowDetails(
+  TvShowDetailsRef ref, {
+  required int tvShowId,
+}) async {
+  final repo = ref.watch(tvShowRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final tvShow = await repo.getTvShowDetails(tvShowId: tvShowId, language: language);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return tvShow;
 }

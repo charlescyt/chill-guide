@@ -14,3 +14,7 @@ String formatRuntime(int runtime) {
 
   return '${hours}h ${minutes}m';
 }
+
+String formatDate(DateTime date) {
+  return DateFormat.yMMMMd().format(date);
+}

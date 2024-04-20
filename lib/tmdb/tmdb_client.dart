@@ -187,4 +187,18 @@ class TvShowEndpoint {
 
     return json;
   }
+
+  Future<Json> getTvShowDetails({
+    required int tvShowId,
+    String language = 'en-US',
+  }) async {
+    final endpoint = '${TmdbConstants.tvShowDetails}/$tvShowId';
+    final queryParameters = {
+      'language': language,
+      'append_to_response': 'credits,recommendations',
+    };
+    final json = await _client._get(endpoint, queryParameters: queryParameters);
+
+    return json;
+  }
 }

@@ -687,5 +687,134 @@ class _TopRatedTvShowsProviderElement
   @override
   int get page => (origin as TopRatedTvShowsProvider).page;
 }
+
+String _$tvShowDetailsHash() => r'2f9c32c44db11503906b7c76f3ae5e249247f637';
+
+/// See also [tvShowDetails].
+@ProviderFor(tvShowDetails)
+const tvShowDetailsProvider = TvShowDetailsFamily();
+
+/// See also [tvShowDetails].
+class TvShowDetailsFamily extends Family<AsyncValue<TvShowDetails>> {
+  /// See also [tvShowDetails].
+  const TvShowDetailsFamily();
+
+  /// See also [tvShowDetails].
+  TvShowDetailsProvider call({
+    required int tvShowId,
+  }) {
+    return TvShowDetailsProvider(
+      tvShowId: tvShowId,
+    );
+  }
+
+  @override
+  TvShowDetailsProvider getProviderOverride(
+    covariant TvShowDetailsProvider provider,
+  ) {
+    return call(
+      tvShowId: provider.tvShowId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'tvShowDetailsProvider';
+}
+
+/// See also [tvShowDetails].
+class TvShowDetailsProvider extends AutoDisposeFutureProvider<TvShowDetails> {
+  /// See also [tvShowDetails].
+  TvShowDetailsProvider({
+    required int tvShowId,
+  }) : this._internal(
+          (ref) => tvShowDetails(
+            ref as TvShowDetailsRef,
+            tvShowId: tvShowId,
+          ),
+          from: tvShowDetailsProvider,
+          name: r'tvShowDetailsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$tvShowDetailsHash,
+          dependencies: TvShowDetailsFamily._dependencies,
+          allTransitiveDependencies:
+              TvShowDetailsFamily._allTransitiveDependencies,
+          tvShowId: tvShowId,
+        );
+
+  TvShowDetailsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.tvShowId,
+  }) : super.internal();
+
+  final int tvShowId;
+
+  @override
+  Override overrideWith(
+    FutureOr<TvShowDetails> Function(TvShowDetailsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: TvShowDetailsProvider._internal(
+        (ref) => create(ref as TvShowDetailsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        tvShowId: tvShowId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<TvShowDetails> createElement() {
+    return _TvShowDetailsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TvShowDetailsProvider && other.tvShowId == tvShowId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, tvShowId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin TvShowDetailsRef on AutoDisposeFutureProviderRef<TvShowDetails> {
+  /// The parameter `tvShowId` of this provider.
+  int get tvShowId;
+}
+
+class _TvShowDetailsProviderElement
+    extends AutoDisposeFutureProviderElement<TvShowDetails>
+    with TvShowDetailsRef {
+  _TvShowDetailsProviderElement(super.provider);
+
+  @override
+  int get tvShowId => (origin as TvShowDetailsProvider).tvShowId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
