@@ -39,3 +39,14 @@ enum ProfileSize {
 
   final String value;
 }
+
+enum StillSize {
+  small('w92'),
+  medium('w185'),
+  large('w300'),
+  extraLarge('original');
+
+  const StillSize(this.value);
+
+  final String value;
+}

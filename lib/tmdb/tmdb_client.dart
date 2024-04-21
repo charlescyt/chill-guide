@@ -201,4 +201,21 @@ class TvShowEndpoint {
 
     return json;
   }
+
+  Future<Json> getTvShowSeasonDetails({
+    required int tvShowId,
+    required int seasonNumber,
+    String language = 'en-US',
+  }) async {
+    final endpoint = TmdbConstants.tvShowSeasonDetails
+        .replaceFirst('{id}', '$tvShowId')
+        .replaceFirst('{season_number}', '$seasonNumber');
+    final queryParameters = {
+      'language': language,
+      'append_to_response': 'credits',
+    };
+    final json = await _client._get(endpoint, queryParameters: queryParameters);
+
+    return json;
+  }
 }

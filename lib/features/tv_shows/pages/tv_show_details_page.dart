@@ -13,6 +13,7 @@ import '../models/tv_show_details.dart';
 import '../providers/tv_show_providers.dart';
 import '../widgets/tv_show_card.dart';
 import '../widgets/tv_show_cast_card.dart';
+import '../widgets/tv_show_season_card.dart';
 
 class TvShowDetailsPage extends ConsumerWidget {
   const TvShowDetailsPage({
@@ -187,6 +188,26 @@ class _Data extends StatelessWidget {
                       ),
                     ],
                     const SizedBox(height: 16),
+                    Section(
+                      title: const Text('Seasons'),
+                      content: Carousel(
+                        itemCount: tvShowDetails.seasons.length,
+                        height: 240,
+                        aspectRatio: 9 / 16,
+                        enableInfiniteScroll: false,
+                        itemBuilder: (context, index) {
+                          final tvShowSeason = tvShowDetails.seasons[index];
+                          return TvShowSeasonCard(
+                            tvShowSeason: tvShowSeason,
+                            onTap: () => TvShowSeasonDetailsRouteData(
+                              tvShowId: tvShowDetails.id,
+                              seasonNumber: tvShowSeason.seasonNumber,
+                            ).go(context),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 8),
                     Section(
                       title: const Text('Casts'),
                       content: Carousel(

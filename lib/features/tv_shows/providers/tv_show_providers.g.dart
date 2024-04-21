@@ -816,5 +816,156 @@ class _TvShowDetailsProviderElement
   @override
   int get tvShowId => (origin as TvShowDetailsProvider).tvShowId;
 }
+
+String _$tvShowSeasonDetailsHash() =>
+    r'16fd80b4ec99517b73ef52f2441e697ace4ebb3a';
+
+/// See also [tvShowSeasonDetails].
+@ProviderFor(tvShowSeasonDetails)
+const tvShowSeasonDetailsProvider = TvShowSeasonDetailsFamily();
+
+/// See also [tvShowSeasonDetails].
+class TvShowSeasonDetailsFamily
+    extends Family<AsyncValue<TvShowSeasonDetails>> {
+  /// See also [tvShowSeasonDetails].
+  const TvShowSeasonDetailsFamily();
+
+  /// See also [tvShowSeasonDetails].
+  TvShowSeasonDetailsProvider call({
+    required int tvShowId,
+    required int seasonNumber,
+  }) {
+    return TvShowSeasonDetailsProvider(
+      tvShowId: tvShowId,
+      seasonNumber: seasonNumber,
+    );
+  }
+
+  @override
+  TvShowSeasonDetailsProvider getProviderOverride(
+    covariant TvShowSeasonDetailsProvider provider,
+  ) {
+    return call(
+      tvShowId: provider.tvShowId,
+      seasonNumber: provider.seasonNumber,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'tvShowSeasonDetailsProvider';
+}
+
+/// See also [tvShowSeasonDetails].
+class TvShowSeasonDetailsProvider
+    extends AutoDisposeFutureProvider<TvShowSeasonDetails> {
+  /// See also [tvShowSeasonDetails].
+  TvShowSeasonDetailsProvider({
+    required int tvShowId,
+    required int seasonNumber,
+  }) : this._internal(
+          (ref) => tvShowSeasonDetails(
+            ref as TvShowSeasonDetailsRef,
+            tvShowId: tvShowId,
+            seasonNumber: seasonNumber,
+          ),
+          from: tvShowSeasonDetailsProvider,
+          name: r'tvShowSeasonDetailsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$tvShowSeasonDetailsHash,
+          dependencies: TvShowSeasonDetailsFamily._dependencies,
+          allTransitiveDependencies:
+              TvShowSeasonDetailsFamily._allTransitiveDependencies,
+          tvShowId: tvShowId,
+          seasonNumber: seasonNumber,
+        );
+
+  TvShowSeasonDetailsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.tvShowId,
+    required this.seasonNumber,
+  }) : super.internal();
+
+  final int tvShowId;
+  final int seasonNumber;
+
+  @override
+  Override overrideWith(
+    FutureOr<TvShowSeasonDetails> Function(TvShowSeasonDetailsRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: TvShowSeasonDetailsProvider._internal(
+        (ref) => create(ref as TvShowSeasonDetailsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        tvShowId: tvShowId,
+        seasonNumber: seasonNumber,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<TvShowSeasonDetails> createElement() {
+    return _TvShowSeasonDetailsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TvShowSeasonDetailsProvider &&
+        other.tvShowId == tvShowId &&
+        other.seasonNumber == seasonNumber;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, tvShowId.hashCode);
+    hash = _SystemHash.combine(hash, seasonNumber.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin TvShowSeasonDetailsRef
+    on AutoDisposeFutureProviderRef<TvShowSeasonDetails> {
+  /// The parameter `tvShowId` of this provider.
+  int get tvShowId;
+
+  /// The parameter `seasonNumber` of this provider.
+  int get seasonNumber;
+}
+
+class _TvShowSeasonDetailsProviderElement
+    extends AutoDisposeFutureProviderElement<TvShowSeasonDetails>
+    with TvShowSeasonDetailsRef {
+  _TvShowSeasonDetailsProviderElement(super.provider);
+
+  @override
+  int get tvShowId => (origin as TvShowSeasonDetailsProvider).tvShowId;
+  @override
+  int get seasonNumber => (origin as TvShowSeasonDetailsProvider).seasonNumber;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

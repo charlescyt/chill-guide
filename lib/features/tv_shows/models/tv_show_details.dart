@@ -3,10 +3,12 @@ import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 import '../../common/models/genre.dart';
 import 'tv_show.dart';
 import 'tv_show_cast.dart';
+import 'tv_show_season.dart';
 
 export '../../common/models/genre.dart';
 export 'tv_show.dart';
 export 'tv_show_cast.dart';
+export 'tv_show_season.dart';
 
 @immutable
 class TvShowDetails {
@@ -28,6 +30,7 @@ class TvShowDetails {
   final List<Genre> genres;
   final int numberOfSeasons;
   final int numberOfEpisodes;
+  final List<TvShowSeason> seasons;
   final List<TvShowCast> casts;
   final List<TvShow> recommendations;
 
@@ -50,6 +53,7 @@ class TvShowDetails {
     required this.genres,
     required this.numberOfSeasons,
     required this.numberOfEpisodes,
+    required this.seasons,
     required this.casts,
     required this.recommendations,
   });
@@ -75,6 +79,7 @@ class TvShowDetails {
         'genres: $genres, '
         'numberOfSeasons: $numberOfSeasons, '
         'numberOfEpisodes: $numberOfEpisodes, '
+        'seasons: $seasons, '
         'casts: $casts, '
         'recommendations: $recommendations';
   }

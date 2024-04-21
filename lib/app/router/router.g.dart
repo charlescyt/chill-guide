@@ -40,6 +40,15 @@ RouteBase get $mainShellRouteData => StatefulShellRouteData.$route(
                   parentNavigatorKey:
                       TvShowDetailsRouteData.$parentNavigatorKey,
                   factory: $TvShowDetailsRouteDataExtension._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: 'season/:seasonNumber',
+                      parentNavigatorKey:
+                          TvShowSeasonDetailsRouteData.$parentNavigatorKey,
+                      factory:
+                          $TvShowSeasonDetailsRouteDataExtension._fromState,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -133,6 +142,28 @@ extension $TvShowDetailsRouteDataExtension on TvShowDetailsRouteData {
 
   String get location => GoRouteData.$location(
         '/tv-shows/${Uri.encodeComponent(tvShowId.toString())}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $TvShowSeasonDetailsRouteDataExtension
+    on TvShowSeasonDetailsRouteData {
+  static TvShowSeasonDetailsRouteData _fromState(GoRouterState state) =>
+      TvShowSeasonDetailsRouteData(
+        tvShowId: int.parse(state.pathParameters['tvShowId']!),
+        seasonNumber: int.parse(state.pathParameters['seasonNumber']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/tv-shows/${Uri.encodeComponent(tvShowId.toString())}/season/${Uri.encodeComponent(seasonNumber.toString())}',
       );
 
   void go(BuildContext context) => context.go(location);

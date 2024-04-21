@@ -8,6 +8,7 @@ import '../../features/profile/pages/profile_page.dart';
 import '../../features/search/pages/search_page.dart';
 import '../../features/tv_shows/pages/tv_show_details_page.dart';
 import '../../features/tv_shows/pages/tv_show_home_page.dart';
+import '../../features/tv_shows/pages/tv_show_season_details_page.dart';
 import '../widgets/main_scaffold.dart';
 import 'transition_page.dart';
 
@@ -118,7 +119,10 @@ class TvShowHomeRouteData extends GoRouteData {
     TypedGoRoute<TvShowHomeRouteData>(
       path: '/tv-shows',
       routes: [
-        TypedGoRoute<TvShowDetailsRouteData>(path: ':tvShowId'),
+        TypedGoRoute<TvShowDetailsRouteData>(
+          path: ':tvShowId',
+          routes: [TypedGoRoute<TvShowSeasonDetailsRouteData>(path: 'season/:seasonNumber')],
+        ),
       ],
     ),
   ];
@@ -146,6 +150,26 @@ class TvShowDetailsRouteData extends GoRouteData {
     return SlideTransitionPage(
       pageKey: state.pageKey,
       child: TvShowDetailsPage(tvShowId: tvShowId),
+    );
+  }
+}
+
+class TvShowSeasonDetailsRouteData extends GoRouteData {
+  const TvShowSeasonDetailsRouteData({
+    required this.tvShowId,
+    required this.seasonNumber,
+  });
+
+  final int tvShowId;
+  final int seasonNumber;
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return SlideTransitionPage(
+      pageKey: state.pageKey,
+      child: TvShowSeasonDetailsPage(tvShowId: tvShowId, seasonNumber: seasonNumber),
     );
   }
 }

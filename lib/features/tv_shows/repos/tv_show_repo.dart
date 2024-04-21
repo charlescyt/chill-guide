@@ -6,6 +6,7 @@ import '../../../app/utils/exception_utils.dart';
 import '../../../tmdb/tmdb_client.dart';
 import '../../../tmdb/tmdb_options.dart';
 import '../models/tv_show_details.dart';
+import '../models/tv_show_season_details.dart';
 
 @immutable
 class TvShowRepo {
@@ -90,6 +91,20 @@ class TvShowRepo {
     );
 
     return _toTvShowDetails(json);
+  }
+
+  Future<TvShowSeasonDetails> getTvShowSeasonDetails({
+    required int tvShowId,
+    required int seasonNumber,
+    String language = 'en-US',
+  }) async {
+    final json = await _client.tvShow.getTvShowSeasonDetails(
+      tvShowId: tvShowId,
+      seasonNumber: seasonNumber,
+      language: language,
+    );
+
+    return _toTvShowSeasonDetails(json);
   }
 }
 
@@ -253,6 +268,11 @@ TvShowDetails _toTvShowDetails(Json json) {
     throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'number_of_episodes', 'int', numberOfEpisodes));
   }
 
+  final seasons = json['seasons'];
+  if (seasons is! List) {
+    throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'seasons', 'List', seasons));
+  }
+
   final casts = json['credits']['cast'];
   if (casts is! List) {
     throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'casts', 'List', casts));
@@ -282,6 +302,7 @@ TvShowDetails _toTvShowDetails(Json json) {
     genres: genres.cast<Map<String, dynamic>>().map(Genre.fromJson).toList(),
     numberOfSeasons: numberOfSeasons,
     numberOfEpisodes: numberOfEpisodes,
+    seasons: seasons.cast<Map<String, dynamic>>().map(_toTvShowSeason).toList(),
     casts: casts.cast<Map<String, dynamic>>().map(_toTvShowCast).toList(),
     recommendations: recommendations.cast<Map<String, dynamic>>().map(_toTvShow).toList(),
   );
@@ -320,5 +341,183 @@ TvShowCast _toTvShowCast(Json json) {
     profilePath: profilePath == null ? null : ProfilePath(profilePath),
     popularity: popularity.toDouble(),
     character: character,
+  );
+}
+
+TvShowSeason _toTvShowSeason(Json json) {
+  final id = json['id'];
+  if (id is! int) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeason', 'id', 'int', id));
+  }
+
+  final name = json['name'];
+  if (name is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeason', 'name', 'String', name));
+  }
+
+  final seasonNumber = json['season_number'];
+  if (seasonNumber is! int) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeason', 'season_number', 'int', seasonNumber));
+  }
+
+  final episodeCount = json['episode_count'];
+  if (episodeCount is! int) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeason', 'episode_count', 'int', episodeCount));
+  }
+
+  final overview = json['overview'];
+  if (overview is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeason', 'overview', 'String', overview));
+  }
+
+  final posterPath = json['poster_path'];
+  if (posterPath != null && posterPath is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeason', 'poster_path', 'String?', posterPath));
+  }
+  posterPath as String?;
+
+  final airDate = json['air_date'];
+  if (airDate != null && airDate is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeason', 'air_date', 'String?', airDate));
+  }
+  airDate as String?;
+
+  final voteAverage = json['vote_average'];
+  if (voteAverage is! num) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeason', 'vote_average', 'num', voteAverage));
+  }
+
+  return TvShowSeason(
+    id: id,
+    name: name,
+    seasonNumber: seasonNumber,
+    episodeCount: episodeCount,
+    overview: overview,
+    posterPath: posterPath == null ? null : PosterPath(posterPath),
+    airDate: airDate == null ? null : DateTime.tryParse(airDate),
+    voteAverage: voteAverage.toDouble(),
+  );
+}
+
+TvShowSeasonDetails _toTvShowSeasonDetails(Json json) {
+  final id = json['id'];
+  if (id is! int) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeasonDetails', 'id', 'int', id));
+  }
+
+  final name = json['name'];
+  if (name is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeasonDetails', 'name', 'String', name));
+  }
+
+  final seasonNumber = json['season_number'];
+  if (seasonNumber is! int) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeasonDetails', 'season_number', 'int', seasonNumber));
+  }
+
+  final overview = json['overview'];
+  if (overview is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeasonDetails', 'overview', 'String', overview));
+  }
+
+  final posterPath = json['poster_path'];
+  if (posterPath != null && posterPath is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeasonDetails', 'poster_path', 'String?', posterPath));
+  }
+  posterPath as String?;
+
+  final airDate = json['air_date'];
+  if (airDate != null && airDate is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeasonDetails', 'air_date', 'String?', airDate));
+  }
+  airDate as String?;
+
+  final voteAverage = json['vote_average'];
+  if (voteAverage is! num) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeasonDetails', 'vote_average', 'num', voteAverage));
+  }
+
+  final episodes = json['episodes'];
+  if (episodes is! List) {
+    throw FormatException(buildFormatExceptionMessage('TvShowSeasonDetails', 'episodes', 'List', episodes));
+  }
+
+  return TvShowSeasonDetails(
+    id: id,
+    name: name,
+    seasonNumber: seasonNumber,
+    overview: overview,
+    posterPath: posterPath == null ? null : PosterPath(posterPath),
+    airDate: airDate == null ? null : DateTime.tryParse(airDate),
+    voteAverage: voteAverage.toDouble(),
+    episodes: episodes.cast<Json>().map(_toTvShowEpisode).toList(),
+  );
+}
+
+TvShowEpisode _toTvShowEpisode(Json json) {
+  final id = json['id'];
+  if (id is! int) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'id', 'int', id));
+  }
+
+  final name = json['name'];
+  if (name is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'name', 'String', name));
+  }
+
+  final episodeNumber = json['episode_number'];
+  if (episodeNumber is! int) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'episode_number', 'int', episodeNumber));
+  }
+
+  final overview = json['overview'];
+  if (overview is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'overview', 'String', overview));
+  }
+
+  final stillPath = json['still_path'];
+  if (stillPath != null && stillPath is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'still_path', 'String?', stillPath));
+  }
+  stillPath as String?;
+
+  final airDate = json['air_date'];
+  if (airDate != null && airDate is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'air_date', 'String?', airDate));
+  }
+  airDate as String?;
+
+  final voteAverage = json['vote_average'];
+  if (voteAverage is! num) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'vote_average', 'num', voteAverage));
+  }
+
+  final voteCount = json['vote_count'];
+  if (voteCount is! num) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'vote_count', 'int', voteCount));
+  }
+
+  final runtime = json['runtime'];
+  if (runtime != null && runtime is! num) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'runtime', 'int', runtime));
+  }
+  runtime as num?;
+
+  final episodeType = json['episode_type'];
+  if (episodeType is! String) {
+    throw FormatException(buildFormatExceptionMessage('TvShowEpisode', 'episode_type', 'String', episodeType));
+  }
+
+  return TvShowEpisode(
+    id: id,
+    name: name,
+    episodeNumber: episodeNumber,
+    overview: overview,
+    stillPath: stillPath == null ? null : StillPath(stillPath),
+    airDate: airDate == null ? null : DateTime.tryParse(airDate),
+    voteAverage: voteAverage.toDouble(),
+    voteCount: voteCount.toDouble(),
+    runtime: runtime?.toInt(),
+    episodeType: episodeType,
   );
 }

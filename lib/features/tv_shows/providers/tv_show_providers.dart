@@ -3,8 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../tmdb/tmdb_client_provider.dart';
 import '../../../tmdb/tmdb_options.dart';
 import '../../common/utils/riverpod.dart';
-import '../models/tv_show.dart';
 import '../models/tv_show_details.dart';
+import '../models/tv_show_season_details.dart';
 import '../repos/tv_show_repo.dart';
 
 part 'tv_show_providers.g.dart';
@@ -91,4 +91,18 @@ Future<TvShowDetails> tvShowDetails(
   ref.delayDispose(const Duration(hours: 1));
 
   return tvShow;
+}
+
+@riverpod
+Future<TvShowSeasonDetails> tvShowSeasonDetails(
+  TvShowSeasonDetailsRef ref, {
+  required int tvShowId,
+  required int seasonNumber,
+}) async {
+  final repo = ref.watch(tvShowRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final season = await repo.getTvShowSeasonDetails(tvShowId: tvShowId, seasonNumber: seasonNumber, language: language);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return season;
 }
