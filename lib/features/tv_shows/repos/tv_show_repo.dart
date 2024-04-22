@@ -214,6 +214,11 @@ TvShowDetails _toTvShowDetails(Json json) {
     throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'vote_count', 'int', voteCount));
   }
 
+  final inProduction = json['in_production'];
+  if (inProduction is! bool) {
+    throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'in_production', 'bool', inProduction));
+  }
+
   final popularity = json['popularity'];
   if (popularity is! num) {
     throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'popularity', 'num', popularity));
@@ -278,6 +283,18 @@ TvShowDetails _toTvShowDetails(Json json) {
     throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'casts', 'List', casts));
   }
 
+  final productionCompanies = json['production_companies'];
+  if (productionCompanies is! List) {
+    throw FormatException(
+      buildFormatExceptionMessage('TvShowDetails', 'production_companies', 'List', productionCompanies),
+    );
+  }
+
+  final networks = json['networks'];
+  if (networks is! List) {
+    throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'networks', 'List', networks));
+  }
+
   final recommendations = json['recommendations']['results'];
   if (recommendations is! List) {
     throw FormatException(buildFormatExceptionMessage('TvShowDetails', 'recommendations', 'List', recommendations));
@@ -289,6 +306,7 @@ TvShowDetails _toTvShowDetails(Json json) {
     overview: overview,
     posterPath: posterPath == null ? null : PosterPath(posterPath),
     backdropPath: backdropPath == null ? null : BackdropPath(backdropPath),
+    inProduction: inProduction,
     firstAirDate: firstAirDate == null ? null : DateTime.tryParse(firstAirDate),
     lastAirDate: lastAirDate == null ? null : DateTime.tryParse(lastAirDate),
     voteAverage: voteAverage.toDouble(),
@@ -304,6 +322,8 @@ TvShowDetails _toTvShowDetails(Json json) {
     numberOfEpisodes: numberOfEpisodes,
     seasons: seasons.cast<Map<String, dynamic>>().map(_toTvShowSeason).toList(),
     casts: casts.cast<Map<String, dynamic>>().map(_toTvShowCast).toList(),
+    productionCompanies: productionCompanies.cast<Map<String, dynamic>>().map(Company.fromTmdb).toList(),
+    networks: networks.cast<Map<String, dynamic>>().map(Network.fromTmdb).toList(),
     recommendations: recommendations.cast<Map<String, dynamic>>().map(_toTvShow).toList(),
   );
 }

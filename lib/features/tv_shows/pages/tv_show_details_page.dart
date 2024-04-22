@@ -11,8 +11,10 @@ import '../../../app/widgets/my_app_bar.dart';
 import '../../../app/widgets/placeholder_icon.dart';
 import '../../../app/widgets/rating_indicator.dart';
 import '../../../app/widgets/section.dart';
+import '../../common/widgets/company_list_tile.dart';
 import '../models/tv_show_details.dart';
 import '../providers/tv_show_providers.dart';
+import '../widgets/network_list_tile.dart';
 import '../widgets/tv_show_card.dart';
 import '../widgets/tv_show_cast_card.dart';
 import '../widgets/tv_show_season_card.dart';
@@ -184,6 +186,32 @@ class _Data extends StatelessWidget {
                       Section(
                         title: const Text('Last Air Date'),
                         content: Text(formatDate(lastAirDate)),
+                      ),
+                    ],
+                    if (tvShowDetails.productionCompanies case final companies when companies.isNotEmpty) ...[
+                      const Divider(),
+                      Section(
+                        title: const Text('Production Companies'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            for (final company in companies) //
+                              CompanyListTile(company: company),
+                          ],
+                        ),
+                      ),
+                    ],
+                    if (tvShowDetails.networks case final networks when networks.isNotEmpty) ...[
+                      const Divider(),
+                      Section(
+                        title: const Text('Networks'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            for (final network in networks) //
+                              NetworkListTile(network: network),
+                          ],
+                        ),
                       ),
                     ],
                     if (tvShowDetails.seasons case final seasons when seasons.isNotEmpty) ...[

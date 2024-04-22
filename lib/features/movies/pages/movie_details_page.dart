@@ -10,6 +10,7 @@ import '../../../app/widgets/my_app_bar.dart';
 import '../../../app/widgets/placeholder_icon.dart';
 import '../../../app/widgets/rating_indicator.dart';
 import '../../../app/widgets/section.dart';
+import '../../common/widgets/company_list_tile.dart';
 import '../models/movie_details.dart';
 import '../providers/movies_provider.dart';
 import '../widgets/movie_card.dart';
@@ -164,6 +165,19 @@ class _Data extends StatelessWidget {
                       Section(
                         title: const Text('Revenue'),
                         content: Text(formatCurrency(revenue)),
+                      ),
+                    ],
+                    if (movieDetails.productionCompanies case final companies when companies.isNotEmpty) ...[
+                      const Divider(),
+                      Section(
+                        title: const Text('Production Companies'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            for (final company in companies) //
+                              CompanyListTile(company: company),
+                          ],
+                        ),
                       ),
                     ],
                     if (movieDetails.casts case final casts when casts.isNotEmpty) ...[

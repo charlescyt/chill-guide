@@ -2,11 +2,13 @@
 
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 
+import '../../common/models/company.dart';
 import '../../common/models/genre.dart';
 import 'movie.dart';
 import 'movie_cast.dart';
 import 'movie_crew.dart';
 
+export '../../common/models/company.dart';
 export '../../common/models/genre.dart';
 export 'movie.dart';
 export 'movie_cast.dart';
@@ -33,6 +35,7 @@ class MovieDetails {
   final List<Genre> genres;
   final List<MovieCast> casts;
   final List<MovieCrew> crews;
+  final List<Company> productionCompanies;
   final List<Movie> recommendations;
 
   String get titleAndYear {
@@ -62,6 +65,7 @@ class MovieDetails {
     required this.genres,
     required this.casts,
     required this.crews,
+    required this.productionCompanies,
     required this.recommendations,
   });
 
@@ -88,6 +92,8 @@ class MovieDetails {
       genres: (json['genres'] as List).cast<Map<String, dynamic>>().map(Genre.fromJson).toList(),
       casts: (json['credits']['cast'] as List).cast<Map<String, dynamic>>().map(MovieCast.fromJson).toList(),
       crews: (json['credits']['crew'] as List).cast<Map<String, dynamic>>().map(MovieCrew.fromJson).toList(),
+      productionCompanies:
+          (json['production_companies'] as List).cast<Map<String, dynamic>>().map(Company.fromTmdb).toList(),
       recommendations:
           (json['recommendations']['results'] as List).cast<Map<String, dynamic>>().map(Movie.fromJson).toList(),
     );

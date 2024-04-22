@@ -50,3 +50,17 @@ enum StillSize {
 
   final String value;
 }
+
+enum LogoSize {
+  extraTiny('w45'),
+  tiny('w92'),
+  small('w154'),
+  medium('w185'),
+  large('w300'),
+  extraLarge('w500'),
+  original('original');
+
+  const LogoSize(this.value);
+
+  final String value;
+}
