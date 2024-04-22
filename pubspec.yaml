@@ -19,7 +19,6 @@ dependencies:
   meta: ^1.11.0
   package_info_plus: ^7.0.0
   riverpod_annotation: ^2.3.5
-  salomon_bottom_bar: ^3.3.2
   shared_preferences: ^2.2.3
   skeletonizer: ^1.1.1
   url_launcher: ^6.2.6

@@ -1,7 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import 'my_navigation_bar.dart';
 
 class MainScaffold extends StatelessWidget {
   const MainScaffold({
@@ -16,35 +17,20 @@ class MainScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      resizeToAvoidBottomInset: false,
       body: AnimatedBranchContainer(
         currentIndex: navigationShell.currentIndex,
         children: children,
       ),
-      bottomNavigationBar: SalomonBottomBar(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        currentIndex: navigationShell.currentIndex,
+      bottomNavigationBar: MyNavigationBar(
+        selectedIndex: navigationShell.currentIndex,
         onTap: _onTap,
-        items: [
-          SalomonBottomBarItem(
-            title: const Text('Movies'),
-            icon: const Icon(Icons.movie_outlined),
-            activeIcon: const Icon(Icons.movie),
-          ),
-          SalomonBottomBarItem(
-            title: const Text('Tv Shows'),
-            icon: const Icon(Icons.tv_outlined),
-            activeIcon: const Icon(Icons.tv),
-          ),
-          SalomonBottomBarItem(
-            title: const Text('Search'),
-            icon: const Icon(Icons.search_outlined),
-            activeIcon: const Icon(Icons.search),
-          ),
-          SalomonBottomBarItem(
-            title: const Text('Profile'),
-            icon: const Icon(Icons.person_outline),
-            activeIcon: const Icon(Icons.person),
-          ),
+        items: const [
+          MyNavigationItem(icon: Icon(Icons.movie_outlined), selectedIcon: Icon(Icons.movie)),
+          MyNavigationItem(icon: Icon(Icons.tv_outlined), selectedIcon: Icon(Icons.tv)),
+          MyNavigationItem(icon: Icon(Icons.search_outlined), selectedIcon: Icon(Icons.search)),
+          MyNavigationItem(icon: Icon(Icons.person_outline), selectedIcon: Icon(Icons.person)),
         ],
       ),
     );
