@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -47,6 +49,7 @@ class _Data extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final bottom = MediaQuery.viewPaddingOf(context).bottom;
 
     final background = switch (tvShowDetails.backdropPath) {
       null => PlaceholderIcon(
@@ -59,45 +62,41 @@ class _Data extends StatelessWidget {
         ),
     };
 
-    return LayoutBuilder(
-      builder: (context, constrains) {
-        final height = constrains.maxHeight;
-        const backgroundHeight = 300.0;
-        const offset = 20;
-        final contentHeight = height - backgroundHeight + offset;
-        return Stack(
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        if (tvShowDetails.posterPath case final posterPath?)
+          ImageFiltered(
+            imageFilter: ui.ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+            child: Image.network(
+              posterPath.url(),
+              fit: BoxFit.cover,
+            ),
+          ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.background.withOpacity(0.5),
+          ),
+        ),
+        Column(
           children: [
-            Positioned(
-              left: 0,
-              top: 0,
-              right: 0,
-              height: backgroundHeight,
-              child: background,
-            ),
-            Positioned(
-              left: 0,
-              top: 0,
-              right: 0,
-              child: MyAppBar(
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.favorite_outline),
-                    onPressed: () {},
-                  ),
-                ],
+            MyAppBar(
+              background: ClipRRect(
+                borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
+                child: background,
               ),
-            ),
-            Positioned(
-              left: 0,
-              bottom: 0,
-              right: 0,
-              height: contentHeight,
-              child: Material(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.favorite_outline),
+                  onPressed: () {},
                 ),
-                child: ListView(
-                  padding: const EdgeInsets.all(16),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(left: 8, right: 8, bottom: bottom),
+                child: Column(
                   children: [
                     SizedBox(
                       height: 200,
@@ -126,7 +125,7 @@ class _Data extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  tvShowDetails.name,
+                                  tvShowDetails.nameAndYear,
                                   style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                                   maxLines: 2,
                                 ),
@@ -163,69 +162,73 @@ class _Data extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                    const SizedBox(height: 8),
+                    const Divider(),
                     Section(
                       title: const Text('Overview'),
                       content: Text(tvShowDetails.overview),
                     ),
-                    const SizedBox(height: 8),
+                    const Divider(),
                     Section(
                       title: const Text('Status'),
                       content: Text(tvShowDetails.status),
                     ),
                     if (tvShowDetails.firstAirDate case final firstAirDate?) ...[
-                      const SizedBox(height: 16),
+                      const Divider(),
                       Section(
                         title: const Text('First Air Date'),
                         content: Text(formatDate(firstAirDate)),
                       ),
                     ],
                     if (tvShowDetails.lastAirDate case final lastAirDate?) ...[
-                      const SizedBox(height: 16),
+                      const Divider(),
                       Section(
                         title: const Text('Last Air Date'),
                         content: Text(formatDate(lastAirDate)),
                       ),
                     ],
-                    const SizedBox(height: 16),
-                    Section(
-                      title: const Text('Seasons'),
-                      content: Carousel(
-                        itemCount: tvShowDetails.seasons.length,
-                        height: 240,
-                        aspectRatio: 9 / 16,
-                        enableInfiniteScroll: false,
-                        itemBuilder: (context, index) {
-                          final tvShowSeason = tvShowDetails.seasons[index];
-                          return TvShowSeasonCard(
-                            tvShowSeason: tvShowSeason,
-                            onTap: () => TvShowSeasonDetailsRouteData(
-                              tvShowId: tvShowDetails.id,
-                              seasonNumber: tvShowSeason.seasonNumber,
-                            ).go(context),
-                          );
-                        },
+                    if (tvShowDetails.seasons case final seasons when seasons.isNotEmpty) ...[
+                      const Divider(),
+                      Section(
+                        title: const Text('Seasons'),
+                        content: Carousel(
+                          itemCount: seasons.length,
+                          height: 240,
+                          aspectRatio: 9 / 16,
+                          enableInfiniteScroll: false,
+                          itemBuilder: (context, index) {
+                            final tvShowSeason = seasons[index];
+                            return TvShowSeasonCard(
+                              tvShowSeason: tvShowSeason,
+                              onTap: () => TvShowSeasonDetailsRouteData(
+                                tvShowId: tvShowDetails.id,
+                                seasonNumber: tvShowSeason.seasonNumber,
+                              ).go(context),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Section(
-                      title: const Text('Casts'),
-                      content: Carousel(
-                        itemCount: tvShowDetails.casts.length,
-                        height: 240,
-                        aspectRatio: 9 / 16,
-                        itemBuilder: (context, index) {
-                          return TvShowCastCard(
-                            cast: tvShowDetails.casts[index],
-                            onTap: () {
-                              // TODO(charlescyt): Push to cast details page
-                            },
-                          );
-                        },
+                    ],
+                    if (tvShowDetails.casts case final casts when casts.isNotEmpty) ...[
+                      const Divider(),
+                      Section(
+                        title: const Text('Casts'),
+                        content: Carousel(
+                          itemCount: casts.length,
+                          height: 240,
+                          aspectRatio: 9 / 16,
+                          itemBuilder: (context, index) {
+                            return TvShowCastCard(
+                              cast: casts[index],
+                              onTap: () {
+                                // TODO(charlescyt): Push to cast details page
+                              },
+                            );
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                     if (tvShowDetails.recommendations case final recommendations when recommendations.isNotEmpty) ...[
-                      const SizedBox(height: 16),
+                      const Divider(),
                       Section(
                         title: const Text('Recommendations'),
                         content: Carousel(
@@ -247,8 +250,8 @@ class _Data extends StatelessWidget {
               ),
             ),
           ],
-        );
-      },
+        ),
+      ],
     );
   }
 }

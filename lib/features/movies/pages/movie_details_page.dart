@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -46,6 +48,7 @@ class _Data extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final bottom = MediaQuery.viewPaddingOf(context).bottom;
 
     final background = switch (movieDetails.backdropPath) {
       null => PlaceholderIcon(
@@ -58,46 +61,41 @@ class _Data extends StatelessWidget {
         ),
     };
 
-    return LayoutBuilder(
-      builder: (context, constrains) {
-        final height = constrains.maxHeight;
-        const backgroundHeight = 300.0;
-        const offset = 20;
-        final contentHeight = height - backgroundHeight + offset;
-        return Stack(
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        if (movieDetails.posterPath case final posterPath?)
+          ImageFiltered(
+            imageFilter: ui.ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+            child: Image.network(
+              posterPath.url(),
+              fit: BoxFit.cover,
+            ),
+          ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.background.withOpacity(0.5),
+          ),
+        ),
+        Column(
           children: [
-            Positioned(
-              left: 0,
-              top: 0,
-              right: 0,
-              height: backgroundHeight,
-              child: background,
-            ),
-            Positioned(
-              left: 0,
-              top: 0,
-              right: 0,
-              child: MyAppBar(
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.favorite_outline),
-                    onPressed: () {},
-                  ),
-                ],
+            MyAppBar(
+              background: ClipRRect(
+                borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
+                child: background,
               ),
-            ),
-            Positioned(
-              left: 0,
-              bottom: 0,
-              right: 0,
-              height: contentHeight,
-              child: Material(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.favorite_outline),
+                  onPressed: () {},
                 ),
-                child: ListView(
-                  padding: const EdgeInsets.all(16),
-                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+              ],
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(left: 8, right: 8, bottom: bottom),
+                child: Column(
                   children: [
                     SizedBox(
                       height: 200,
@@ -141,70 +139,75 @@ class _Data extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    if (movieDetails.tagline.isNotEmpty)
+                    if (movieDetails.tagline case final tagline when tagline.isNotEmpty)
                       Center(
                         child: Text(
-                          movieDetails.tagline,
+                          tagline,
                           style: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                    const SizedBox(height: 8),
+                    const Divider(),
                     Section(
                       title: const Text('Overview'),
                       content: Text(movieDetails.overview),
                     ),
-                    if (movieDetails.budget > 0) ...[
-                      const SizedBox(height: 16),
+                    if (movieDetails.budget case final budget when budget > 0) ...[
+                      const Divider(),
                       Section(
                         title: const Text('Budget'),
-                        content: Text(formatCurrency(movieDetails.budget)),
+                        content: Text(formatCurrency(budget)),
                       ),
                     ],
-                    if (movieDetails.revenue > 0) ...[
-                      const SizedBox(height: 16),
+                    if (movieDetails.revenue case final revenue when revenue > 0) ...[
+                      const Divider(),
                       Section(
                         title: const Text('Revenue'),
-                        content: Text(formatCurrency(movieDetails.revenue)),
+                        content: Text(formatCurrency(revenue)),
                       ),
                     ],
-                    const SizedBox(height: 16),
-                    Section(
-                      title: const Text('Casts'),
-                      content: Carousel(
-                        itemCount: movieDetails.casts.length,
-                        height: 240,
-                        aspectRatio: 9 / 16,
-                        itemBuilder: (context, index) {
-                          return MovieCastCard(
-                            cast: movieDetails.casts[index],
-                            onTap: () {
-                              // TODO(charlescyt): Push to cast details page
-                            },
-                          );
-                        },
+                    if (movieDetails.casts case final casts when casts.isNotEmpty) ...[
+                      const Divider(),
+                      Section(
+                        title: const Text('Casts'),
+                        content: Carousel(
+                          itemCount: casts.length,
+                          height: 240,
+                          aspectRatio: 9 / 16,
+                          itemBuilder: (context, index) {
+                            final cast = casts[index];
+                            return MovieCastCard(
+                              cast: cast,
+                              onTap: () {
+                                // TODO(charlescyt): Push to cast details page
+                              },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    Section(
-                      title: const Text('Crews'),
-                      content: Carousel(
-                        itemCount: movieDetails.crews.length,
-                        height: 240,
-                        aspectRatio: 9 / 16,
-                        itemBuilder: (context, index) {
-                          return MovieCrewCard(
-                            crew: movieDetails.crews[index],
-                            onTap: () {
-                              // TODO(charlescyt): Push to crew details page
-                            },
-                          );
-                        },
+                    ],
+                    if (movieDetails.crews case final crews when crews.isNotEmpty) ...[
+                      const Divider(),
+                      Section(
+                        title: const Text('Crews'),
+                        content: Carousel(
+                          itemCount: crews.length,
+                          height: 240,
+                          aspectRatio: 9 / 16,
+                          itemBuilder: (context, index) {
+                            final crew = crews[index];
+                            return MovieCrewCard(
+                              crew: crew,
+                              onTap: () {
+                                // TODO(charlescyt): Push to crew details page
+                              },
+                            );
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                     if (movieDetails.recommendations case final recommendations when recommendations.isNotEmpty) ...[
-                      const SizedBox(height: 16),
+                      const Divider(),
                       Section(
                         title: const Text('Recommendations'),
                         content: Carousel(
@@ -226,8 +229,8 @@ class _Data extends StatelessWidget {
               ),
             ),
           ],
-        );
-      },
+        ),
+      ],
     );
   }
 }

@@ -34,6 +34,11 @@ class TvShowDetails {
   final List<TvShowCast> casts;
   final List<TvShow> recommendations;
 
+  String get nameAndYear {
+    final year = firstAirDate?.year;
+    return year == null ? name : '$name ($year)';
+  }
+
   const TvShowDetails({
     required this.id,
     required this.name,
