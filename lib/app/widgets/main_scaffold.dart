@@ -18,7 +18,7 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: AnimatedBranchContainer(
         currentIndex: navigationShell.currentIndex,
         children: children,

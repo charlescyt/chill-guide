@@ -25,21 +25,20 @@ class MyNavigationBar extends StatelessWidget {
     final theme = Theme.of(context);
     final viewPadding = MediaQuery.viewPaddingOf(context);
 
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: EdgeInsets.only(bottom: viewPadding.bottom),
-        child: ClipRRect(
-          borderRadius: borderRadius,
-          child: BackdropFilter(
-            filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Material(
-              clipBehavior: Clip.antiAlias,
-              color: theme.colorScheme.primary.withOpacity(0.1),
-              borderRadius: borderRadius,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: IntrinsicHeight(
+    return Padding(
+      padding: EdgeInsets.only(bottom: viewPadding.bottom),
+      child: IntrinsicHeight(
+        child: Center(
+          child: ClipRRect(
+            borderRadius: borderRadius,
+            child: BackdropFilter(
+              filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Material(
+                clipBehavior: Clip.antiAlias,
+                color: theme.colorScheme.primary.withOpacity(0.1),
+                borderRadius: borderRadius,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
