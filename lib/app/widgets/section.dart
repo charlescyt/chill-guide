@@ -15,23 +15,44 @@ class Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900);
+    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
     final contentTextStyle = theme.textTheme.bodyMedium;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        DefaultTextStyle.merge(
-          style: titleTextStyle,
-          child: title,
-        ),
-        const SizedBox(height: 4),
-        DefaultTextStyle.merge(
-          style: contentTextStyle,
-          child: content,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 4,
+                height: 24,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 4),
+              Expanded(
+                child: DefaultTextStyle.merge(
+                  style: titleTextStyle,
+                  child: title,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          DefaultTextStyle.merge(
+            style: contentTextStyle,
+            child: content,
+          ),
+        ],
+      ),
     );
   }
 }

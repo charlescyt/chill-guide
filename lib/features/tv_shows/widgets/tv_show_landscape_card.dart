@@ -33,7 +33,6 @@ class TvShowLandscapeCard extends StatelessWidget {
       background: background,
       onTap: onTap,
       title: tvShow.nameAndFirstAirYear,
-      titleAlignment: TextAlign.center,
     );
   }
 }

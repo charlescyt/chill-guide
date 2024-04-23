@@ -48,7 +48,6 @@ class TvShowSkeleton extends StatelessWidget {
     return const AppCardSkeleton(
       backgroundPlaceholder: PlaceholderIcon(icon: Icon(Icons.tv)),
       showSubTitle: false,
-      titleAlignment: TextAlign.center,
     );
   }
 }

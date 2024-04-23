@@ -14,6 +14,7 @@ class TvShowHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final padding = MediaQuery.paddingOf(context);
     final trendingTvShows = ref.watch(trendingTvShowsProvider(timeWindow: TimeWindow.day));
     // final airingTodayTvShows = ref.watch(airingTodayTvShowsProvider(page: 1));
     final onTheAirTvShows = ref.watch(onTheAirTvShowsProvider(page: 1));
@@ -30,35 +31,23 @@ class TvShowHomePage extends ConsumerWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CarouselSection(
-                      title: const Text('Trending Tv Shows'),
+                      title: const Text('Trending'),
                       carouselHeight: 240,
                       itemAspectRatio: 14 / 9,
                       asyncItems: trendingTvShows,
                       autoPlay: true,
-                      enlargeCenterPage: true,
-                      padEnds: true,
                       itemBuilder: (context, index, tvShow) => TvShowLandscapeCard(
                         tvShow: tvShow,
                         onTap: () => TvShowDetailsRouteData(tvShowId: tvShow.id).go(context),
                       ),
                       loadingBuilder: (context, index) => const TvShowSkeleton(),
                     ),
-                    // CarouselSection(
-                    //   title: const Text('Airing Today Tv Shows'),
-                    //   asyncItems: airingTodayTvShows,
-                    //   itemAspectRatio: 5 / 9,
-                    //   itemBuilder: (context, itemIndex, tvShow) => TvShowCard(
-                    //     tvShow: tvShow,
-                    //     onTap: () {
-                    //       TvShowDetailsRouteData(tvShowId: tvShow.id).go(context);
-                    //     },
-                    //   ),
-                    //   loadingBuilder: (context, index) => const TvShowSkeleton(),
-                    // ),
+                    const Divider(),
                     CarouselSection(
-                      title: const Text('On The Air Tv Shows'),
+                      title: const Text('On The Air'),
                       asyncItems: onTheAirTvShows,
                       itemAspectRatio: 5 / 9,
                       itemBuilder: (context, itemIndex, tvShow) => TvShowCard(
@@ -67,20 +56,9 @@ class TvShowHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const TvShowSkeleton(),
                     ),
-                    // CarouselSection(
-                    //   title: const Text('Popular Tv Shows'),
-                    //   asyncItems: popularTvShows,
-                    //   itemAspectRatio: 5 / 9,
-                    //   itemBuilder: (context, itemIndex, tvShow) => TvShowCard(
-                    //     tvShow: tvShow,
-                    //     onTap: () {
-                    //       TvShowDetailsRouteData(tvShowId: tvShow.id).go(context);
-                    //     },
-                    //   ),
-                    //   loadingBuilder: (context, index) => const TvShowSkeleton(),
-                    // ),
+                    const Divider(),
                     CarouselSection(
-                      title: const Text('Top Rated Tv Shows'),
+                      title: const Text('Top Rated'),
                       asyncItems: topRatedTvShows,
                       itemAspectRatio: 5 / 9,
                       itemBuilder: (context, itemIndex, tvShow) => TvShowCard(
@@ -89,6 +67,7 @@ class TvShowHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const TvShowSkeleton(),
                     ),
+                    SizedBox(height: padding.bottom),
                   ],
                 ),
               ),

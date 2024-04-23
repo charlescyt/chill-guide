@@ -2,6 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+class CarouselTitle extends StatelessWidget {
+  const CarouselTitle({
+    super.key,
+    required this.title,
+  });
+
+  final Widget title;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
+    final seeAllTextStyle = theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.primary);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 4,
+            height: 24,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary,
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+              ),
+            ),
+          ),
+          const SizedBox(width: 4),
+          Expanded(
+            child: DefaultTextStyle.merge(
+              style: titleTextStyle,
+              child: title,
+            ),
+          ),
+          const SizedBox(width: 8),
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              'See All',
+              style: seeAllTextStyle,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class CarouselSection<T> extends StatelessWidget {
   const CarouselSection({
     super.key,
@@ -82,13 +133,27 @@ class CarouselSection<T> extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                width: 4,
+                height: 24,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
               Expanded(
                 child: DefaultTextStyle.merge(
                   style: titleTextStyle,
                   child: title,
                 ),
               ),
+              const SizedBox(width: 8),
               TextButton(
                 onPressed: () {},
                 child: Text(

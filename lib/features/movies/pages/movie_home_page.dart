@@ -14,6 +14,7 @@ class MovieHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final padding = MediaQuery.paddingOf(context);
     // TODO(charlescyt): Should we let the user choose the time window?
     final trendingMovies = ref.watch(trendingMoviesProvider(timeWindow: TimeWindow.day));
     final popularMovies = ref.watch(popularMoviesProvider(page: 1));
@@ -33,7 +34,7 @@ class MovieHomePage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CarouselSection(
-                      title: const Text('Trending Movies'),
+                      title: const Text('Trending'),
                       carouselHeight: 240,
                       itemAspectRatio: 14 / 9,
                       asyncItems: trendingMovies,
@@ -44,8 +45,9 @@ class MovieHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(showSubtitle: false),
                     ),
+                    const Divider(),
                     CarouselSection(
-                      title: const Text('Popular Movies'),
+                      title: const Text('Popular'),
                       asyncItems: popularMovies,
                       itemAspectRatio: 5 / 9,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(
@@ -54,8 +56,9 @@ class MovieHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),
                     ),
+                    const Divider(),
                     CarouselSection(
-                      title: const Text('Upcoming Movies'),
+                      title: const Text('Upcoming'),
                       itemAspectRatio: 5 / 9,
                       asyncItems: upcomingMovies,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(
@@ -64,8 +67,9 @@ class MovieHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),
                     ),
+                    const Divider(),
                     CarouselSection(
-                      title: const Text('Top Rated Movies'),
+                      title: const Text('Top Rated'),
                       itemAspectRatio: 5 / 9,
                       asyncItems: topRatedMovies,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(
@@ -74,6 +78,7 @@ class MovieHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),
                     ),
+                    SizedBox(height: padding.bottom),
                   ],
                 ),
               ),

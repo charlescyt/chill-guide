@@ -95,49 +95,53 @@ class _Data extends StatelessWidget {
             const SizedBox(height: 8),
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.only(left: 8, right: 8, bottom: bottom),
+                padding: EdgeInsets.only(bottom: bottom),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(
-                      height: 200,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 140,
-                            child: Card(
-                              child: switch (movieDetails.posterPath) {
-                                null => Center(
-                                    child: PlaceholderIcon(
-                                      icon: const Icon(Icons.movie),
-                                      color: theme.colorScheme.primary,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: SizedBox(
+                        height: 200,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 140,
+                              child: Card(
+                                child: switch (movieDetails.posterPath) {
+                                  null => Center(
+                                      child: PlaceholderIcon(
+                                        icon: const Icon(Icons.movie),
+                                        color: theme.colorScheme.primary,
+                                      ),
                                     ),
-                                  ),
-                                final poster => Image.network(
-                                    poster.url(),
-                                    fit: BoxFit.cover,
-                                  ),
-                              },
+                                  final poster => Image.network(
+                                      poster.url(),
+                                      fit: BoxFit.cover,
+                                    ),
+                                },
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  movieDetails.titleAndYear,
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    movieDetails.titleAndYear,
+                                    style: theme.textTheme.titleMedium?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 2,
                                   ),
-                                  maxLines: 2,
-                                ),
-                                Text(formatRuntime(movieDetails.runtime)),
-                                Text(movieDetails.genres.map((e) => e.name).join(', ')),
-                                RatingIndicator(rating: movieDetails.voteAverage),
-                              ],
+                                  Text(formatRuntime(movieDetails.runtime)),
+                                  Text(movieDetails.genres.map((e) => e.name).join(', ')),
+                                  RatingIndicator(rating: movieDetails.voteAverage),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     if (movieDetails.tagline case final tagline when tagline.isNotEmpty)
@@ -182,60 +186,57 @@ class _Data extends StatelessWidget {
                     ],
                     if (movieDetails.casts case final casts when casts.isNotEmpty) ...[
                       const Divider(),
-                      Section(
-                        title: const Text('Casts'),
-                        content: Carousel(
-                          itemCount: casts.length,
-                          height: 240,
-                          aspectRatio: 9 / 16,
-                          itemBuilder: (context, index) {
-                            final cast = casts[index];
-                            return MovieCastCard(
-                              cast: cast,
-                              onTap: () {
-                                // TODO(charlescyt): Push to cast details page
-                              },
-                            );
-                          },
-                        ),
+                      const CarouselTitle(title: Text('Casts')),
+                      Carousel(
+                        itemCount: casts.take(10).length,
+                        height: 240,
+                        aspectRatio: 9 / 16,
+                        enableInfiniteScroll: false,
+                        itemBuilder: (context, index) {
+                          final cast = casts[index];
+                          return MovieCastCard(
+                            cast: cast,
+                            onTap: () {
+                              // TODO(charlescyt): Push to cast details page
+                            },
+                          );
+                        },
                       ),
                     ],
                     if (movieDetails.crews case final crews when crews.isNotEmpty) ...[
                       const Divider(),
-                      Section(
-                        title: const Text('Crews'),
-                        content: Carousel(
-                          itemCount: crews.length,
-                          height: 240,
-                          aspectRatio: 9 / 16,
-                          itemBuilder: (context, index) {
-                            final crew = crews[index];
-                            return MovieCrewCard(
-                              crew: crew,
-                              onTap: () {
-                                // TODO(charlescyt): Push to crew details page
-                              },
-                            );
-                          },
-                        ),
+                      const CarouselTitle(title: Text('Crews')),
+                      Carousel(
+                        itemCount: crews.take(10).length,
+                        height: 240,
+                        aspectRatio: 9 / 16,
+                        enableInfiniteScroll: false,
+                        itemBuilder: (context, index) {
+                          final crew = crews[index];
+                          return MovieCrewCard(
+                            crew: crew,
+                            onTap: () {
+                              // TODO(charlescyt): Push to crew details page
+                            },
+                          );
+                        },
                       ),
                     ],
                     if (movieDetails.recommendations case final recommendations when recommendations.isNotEmpty) ...[
                       const Divider(),
-                      Section(
-                        title: const Text('Recommendations'),
-                        content: Carousel(
-                          itemCount: recommendations.length,
-                          height: 240,
-                          aspectRatio: 9 / 16,
-                          itemBuilder: (context, index) {
-                            final movie = recommendations[index];
-                            return MovieCard(
-                              movie: movie,
-                              onTap: () => MovieDetailsRouteData(movieId: movie.id).push<void>(context),
-                            );
-                          },
-                        ),
+                      const CarouselTitle(title: Text('Recommendations')),
+                      Carousel(
+                        itemCount: recommendations.take(10).length,
+                        height: 240,
+                        aspectRatio: 9 / 16,
+                        enableInfiniteScroll: false,
+                        itemBuilder: (context, index) {
+                          final movie = recommendations[index];
+                          return MovieCard(
+                            movie: movie,
+                            onTap: () => MovieDetailsRouteData(movieId: movie.id).push<void>(context),
+                          );
+                        },
                       ),
                     ],
                   ],
