@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/router/router.dart';
+import '../../../app/widgets/buttons.dart';
 import '../../../app/widgets/carousel.dart';
 import '../../../app/widgets/my_app_bar.dart';
+import '../../../app/widgets/section.dart';
+import '../../../app/widgets/sliver_sized_box.dart';
 import '../../../tmdb/tmdb_options.dart';
+import '../../common/widgets/genre_card.dart';
+import '../models/tv_show_genre.dart';
 import '../providers/tv_show_providers.dart';
 import '../widgets/tv_show_card.dart';
 import '../widgets/tv_show_landscape_card.dart';
@@ -26,15 +31,21 @@ class TvShowHomePage extends ConsumerWidget {
         child: Column(
           children: [
             const MyAppBar(
-              title: Text('Tv Show Home Page'),
+              title: Text('Tv Show'),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CarouselSection(
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: SectionTitle(
                       title: const Text('Trending'),
+                      trailing: SeeAllButton(
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: AsyncValueCarousel(
                       carouselHeight: 240,
                       itemAspectRatio: 14 / 9,
                       asyncItems: trendingTvShows,
@@ -45,9 +56,18 @@ class TvShowHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const TvShowSkeleton(),
                     ),
-                    const Divider(),
-                    CarouselSection(
+                  ),
+                  const SliverDivider(),
+                  SliverToBoxAdapter(
+                    child: SectionTitle(
                       title: const Text('On The Air'),
+                      trailing: SeeAllButton(
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: AsyncValueCarousel(
                       asyncItems: onTheAirTvShows,
                       itemAspectRatio: 5 / 9,
                       itemBuilder: (context, itemIndex, tvShow) => TvShowCard(
@@ -56,9 +76,18 @@ class TvShowHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const TvShowSkeleton(),
                     ),
-                    const Divider(),
-                    CarouselSection(
+                  ),
+                  const SliverDivider(),
+                  SliverToBoxAdapter(
+                    child: SectionTitle(
                       title: const Text('Top Rated'),
+                      trailing: SeeAllButton(
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: AsyncValueCarousel(
                       asyncItems: topRatedTvShows,
                       itemAspectRatio: 5 / 9,
                       itemBuilder: (context, itemIndex, tvShow) => TvShowCard(
@@ -67,9 +96,29 @@ class TvShowHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const TvShowSkeleton(),
                     ),
-                    SizedBox(height: padding.bottom),
-                  ],
-                ),
+                  ),
+                  const SliverDivider(),
+                  const SliverToBoxAdapter(
+                    child: SectionTitle(
+                      title: Text('Genres'),
+                    ),
+                  ),
+                  SliverGrid.builder(
+                    itemCount: TvShowGenre.values.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 16 / 9,
+                    ),
+                    itemBuilder: (context, index) {
+                      final genre = TvShowGenre.values[index];
+                      return GenreCard.tvShow(
+                        genre: genre,
+                        onTap: () {},
+                      );
+                    },
+                  ),
+                  SliverSizedBox(height: padding.bottom),
+                ],
               ),
             ),
           ],

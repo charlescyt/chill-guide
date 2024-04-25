@@ -1,6 +1,56 @@
 import 'package:flutter/material.dart';
 
-import 'sliver_sized_box.dart';
+class SectionTitle extends StatelessWidget {
+  const SectionTitle({
+    super.key,
+    required this.title,
+    this.trailing,
+    this.padding = const EdgeInsets.symmetric(horizontal: 8),
+  });
+
+  final Widget title;
+  final Widget? trailing;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
+
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 48),
+      child: Padding(
+        padding: padding,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 4,
+              height: 24,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary,
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: DefaultTextStyle.merge(
+                style: titleTextStyle,
+                child: title,
+              ),
+            ),
+            const SizedBox(width: 8),
+            if (trailing case final trailing?) //
+              trailing,
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class Section extends StatelessWidget {
   const Section({
@@ -15,44 +65,21 @@ class Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
     final contentTextStyle = theme.textTheme.bodyMedium;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 4,
-                height: 24,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 4),
-              Expanded(
-                child: DefaultTextStyle.merge(
-                  style: titleTextStyle,
-                  child: title,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          DefaultTextStyle.merge(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SectionTitle(title: title),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: DefaultTextStyle.merge(
             style: contentTextStyle,
             child: content,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -62,40 +89,18 @@ class SliverSection extends StatelessWidget {
     super.key,
     required this.title,
     required this.content,
-    this.padding,
   });
 
   final Widget title;
   final Widget content;
-  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900);
-    final contentTextStyle = theme.textTheme.bodyMedium;
-
-    final sliver = SliverMainAxisGroup(
-      slivers: [
-        DefaultTextStyle.merge(
-          style: titleTextStyle,
-          child: title,
-        ),
-        const SliverSizedBox(height: 4),
-        DefaultTextStyle.merge(
-          style: contentTextStyle,
-          child: content,
-        ),
-      ],
-    );
-
-    if (padding == null) {
-      return sliver;
-    }
-
-    return SliverPadding(
-      padding: padding!,
-      sliver: sliver,
+    return SliverToBoxAdapter(
+      child: Section(
+        title: title,
+        content: content,
+      ),
     );
   }
 }

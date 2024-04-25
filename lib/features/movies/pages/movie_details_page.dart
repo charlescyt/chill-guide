@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/router/router.dart';
 import '../../../app/utils/formatting.dart';
+import '../../../app/widgets/buttons.dart';
 import '../../../app/widgets/carousel.dart';
 import '../../../app/widgets/my_app_bar.dart';
 import '../../../app/widgets/placeholder_icon.dart';
@@ -186,7 +187,12 @@ class _Data extends StatelessWidget {
                     ],
                     if (movieDetails.casts case final casts when casts.isNotEmpty) ...[
                       const Divider(),
-                      const CarouselTitle(title: Text('Casts')),
+                      SectionTitle(
+                        title: const Text('Casts'),
+                        trailing: SeeAllButton(
+                          onPressed: () {},
+                        ),
+                      ),
                       Carousel(
                         itemCount: casts.take(10).length,
                         height: 240,
@@ -205,7 +211,12 @@ class _Data extends StatelessWidget {
                     ],
                     if (movieDetails.crews case final crews when crews.isNotEmpty) ...[
                       const Divider(),
-                      const CarouselTitle(title: Text('Crews')),
+                      SectionTitle(
+                        title: const Text('Crews'),
+                        trailing: SeeAllButton(
+                          onPressed: () {},
+                        ),
+                      ),
                       Carousel(
                         itemCount: crews.take(10).length,
                         height: 240,
@@ -224,7 +235,12 @@ class _Data extends StatelessWidget {
                     ],
                     if (movieDetails.recommendations case final recommendations when recommendations.isNotEmpty) ...[
                       const Divider(),
-                      const CarouselTitle(title: Text('Recommendations')),
+                      SectionTitle(
+                        title: const Text('Recommendations'),
+                        trailing: SeeAllButton(
+                          onPressed: () {},
+                        ),
+                      ),
                       Carousel(
                         itemCount: recommendations.take(10).length,
                         height: 240,

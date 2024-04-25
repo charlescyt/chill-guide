@@ -84,37 +84,34 @@ class _Data extends StatelessWidget {
         const SliverSizedBox(height: 8),
         if (tvShowSeasonDetails.overview.isNotEmpty) ...[
           SliverSection(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            title: const SliverToBoxAdapter(child: Text('Overview')),
-            content: SliverToBoxAdapter(child: Text(tvShowSeasonDetails.overview)),
+            title: const Text('Overview'),
+            content: Text(tvShowSeasonDetails.overview),
           ),
           const SliverSizedBox(height: 8),
         ],
         SliverSection(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          title: const SliverToBoxAdapter(child: Text('Air date')),
-          content: SliverToBoxAdapter(
-            child: switch (tvShowSeasonDetails.airDate) {
-              null => const Text('Unknown'),
-              final airDate => Text(formatDate(airDate)),
-            },
-          ),
+          title: const Text('Air date'),
+          content: switch (tvShowSeasonDetails.airDate) {
+            null => const Text('Unknown'),
+            final airDate => Text(formatDate(airDate)),
+          },
         ),
         const SliverSizedBox(height: 8),
-        SliverSection(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          title: SliverToBoxAdapter(child: Text('Episodes (${tvShowSeasonDetails.episodeCount})')),
-          content: SliverList.separated(
-            itemCount: tvShowSeasonDetails.episodes.length,
-            separatorBuilder: (context, index) => const Divider(),
-            itemBuilder: (context, index) {
-              final episode = tvShowSeasonDetails.episodes[index];
-              return EpisodeListTile(
-                episode: episode,
-                onTap: () {},
-              );
-            },
+        SliverToBoxAdapter(
+          child: SectionTitle(
+            title: Text('Episodes (${tvShowSeasonDetails.episodeCount})'),
           ),
+        ),
+        SliverList.separated(
+          itemCount: tvShowSeasonDetails.episodes.length,
+          separatorBuilder: (context, index) => const Divider(),
+          itemBuilder: (context, index) {
+            final episode = tvShowSeasonDetails.episodes[index];
+            return EpisodeListTile(
+              episode: episode,
+              onTap: () {},
+            );
+          },
         ),
         SliverSizedBox(height: bottomPadding),
       ],

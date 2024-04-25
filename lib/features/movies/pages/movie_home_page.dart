@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/router/router.dart';
+import '../../../app/widgets/buttons.dart';
 import '../../../app/widgets/carousel.dart';
 import '../../../app/widgets/my_app_bar.dart';
+import '../../../app/widgets/section.dart';
+import '../../../app/widgets/sliver_sized_box.dart';
 import '../../../tmdb/tmdb_options.dart';
+import '../../common/widgets/genre_card.dart';
+import '../models/movie_genre.dart';
 import '../providers/movies_provider.dart';
 import '../widgets/movie_card.dart';
 import '../widgets/movie_landscape_card.dart';
@@ -26,15 +31,21 @@ class MovieHomePage extends ConsumerWidget {
         child: Column(
           children: [
             const MyAppBar(
-              title: Text('Movie Home Page'),
+              title: Text('Movie'),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CarouselSection(
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: SectionTitle(
                       title: const Text('Trending'),
+                      trailing: SeeAllButton(
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: AsyncValueCarousel(
                       carouselHeight: 240,
                       itemAspectRatio: 14 / 9,
                       asyncItems: trendingMovies,
@@ -45,9 +56,18 @@ class MovieHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(showSubtitle: false),
                     ),
-                    const Divider(),
-                    CarouselSection(
+                  ),
+                  const SliverDivider(),
+                  SliverToBoxAdapter(
+                    child: SectionTitle(
                       title: const Text('Popular'),
+                      trailing: SeeAllButton(
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: AsyncValueCarousel(
                       asyncItems: popularMovies,
                       itemAspectRatio: 5 / 9,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(
@@ -56,9 +76,18 @@ class MovieHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),
                     ),
-                    const Divider(),
-                    CarouselSection(
+                  ),
+                  const SliverDivider(),
+                  SliverToBoxAdapter(
+                    child: SectionTitle(
                       title: const Text('Upcoming'),
+                      trailing: SeeAllButton(
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: AsyncValueCarousel(
                       itemAspectRatio: 5 / 9,
                       asyncItems: upcomingMovies,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(
@@ -67,9 +96,18 @@ class MovieHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),
                     ),
-                    const Divider(),
-                    CarouselSection(
+                  ),
+                  const SliverDivider(),
+                  SliverToBoxAdapter(
+                    child: SectionTitle(
                       title: const Text('Top Rated'),
+                      trailing: SeeAllButton(
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: AsyncValueCarousel(
                       itemAspectRatio: 5 / 9,
                       asyncItems: topRatedMovies,
                       itemBuilder: (context, itemIndex, movie) => MovieCard(
@@ -78,9 +116,29 @@ class MovieHomePage extends ConsumerWidget {
                       ),
                       loadingBuilder: (context, index) => const MovieCardSkeleton(),
                     ),
-                    SizedBox(height: padding.bottom),
-                  ],
-                ),
+                  ),
+                  const SliverDivider(),
+                  const SliverToBoxAdapter(
+                    child: SectionTitle(
+                      title: Text('Grid'),
+                    ),
+                  ),
+                  SliverGrid.builder(
+                    itemCount: MovieGenre.values.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 16 / 9,
+                    ),
+                    itemBuilder: (context, index) {
+                      final genre = MovieGenre.values[index];
+                      return GenreCard.movie(
+                        genre: genre,
+                        onTap: () {},
+                      );
+                    },
+                  ),
+                  SliverSizedBox(height: padding.bottom),
+                ],
               ),
             ),
           ],

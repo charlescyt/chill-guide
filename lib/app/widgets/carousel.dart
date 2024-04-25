@@ -2,79 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class CarouselTitle extends StatelessWidget {
-  const CarouselTitle({
+class AsyncValueCarousel<T> extends StatelessWidget {
+  const AsyncValueCarousel({
     super.key,
-    required this.title,
-  });
-
-  final Widget title;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
-    final seeAllTextStyle = theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.primary);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 4,
-            height: 24,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primary,
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
-              ),
-            ),
-          ),
-          const SizedBox(width: 4),
-          Expanded(
-            child: DefaultTextStyle.merge(
-              style: titleTextStyle,
-              child: title,
-            ),
-          ),
-          const SizedBox(width: 8),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'See All',
-              style: seeAllTextStyle,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CarouselSection<T> extends StatelessWidget {
-  const CarouselSection({
-    super.key,
-    required this.title,
     required this.asyncItems,
     required this.itemBuilder,
     required this.loadingBuilder,
     this.carouselHeight = 200,
     this.itemAspectRatio = 2 / 3,
-    this.onSeeAllPressed,
     this.autoPlay = false,
     this.padEnds = false,
     this.enlargeCenterPage = false,
   });
 
-  final Widget title;
   final AsyncValue<List<T>> asyncItems;
   final Widget Function(BuildContext context, int index, T item) itemBuilder;
   final IndexedWidgetBuilder loadingBuilder;
   final double carouselHeight;
   final double itemAspectRatio;
-  final VoidCallback? onSeeAllPressed;
   final bool autoPlay;
   final bool padEnds;
   final bool enlargeCenterPage;
@@ -82,10 +27,8 @@ class CarouselSection<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final titleTextStyle = theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
-    final seeAllTextStyle = theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.primary);
 
-    final content = switch (asyncItems) {
+    return switch (asyncItems) {
       AsyncData(value: final items) => Carousel(
           itemCount: items.length,
           height: carouselHeight,
@@ -125,48 +68,6 @@ class CarouselSection<T> extends StatelessWidget {
           enlargeCenterPage: enlargeCenterPage,
         ),
     };
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 4,
-                height: 24,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: DefaultTextStyle.merge(
-                  style: titleTextStyle,
-                  child: title,
-                ),
-              ),
-              const SizedBox(width: 8),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'See All',
-                  style: seeAllTextStyle,
-                ),
-              ),
-            ],
-          ),
-        ),
-        content,
-      ],
-    );
   }
 }
 
