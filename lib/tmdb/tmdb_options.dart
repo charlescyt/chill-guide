@@ -21,7 +21,6 @@ enum BackdropSize {
   small('w300'),
   medium('w780'),
   large('w1280'),
-  extraLarge('w1920'),
   original('original');
 
   const BackdropSize(this.value);
