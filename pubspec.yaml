@@ -48,3 +48,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/Nunito-Black.ttf
           weight: 900
+
+  assets:
+    - assets/images/genres/movie/
+    - assets/images/genres/tv_show/
