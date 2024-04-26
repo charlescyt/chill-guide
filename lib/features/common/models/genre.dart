@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 
+import '../../../app/utils/exception_utils.dart';
+
 @immutable
 class Genre {
   final int id;
@@ -10,20 +12,27 @@ class Genre {
     required this.name,
   });
 
-  factory Genre.fromJson(Map<String, dynamic> json) {
+  factory Genre.fromTmdb(Map<String, dynamic> json) {
+    final id = json['id'];
+    if (id is! int) {
+      throw FormatException(buildFormatExceptionMessage('Genre', 'id', 'int', id));
+    }
+
+    final name = json['name'];
+    if (name is! String) {
+      throw FormatException(buildFormatExceptionMessage('Genre', 'name', 'String', name));
+    }
+
     return Genre(
-      id: json['id'] as int,
-      name: json['name'] as String,
+      id: id,
+      name: name,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-    };
-  }
-
   @override
-  String toString() => '${describeIdentity(this)}(${toJson()})';
+  String toString() {
+    return '${describeIdentity(this)}, '
+        'id: $id, '
+        'name: $name';
+  }
 }

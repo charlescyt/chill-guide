@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart' show immutable;
 
+import '../../../app/utils/exception_utils.dart';
 import '../../common/models/image_path.dart';
 
 export '../../common/models/image_path.dart';
@@ -19,24 +20,42 @@ class MovieCast {
     this.profilePath,
   });
 
-  factory MovieCast.fromJson(Map<String, dynamic> json) {
+  factory MovieCast.fromTmdb(Map<String, dynamic> json) {
+    final id = json['id'];
+    if (id is! int) {
+      throw FormatException(buildFormatExceptionMessage('MovieCast', 'id', 'int', id));
+    }
+
+    final name = json['name'];
+    if (name is! String) {
+      throw FormatException(buildFormatExceptionMessage('MovieCast', 'name', 'String', name));
+    }
+
+    final character = json['character'];
+    if (character is! String) {
+      throw FormatException(buildFormatExceptionMessage('MovieCast', 'character', 'String', character));
+    }
+
+    final profilePath = json['profile_path'];
+    if (profilePath != null && profilePath is! String) {
+      throw FormatException(buildFormatExceptionMessage('MovieCast', 'profile_path', 'String?', profilePath));
+    }
+    profilePath as String?;
+
     return MovieCast(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      character: json['character'] as String,
-      profilePath: json['profile_path'] is String ? ProfilePath(json['profile_path'] as String) : null,
+      id: id,
+      name: name,
+      character: character,
+      profilePath: profilePath == null ? null : ProfilePath(profilePath),
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'character': character,
-      'profilePath': profilePath?.value,
-    };
-  }
-
   @override
-  String toString() => '${describeIdentity(this)}(${toJson()})';
+  String toString() {
+    return '${describeIdentity(this)}, '
+        'id: $id, '
+        'name: $name, '
+        'character: $character, '
+        'profilePath: $profilePath';
+  }
 }

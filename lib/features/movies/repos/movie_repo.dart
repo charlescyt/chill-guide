@@ -23,7 +23,7 @@ class MovieRepo {
       timeWindow: timeWindow,
     );
 
-    return PaginatedResponse.fromJson(json).results.map(Movie.fromJson).toList();
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb).results;
   }
 
   Future<List<Movie>> getPopularMovies({
@@ -38,7 +38,7 @@ class MovieRepo {
       region: region,
     );
 
-    return PaginatedResponse.fromJson(json).results.map(Movie.fromJson).toList();
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb).results;
   }
 
   Future<List<Movie>> getTopRatedMovies({
@@ -53,7 +53,7 @@ class MovieRepo {
       region: region,
     );
 
-    return PaginatedResponse.fromJson(json).results.map(Movie.fromJson).toList();
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb).results;
   }
 
   Future<List<Movie>> getUpcomingMovies({
@@ -68,7 +68,7 @@ class MovieRepo {
       region: region,
     );
 
-    return PaginatedResponse.fromJson(json).results.map(Movie.fromJson).toList();
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb).results;
   }
 
   Future<MovieDetails> getMovieDetails({
@@ -81,6 +81,6 @@ class MovieRepo {
       language: language,
     );
 
-    return MovieDetails.fromJson(json);
+    return MovieDetails.fromTmdb(json);
   }
 }
