@@ -3,6 +3,31 @@ enum TimeWindow {
   week,
 }
 
+enum BackdropSize {
+  small('w300'),
+  medium('w780'),
+  large('w1280'),
+  original('original');
+
+  const BackdropSize(this.value);
+
+  final String value;
+}
+
+enum LogoSize {
+  extraTiny('w45'),
+  tiny('w92'),
+  small('w154'),
+  medium('w185'),
+  large('w300'),
+  extraLarge('w500'),
+  original('original');
+
+  const LogoSize(this.value);
+
+  final String value;
+}
+
 enum PosterSize {
   extraTiny('w92'),
   tiny('w154'),
@@ -13,17 +38,6 @@ enum PosterSize {
   original('original');
 
   const PosterSize(this.value);
-
-  final String value;
-}
-
-enum BackdropSize {
-  small('w300'),
-  medium('w780'),
-  large('w1280'),
-  original('original');
-
-  const BackdropSize(this.value);
 
   final String value;
 }
@@ -46,20 +60,6 @@ enum StillSize {
   extraLarge('original');
 
   const StillSize(this.value);
-
-  final String value;
-}
-
-enum LogoSize {
-  extraTiny('w45'),
-  tiny('w92'),
-  small('w154'),
-  medium('w185'),
-  large('w300'),
-  extraLarge('w500'),
-  original('original');
-
-  const LogoSize(this.value);
 
   final String value;
 }

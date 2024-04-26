@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 
-import '../../common/models/logo_path.dart';
+import '../../common/models/image_path.dart';
 
-export '../../common/models/logo_path.dart';
+export '../../common/models/image_path.dart';
 
 @immutable
 class Network {

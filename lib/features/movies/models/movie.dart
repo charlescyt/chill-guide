@@ -1,10 +1,8 @@
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 
-import '../../common/models/backdrop_path.dart';
-import '../../common/models/poster_path.dart';
+import '../../common/models/image_path.dart';
 
-export '../../common/models/backdrop_path.dart';
-export '../../common/models/poster_path.dart';
+export '../../common/models/image_path.dart';
 
 @immutable
 class Movie {

@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart' show immutable;
 
-import '../../common/models/profile_path.dart';
+import '../../common/models/image_path.dart';
+
+export '../../common/models/image_path.dart';
 
 @immutable
 class MovieCast {

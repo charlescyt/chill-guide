@@ -1,4 +1,4 @@
-import 'package:chill_guide/features/common/models/poster_path.dart';
+import 'package:chill_guide/features/common/models/image_path.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

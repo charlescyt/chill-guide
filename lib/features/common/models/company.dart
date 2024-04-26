@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 
-import 'logo_path.dart';
+import 'image_path.dart';
 
-export 'logo_path.dart';
+export 'image_path.dart';
 
 @immutable
 class Company {

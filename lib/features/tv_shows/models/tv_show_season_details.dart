@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
 
-import '../../common/models/poster_path.dart';
+import '../../common/models/image_path.dart';
 import 'tv_show_episode.dart';
 
-export '../../common/models/poster_path.dart';
+export '../../common/models/image_path.dart';
 export 'tv_show_episode.dart';
 
 @immutable
