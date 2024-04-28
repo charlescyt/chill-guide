@@ -31,7 +31,7 @@ class ListTileCard extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTileCard(
-      title: movie.title,
+      title: movie.titleAndReleaseYear,
       overview: movie.overview,
       rating: movie.voteAverage,
       backdropPath: movie.backdropPath,
@@ -45,7 +45,7 @@ class ListTileCard extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTileCard(
-      title: tvShow.name,
+      title: tvShow.nameAndFirstAirYear,
       overview: tvShow.overview,
       rating: tvShow.voteAverage,
       backdropPath: tvShow.backdropPath,
