@@ -21,6 +21,24 @@ RouteBase get $mainShellRouteData => StatefulShellRouteData.$route(
               factory: $MovieHomeRouteDataExtension._fromState,
               routes: [
                 GoRouteData.$route(
+                  path: 'popular',
+                  parentNavigatorKey:
+                      PopularMoviesRouteData.$parentNavigatorKey,
+                  factory: $PopularMoviesRouteDataExtension._fromState,
+                ),
+                GoRouteData.$route(
+                  path: 'upcoming',
+                  parentNavigatorKey:
+                      UpcomingMoviesRouteData.$parentNavigatorKey,
+                  factory: $UpcomingMoviesRouteDataExtension._fromState,
+                ),
+                GoRouteData.$route(
+                  path: 'top-rated',
+                  parentNavigatorKey:
+                      TopRatedMoviesRouteData.$parentNavigatorKey,
+                  factory: $TopRatedMoviesRouteDataExtension._fromState,
+                ),
+                GoRouteData.$route(
                   path: ':movieId',
                   parentNavigatorKey: MovieDetailsRouteData.$parentNavigatorKey,
                   factory: $MovieDetailsRouteDataExtension._fromState,
@@ -35,6 +53,24 @@ RouteBase get $mainShellRouteData => StatefulShellRouteData.$route(
               path: '/tv-shows',
               factory: $TvShowHomeRouteDataExtension._fromState,
               routes: [
+                GoRouteData.$route(
+                  path: 'on-the-air',
+                  parentNavigatorKey:
+                      OnTheAirTvShowsRouteData.$parentNavigatorKey,
+                  factory: $OnTheAirTvShowsRouteDataExtension._fromState,
+                ),
+                GoRouteData.$route(
+                  path: 'popular',
+                  parentNavigatorKey:
+                      PopularTvShowsRouteData.$parentNavigatorKey,
+                  factory: $PopularTvShowsRouteDataExtension._fromState,
+                ),
+                GoRouteData.$route(
+                  path: 'top-rated',
+                  parentNavigatorKey:
+                      TopRatedTvShowsRouteData.$parentNavigatorKey,
+                  factory: $TopRatedTvShowsRouteDataExtension._fromState,
+                ),
                 GoRouteData.$route(
                   path: ':tvShowId',
                   parentNavigatorKey:
@@ -96,6 +132,60 @@ extension $MovieHomeRouteDataExtension on MovieHomeRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $PopularMoviesRouteDataExtension on PopularMoviesRouteData {
+  static PopularMoviesRouteData _fromState(GoRouterState state) =>
+      const PopularMoviesRouteData();
+
+  String get location => GoRouteData.$location(
+        '/movies/popular',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $UpcomingMoviesRouteDataExtension on UpcomingMoviesRouteData {
+  static UpcomingMoviesRouteData _fromState(GoRouterState state) =>
+      const UpcomingMoviesRouteData();
+
+  String get location => GoRouteData.$location(
+        '/movies/upcoming',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $TopRatedMoviesRouteDataExtension on TopRatedMoviesRouteData {
+  static TopRatedMoviesRouteData _fromState(GoRouterState state) =>
+      const TopRatedMoviesRouteData();
+
+  String get location => GoRouteData.$location(
+        '/movies/top-rated',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $MovieDetailsRouteDataExtension on MovieDetailsRouteData {
   static MovieDetailsRouteData _fromState(GoRouterState state) =>
       MovieDetailsRouteData(
@@ -122,6 +212,60 @@ extension $TvShowHomeRouteDataExtension on TvShowHomeRouteData {
 
   String get location => GoRouteData.$location(
         '/tv-shows',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $OnTheAirTvShowsRouteDataExtension on OnTheAirTvShowsRouteData {
+  static OnTheAirTvShowsRouteData _fromState(GoRouterState state) =>
+      const OnTheAirTvShowsRouteData();
+
+  String get location => GoRouteData.$location(
+        '/tv-shows/on-the-air',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PopularTvShowsRouteDataExtension on PopularTvShowsRouteData {
+  static PopularTvShowsRouteData _fromState(GoRouterState state) =>
+      const PopularTvShowsRouteData();
+
+  String get location => GoRouteData.$location(
+        '/tv-shows/popular',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $TopRatedTvShowsRouteDataExtension on TopRatedTvShowsRouteData {
+  static TopRatedTvShowsRouteData _fromState(GoRouterState state) =>
+      const TopRatedTvShowsRouteData();
+
+  String get location => GoRouteData.$location(
+        '/tv-shows/top-rated',
       );
 
   void go(BuildContext context) => context.go(location);

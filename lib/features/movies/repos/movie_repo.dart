@@ -13,7 +13,7 @@ class MovieRepo {
     required TmdbClient client,
   }) : _client = client;
 
-  Future<List<Movie>> getTrendingMovies({
+  Future<PaginatedResponse<Movie>> getTrendingMovies({
     String language = 'en-US',
     TimeWindow timeWindow = TimeWindow.day,
   }) async {
@@ -23,10 +23,10 @@ class MovieRepo {
       timeWindow: timeWindow,
     );
 
-    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb).results;
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb);
   }
 
-  Future<List<Movie>> getPopularMovies({
+  Future<PaginatedResponse<Movie>> getPopularMovies({
     int page = 1,
     String language = 'en-US',
     String region = 'US',
@@ -38,10 +38,10 @@ class MovieRepo {
       region: region,
     );
 
-    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb).results;
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb);
   }
 
-  Future<List<Movie>> getTopRatedMovies({
+  Future<PaginatedResponse<Movie>> getTopRatedMovies({
     int page = 1,
     String language = 'en-US',
     String region = 'US',
@@ -53,10 +53,10 @@ class MovieRepo {
       region: region,
     );
 
-    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb).results;
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb);
   }
 
-  Future<List<Movie>> getUpcomingMovies({
+  Future<PaginatedResponse<Movie>> getUpcomingMovies({
     int page = 1,
     String language = 'en-US',
     String region = 'US',
@@ -68,7 +68,7 @@ class MovieRepo {
       region: region,
     );
 
-    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb).results;
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb);
   }
 
   Future<MovieDetails> getMovieDetails({

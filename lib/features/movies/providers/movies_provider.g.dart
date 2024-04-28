@@ -20,7 +20,7 @@ final movieRepoProvider = AutoDisposeProvider<MovieRepo>.internal(
 );
 
 typedef MovieRepoRef = AutoDisposeProviderRef<MovieRepo>;
-String _$trendingMoviesHash() => r'b4ae2469b5eadb0827ad141d2fff51eac2798723';
+String _$trendingMoviesHash() => r'eea367ce99166f53e0c4f76fde33ba5aa6833f72';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -170,7 +170,142 @@ class _TrendingMoviesProviderElement
   TimeWindow get timeWindow => (origin as TrendingMoviesProvider).timeWindow;
 }
 
-String _$popularMoviesHash() => r'9d498474b5e8dff7d5ab929dc845921f637e3df0';
+String _$popularMoviesResponseHash() =>
+    r'd98523475311b88c89cfd47005451a241664dd0f';
+
+/// See also [popularMoviesResponse].
+@ProviderFor(popularMoviesResponse)
+const popularMoviesResponseProvider = PopularMoviesResponseFamily();
+
+/// See also [popularMoviesResponse].
+class PopularMoviesResponseFamily
+    extends Family<AsyncValue<PaginatedResponse<Movie>>> {
+  /// See also [popularMoviesResponse].
+  const PopularMoviesResponseFamily();
+
+  /// See also [popularMoviesResponse].
+  PopularMoviesResponseProvider call({
+    int page = 1,
+  }) {
+    return PopularMoviesResponseProvider(
+      page: page,
+    );
+  }
+
+  @override
+  PopularMoviesResponseProvider getProviderOverride(
+    covariant PopularMoviesResponseProvider provider,
+  ) {
+    return call(
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'popularMoviesResponseProvider';
+}
+
+/// See also [popularMoviesResponse].
+class PopularMoviesResponseProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<Movie>> {
+  /// See also [popularMoviesResponse].
+  PopularMoviesResponseProvider({
+    int page = 1,
+  }) : this._internal(
+          (ref) => popularMoviesResponse(
+            ref as PopularMoviesResponseRef,
+            page: page,
+          ),
+          from: popularMoviesResponseProvider,
+          name: r'popularMoviesResponseProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$popularMoviesResponseHash,
+          dependencies: PopularMoviesResponseFamily._dependencies,
+          allTransitiveDependencies:
+              PopularMoviesResponseFamily._allTransitiveDependencies,
+          page: page,
+        );
+
+  PopularMoviesResponseProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<Movie>> Function(
+            PopularMoviesResponseRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: PopularMoviesResponseProvider._internal(
+        (ref) => create(ref as PopularMoviesResponseRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<Movie>> createElement() {
+    return _PopularMoviesResponseProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PopularMoviesResponseProvider && other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin PopularMoviesResponseRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<Movie>> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _PopularMoviesResponseProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<Movie>>
+    with PopularMoviesResponseRef {
+  _PopularMoviesResponseProviderElement(super.provider);
+
+  @override
+  int get page => (origin as PopularMoviesResponseProvider).page;
+}
+
+String _$popularMoviesHash() => r'ee616050a9b9ddf0b44ac3b0f150990b8201c9ae';
 
 /// See also [popularMovies].
 @ProviderFor(popularMovies)
@@ -299,7 +434,142 @@ class _PopularMoviesProviderElement
   int get page => (origin as PopularMoviesProvider).page;
 }
 
-String _$upcomingMoviesHash() => r'8489d84d407ea2975e4a04133edbc6a221e3e58b';
+String _$upcomingMoviesResponseHash() =>
+    r'8ccc77e91dcbae680c261860b06c986326e9dda2';
+
+/// See also [upcomingMoviesResponse].
+@ProviderFor(upcomingMoviesResponse)
+const upcomingMoviesResponseProvider = UpcomingMoviesResponseFamily();
+
+/// See also [upcomingMoviesResponse].
+class UpcomingMoviesResponseFamily
+    extends Family<AsyncValue<PaginatedResponse<Movie>>> {
+  /// See also [upcomingMoviesResponse].
+  const UpcomingMoviesResponseFamily();
+
+  /// See also [upcomingMoviesResponse].
+  UpcomingMoviesResponseProvider call({
+    int page = 1,
+  }) {
+    return UpcomingMoviesResponseProvider(
+      page: page,
+    );
+  }
+
+  @override
+  UpcomingMoviesResponseProvider getProviderOverride(
+    covariant UpcomingMoviesResponseProvider provider,
+  ) {
+    return call(
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'upcomingMoviesResponseProvider';
+}
+
+/// See also [upcomingMoviesResponse].
+class UpcomingMoviesResponseProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<Movie>> {
+  /// See also [upcomingMoviesResponse].
+  UpcomingMoviesResponseProvider({
+    int page = 1,
+  }) : this._internal(
+          (ref) => upcomingMoviesResponse(
+            ref as UpcomingMoviesResponseRef,
+            page: page,
+          ),
+          from: upcomingMoviesResponseProvider,
+          name: r'upcomingMoviesResponseProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$upcomingMoviesResponseHash,
+          dependencies: UpcomingMoviesResponseFamily._dependencies,
+          allTransitiveDependencies:
+              UpcomingMoviesResponseFamily._allTransitiveDependencies,
+          page: page,
+        );
+
+  UpcomingMoviesResponseProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<Movie>> Function(
+            UpcomingMoviesResponseRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpcomingMoviesResponseProvider._internal(
+        (ref) => create(ref as UpcomingMoviesResponseRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<Movie>> createElement() {
+    return _UpcomingMoviesResponseProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpcomingMoviesResponseProvider && other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin UpcomingMoviesResponseRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<Movie>> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _UpcomingMoviesResponseProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<Movie>>
+    with UpcomingMoviesResponseRef {
+  _UpcomingMoviesResponseProviderElement(super.provider);
+
+  @override
+  int get page => (origin as UpcomingMoviesResponseProvider).page;
+}
+
+String _$upcomingMoviesHash() => r'08c76739f78c2999981161eb81b6a358966ca4ce';
 
 /// See also [upcomingMovies].
 @ProviderFor(upcomingMovies)
@@ -428,7 +698,142 @@ class _UpcomingMoviesProviderElement
   int get page => (origin as UpcomingMoviesProvider).page;
 }
 
-String _$topRatedMoviesHash() => r'3a9b2e408f4cc1f2c82c6d6b52d713e1133e0511';
+String _$topRatedMoviesResponseHash() =>
+    r'4b609c0ad333b7cbeae12bd7ee3fe2b6b2efdb87';
+
+/// See also [topRatedMoviesResponse].
+@ProviderFor(topRatedMoviesResponse)
+const topRatedMoviesResponseProvider = TopRatedMoviesResponseFamily();
+
+/// See also [topRatedMoviesResponse].
+class TopRatedMoviesResponseFamily
+    extends Family<AsyncValue<PaginatedResponse<Movie>>> {
+  /// See also [topRatedMoviesResponse].
+  const TopRatedMoviesResponseFamily();
+
+  /// See also [topRatedMoviesResponse].
+  TopRatedMoviesResponseProvider call({
+    int page = 1,
+  }) {
+    return TopRatedMoviesResponseProvider(
+      page: page,
+    );
+  }
+
+  @override
+  TopRatedMoviesResponseProvider getProviderOverride(
+    covariant TopRatedMoviesResponseProvider provider,
+  ) {
+    return call(
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'topRatedMoviesResponseProvider';
+}
+
+/// See also [topRatedMoviesResponse].
+class TopRatedMoviesResponseProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<Movie>> {
+  /// See also [topRatedMoviesResponse].
+  TopRatedMoviesResponseProvider({
+    int page = 1,
+  }) : this._internal(
+          (ref) => topRatedMoviesResponse(
+            ref as TopRatedMoviesResponseRef,
+            page: page,
+          ),
+          from: topRatedMoviesResponseProvider,
+          name: r'topRatedMoviesResponseProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$topRatedMoviesResponseHash,
+          dependencies: TopRatedMoviesResponseFamily._dependencies,
+          allTransitiveDependencies:
+              TopRatedMoviesResponseFamily._allTransitiveDependencies,
+          page: page,
+        );
+
+  TopRatedMoviesResponseProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<Movie>> Function(
+            TopRatedMoviesResponseRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: TopRatedMoviesResponseProvider._internal(
+        (ref) => create(ref as TopRatedMoviesResponseRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<Movie>> createElement() {
+    return _TopRatedMoviesResponseProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TopRatedMoviesResponseProvider && other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin TopRatedMoviesResponseRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<Movie>> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _TopRatedMoviesResponseProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<Movie>>
+    with TopRatedMoviesResponseRef {
+  _TopRatedMoviesResponseProviderElement(super.provider);
+
+  @override
+  int get page => (origin as TopRatedMoviesResponseProvider).page;
+}
+
+String _$topRatedMoviesHash() => r'06a2211dd252846571e1a884da885a970f3bd717';
 
 /// See also [topRatedMovies].
 @ProviderFor(topRatedMovies)

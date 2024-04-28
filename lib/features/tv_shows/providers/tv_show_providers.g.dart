@@ -20,7 +20,7 @@ final tvShowRepoProvider = AutoDisposeProvider<TvShowRepo>.internal(
 );
 
 typedef TvShowRepoRef = AutoDisposeProviderRef<TvShowRepo>;
-String _$trendingTvShowsHash() => r'f1fb4b24201f75e32de4c3285bec2c7580d9faf2';
+String _$trendingTvShowsHash() => r'a80b4991c5002cf0c2b3ba866b99da577c3f4b77';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -170,8 +170,143 @@ class _TrendingTvShowsProviderElement
   TimeWindow get timeWindow => (origin as TrendingTvShowsProvider).timeWindow;
 }
 
+String _$airingTodayTvShowsResponseHash() =>
+    r'b2895937a69558bfde23a6c5a0d5f6542b02b4fd';
+
+/// See also [airingTodayTvShowsResponse].
+@ProviderFor(airingTodayTvShowsResponse)
+const airingTodayTvShowsResponseProvider = AiringTodayTvShowsResponseFamily();
+
+/// See also [airingTodayTvShowsResponse].
+class AiringTodayTvShowsResponseFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
+  /// See also [airingTodayTvShowsResponse].
+  const AiringTodayTvShowsResponseFamily();
+
+  /// See also [airingTodayTvShowsResponse].
+  AiringTodayTvShowsResponseProvider call({
+    int page = 1,
+  }) {
+    return AiringTodayTvShowsResponseProvider(
+      page: page,
+    );
+  }
+
+  @override
+  AiringTodayTvShowsResponseProvider getProviderOverride(
+    covariant AiringTodayTvShowsResponseProvider provider,
+  ) {
+    return call(
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'airingTodayTvShowsResponseProvider';
+}
+
+/// See also [airingTodayTvShowsResponse].
+class AiringTodayTvShowsResponseProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
+  /// See also [airingTodayTvShowsResponse].
+  AiringTodayTvShowsResponseProvider({
+    int page = 1,
+  }) : this._internal(
+          (ref) => airingTodayTvShowsResponse(
+            ref as AiringTodayTvShowsResponseRef,
+            page: page,
+          ),
+          from: airingTodayTvShowsResponseProvider,
+          name: r'airingTodayTvShowsResponseProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$airingTodayTvShowsResponseHash,
+          dependencies: AiringTodayTvShowsResponseFamily._dependencies,
+          allTransitiveDependencies:
+              AiringTodayTvShowsResponseFamily._allTransitiveDependencies,
+          page: page,
+        );
+
+  AiringTodayTvShowsResponseProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<TvShow>> Function(
+            AiringTodayTvShowsResponseRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AiringTodayTvShowsResponseProvider._internal(
+        (ref) => create(ref as AiringTodayTvShowsResponseRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
+    return _AiringTodayTvShowsResponseProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AiringTodayTvShowsResponseProvider && other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin AiringTodayTvShowsResponseRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _AiringTodayTvShowsResponseProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
+    with AiringTodayTvShowsResponseRef {
+  _AiringTodayTvShowsResponseProviderElement(super.provider);
+
+  @override
+  int get page => (origin as AiringTodayTvShowsResponseProvider).page;
+}
+
 String _$airingTodayTvShowsHash() =>
-    r'bdceee036f984133ada222fc06ab56df2908696d';
+    r'fb450dd2f9d44f50d24bb8274044b9ab3ebf9e53';
 
 /// See also [airingTodayTvShows].
 @ProviderFor(airingTodayTvShows)
@@ -301,7 +436,142 @@ class _AiringTodayTvShowsProviderElement
   int get page => (origin as AiringTodayTvShowsProvider).page;
 }
 
-String _$onTheAirTvShowsHash() => r'862fc6184af1ae2dc53d8fd804f759b13623b1ae';
+String _$onTheAirTvShowsResponseHash() =>
+    r'4d406e31d5a5f4d3e0c370b31eb39c84a7fa9b1e';
+
+/// See also [onTheAirTvShowsResponse].
+@ProviderFor(onTheAirTvShowsResponse)
+const onTheAirTvShowsResponseProvider = OnTheAirTvShowsResponseFamily();
+
+/// See also [onTheAirTvShowsResponse].
+class OnTheAirTvShowsResponseFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
+  /// See also [onTheAirTvShowsResponse].
+  const OnTheAirTvShowsResponseFamily();
+
+  /// See also [onTheAirTvShowsResponse].
+  OnTheAirTvShowsResponseProvider call({
+    int page = 1,
+  }) {
+    return OnTheAirTvShowsResponseProvider(
+      page: page,
+    );
+  }
+
+  @override
+  OnTheAirTvShowsResponseProvider getProviderOverride(
+    covariant OnTheAirTvShowsResponseProvider provider,
+  ) {
+    return call(
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'onTheAirTvShowsResponseProvider';
+}
+
+/// See also [onTheAirTvShowsResponse].
+class OnTheAirTvShowsResponseProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
+  /// See also [onTheAirTvShowsResponse].
+  OnTheAirTvShowsResponseProvider({
+    int page = 1,
+  }) : this._internal(
+          (ref) => onTheAirTvShowsResponse(
+            ref as OnTheAirTvShowsResponseRef,
+            page: page,
+          ),
+          from: onTheAirTvShowsResponseProvider,
+          name: r'onTheAirTvShowsResponseProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$onTheAirTvShowsResponseHash,
+          dependencies: OnTheAirTvShowsResponseFamily._dependencies,
+          allTransitiveDependencies:
+              OnTheAirTvShowsResponseFamily._allTransitiveDependencies,
+          page: page,
+        );
+
+  OnTheAirTvShowsResponseProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<TvShow>> Function(
+            OnTheAirTvShowsResponseRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: OnTheAirTvShowsResponseProvider._internal(
+        (ref) => create(ref as OnTheAirTvShowsResponseRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
+    return _OnTheAirTvShowsResponseProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OnTheAirTvShowsResponseProvider && other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin OnTheAirTvShowsResponseRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _OnTheAirTvShowsResponseProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
+    with OnTheAirTvShowsResponseRef {
+  _OnTheAirTvShowsResponseProviderElement(super.provider);
+
+  @override
+  int get page => (origin as OnTheAirTvShowsResponseProvider).page;
+}
+
+String _$onTheAirTvShowsHash() => r'6e7ac0fabcbdb9b959950a8462967daf804a6a18';
 
 /// See also [onTheAirTvShows].
 @ProviderFor(onTheAirTvShows)
@@ -430,7 +700,142 @@ class _OnTheAirTvShowsProviderElement
   int get page => (origin as OnTheAirTvShowsProvider).page;
 }
 
-String _$popularTvShowsHash() => r'08aeff9d58fb28aef550198b2d030f6dde5183ce';
+String _$popularTvShowsResponseHash() =>
+    r'eddb66a38ea36ed65a98ca39ed6bd820a8d632df';
+
+/// See also [popularTvShowsResponse].
+@ProviderFor(popularTvShowsResponse)
+const popularTvShowsResponseProvider = PopularTvShowsResponseFamily();
+
+/// See also [popularTvShowsResponse].
+class PopularTvShowsResponseFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
+  /// See also [popularTvShowsResponse].
+  const PopularTvShowsResponseFamily();
+
+  /// See also [popularTvShowsResponse].
+  PopularTvShowsResponseProvider call({
+    int page = 1,
+  }) {
+    return PopularTvShowsResponseProvider(
+      page: page,
+    );
+  }
+
+  @override
+  PopularTvShowsResponseProvider getProviderOverride(
+    covariant PopularTvShowsResponseProvider provider,
+  ) {
+    return call(
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'popularTvShowsResponseProvider';
+}
+
+/// See also [popularTvShowsResponse].
+class PopularTvShowsResponseProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
+  /// See also [popularTvShowsResponse].
+  PopularTvShowsResponseProvider({
+    int page = 1,
+  }) : this._internal(
+          (ref) => popularTvShowsResponse(
+            ref as PopularTvShowsResponseRef,
+            page: page,
+          ),
+          from: popularTvShowsResponseProvider,
+          name: r'popularTvShowsResponseProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$popularTvShowsResponseHash,
+          dependencies: PopularTvShowsResponseFamily._dependencies,
+          allTransitiveDependencies:
+              PopularTvShowsResponseFamily._allTransitiveDependencies,
+          page: page,
+        );
+
+  PopularTvShowsResponseProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<TvShow>> Function(
+            PopularTvShowsResponseRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: PopularTvShowsResponseProvider._internal(
+        (ref) => create(ref as PopularTvShowsResponseRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
+    return _PopularTvShowsResponseProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PopularTvShowsResponseProvider && other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin PopularTvShowsResponseRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _PopularTvShowsResponseProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
+    with PopularTvShowsResponseRef {
+  _PopularTvShowsResponseProviderElement(super.provider);
+
+  @override
+  int get page => (origin as PopularTvShowsResponseProvider).page;
+}
+
+String _$popularTvShowsHash() => r'2b60e26a1324f824b1a96d918fbd00f6f02be791';
 
 /// See also [popularTvShows].
 @ProviderFor(popularTvShows)
@@ -559,7 +964,142 @@ class _PopularTvShowsProviderElement
   int get page => (origin as PopularTvShowsProvider).page;
 }
 
-String _$topRatedTvShowsHash() => r'1f5cf52903b0b81627aff440da0079abcad326d8';
+String _$topRatedTvShowsResponseHash() =>
+    r'353599ea6cb4e6696e9d9b5cd76f528dae97df2d';
+
+/// See also [topRatedTvShowsResponse].
+@ProviderFor(topRatedTvShowsResponse)
+const topRatedTvShowsResponseProvider = TopRatedTvShowsResponseFamily();
+
+/// See also [topRatedTvShowsResponse].
+class TopRatedTvShowsResponseFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
+  /// See also [topRatedTvShowsResponse].
+  const TopRatedTvShowsResponseFamily();
+
+  /// See also [topRatedTvShowsResponse].
+  TopRatedTvShowsResponseProvider call({
+    int page = 1,
+  }) {
+    return TopRatedTvShowsResponseProvider(
+      page: page,
+    );
+  }
+
+  @override
+  TopRatedTvShowsResponseProvider getProviderOverride(
+    covariant TopRatedTvShowsResponseProvider provider,
+  ) {
+    return call(
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'topRatedTvShowsResponseProvider';
+}
+
+/// See also [topRatedTvShowsResponse].
+class TopRatedTvShowsResponseProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
+  /// See also [topRatedTvShowsResponse].
+  TopRatedTvShowsResponseProvider({
+    int page = 1,
+  }) : this._internal(
+          (ref) => topRatedTvShowsResponse(
+            ref as TopRatedTvShowsResponseRef,
+            page: page,
+          ),
+          from: topRatedTvShowsResponseProvider,
+          name: r'topRatedTvShowsResponseProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$topRatedTvShowsResponseHash,
+          dependencies: TopRatedTvShowsResponseFamily._dependencies,
+          allTransitiveDependencies:
+              TopRatedTvShowsResponseFamily._allTransitiveDependencies,
+          page: page,
+        );
+
+  TopRatedTvShowsResponseProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<TvShow>> Function(
+            TopRatedTvShowsResponseRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: TopRatedTvShowsResponseProvider._internal(
+        (ref) => create(ref as TopRatedTvShowsResponseRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
+    return _TopRatedTvShowsResponseProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TopRatedTvShowsResponseProvider && other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin TopRatedTvShowsResponseRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _TopRatedTvShowsResponseProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
+    with TopRatedTvShowsResponseRef {
+  _TopRatedTvShowsResponseProviderElement(super.provider);
+
+  @override
+  int get page => (origin as TopRatedTvShowsResponseProvider).page;
+}
+
+String _$topRatedTvShowsHash() => r'e944fb552adbf951e18d4a562783b39c7ff52040';
 
 /// See also [topRatedTvShows].
 @ProviderFor(topRatedTvShows)
@@ -688,7 +1228,7 @@ class _TopRatedTvShowsProviderElement
   int get page => (origin as TopRatedTvShowsProvider).page;
 }
 
-String _$tvShowDetailsHash() => r'2f9c32c44db11503906b7c76f3ae5e249247f637';
+String _$tvShowDetailsHash() => r'13a5c6392eaad6552fa8f5d35bbbe858d8193b18';
 
 /// See also [tvShowDetails].
 @ProviderFor(tvShowDetails)
@@ -818,7 +1358,7 @@ class _TvShowDetailsProviderElement
 }
 
 String _$tvShowSeasonDetailsHash() =>
-    r'16fd80b4ec99517b73ef52f2441e697ace4ebb3a';
+    r'3bd85bb344d515ee42303bc33e5e4704bb1a1ec1';
 
 /// See also [tvShowSeasonDetails].
 @ProviderFor(tvShowSeasonDetails)

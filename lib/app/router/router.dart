@@ -4,8 +4,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/movies/pages/movie_details_page.dart';
 import '../../features/movies/pages/movie_home_page.dart';
+import '../../features/movies/pages/popular_movies_page.dart';
+import '../../features/movies/pages/top_rated_movies_page.dart';
+import '../../features/movies/pages/upcoming_movies_page.dart';
 import '../../features/profile/pages/profile_page.dart';
 import '../../features/search/pages/search_page.dart';
+import '../../features/tv_shows/pages/on_the_air_tv_shows_page.dart';
+import '../../features/tv_shows/pages/popular_tv_shows_page.dart';
+import '../../features/tv_shows/pages/top_rated_tv_shows_page.dart';
 import '../../features/tv_shows/pages/tv_show_details_page.dart';
 import '../../features/tv_shows/pages/tv_show_home_page.dart';
 import '../../features/tv_shows/pages/tv_show_season_details_page.dart';
@@ -83,6 +89,9 @@ class MovieHomeRouteData extends GoRouteData {
     TypedGoRoute<MovieHomeRouteData>(
       path: '/movies',
       routes: [
+        TypedGoRoute<PopularMoviesRouteData>(path: 'popular'),
+        TypedGoRoute<UpcomingMoviesRouteData>(path: 'upcoming'),
+        TypedGoRoute<TopRatedMoviesRouteData>(path: 'top-rated'),
         TypedGoRoute<MovieDetailsRouteData>(path: ':movieId'),
       ],
     ),
@@ -112,6 +121,39 @@ class MovieDetailsRouteData extends GoRouteData {
   }
 }
 
+class PopularMoviesRouteData extends GoRouteData {
+  const PopularMoviesRouteData();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const PopularMoviesPage();
+  }
+}
+
+class UpcomingMoviesRouteData extends GoRouteData {
+  const UpcomingMoviesRouteData();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const UpcomingMoviesPage();
+  }
+}
+
+class TopRatedMoviesRouteData extends GoRouteData {
+  const TopRatedMoviesRouteData();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const TopRatedMoviesPage();
+  }
+}
+
 class TvShowHomeRouteData extends GoRouteData {
   const TvShowHomeRouteData();
 
@@ -119,6 +161,9 @@ class TvShowHomeRouteData extends GoRouteData {
     TypedGoRoute<TvShowHomeRouteData>(
       path: '/tv-shows',
       routes: [
+        TypedGoRoute<OnTheAirTvShowsRouteData>(path: 'on-the-air'),
+        TypedGoRoute<PopularTvShowsRouteData>(path: 'popular'),
+        TypedGoRoute<TopRatedTvShowsRouteData>(path: 'top-rated'),
         TypedGoRoute<TvShowDetailsRouteData>(
           path: ':tvShowId',
           routes: [TypedGoRoute<TvShowSeasonDetailsRouteData>(path: 'season/:seasonNumber')],
@@ -171,6 +216,39 @@ class TvShowSeasonDetailsRouteData extends GoRouteData {
       pageKey: state.pageKey,
       child: TvShowSeasonDetailsPage(tvShowId: tvShowId, seasonNumber: seasonNumber),
     );
+  }
+}
+
+class OnTheAirTvShowsRouteData extends GoRouteData {
+  const OnTheAirTvShowsRouteData();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const OnTheAirTvShowsPage();
+  }
+}
+
+class PopularTvShowsRouteData extends GoRouteData {
+  const PopularTvShowsRouteData();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const PopularTvShowsPage();
+  }
+}
+
+class TopRatedTvShowsRouteData extends GoRouteData {
+  const TopRatedTvShowsRouteData();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const TopRatedTvShowsPage();
   }
 }
 

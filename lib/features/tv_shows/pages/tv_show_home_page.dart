@@ -23,7 +23,7 @@ class TvShowHomePage extends ConsumerWidget {
     final trendingTvShows = ref.watch(trendingTvShowsProvider(timeWindow: TimeWindow.day));
     // final airingTodayTvShows = ref.watch(airingTodayTvShowsProvider(page: 1));
     final onTheAirTvShows = ref.watch(onTheAirTvShowsProvider(page: 1));
-    // final popularTvShows = ref.watch(popularTvShowsProvider(page: 1));
+    final popularTvShows = ref.watch(popularTvShowsProvider(page: 1));
     final topRatedTvShows = ref.watch(topRatedTvShowsProvider(page: 1));
 
     return SizedBox.expand(
@@ -36,12 +36,9 @@ class TvShowHomePage extends ConsumerWidget {
             Expanded(
               child: CustomScrollView(
                 slivers: [
-                  SliverToBoxAdapter(
+                  const SliverToBoxAdapter(
                     child: SectionTitle(
-                      title: const Text('Trending'),
-                      trailing: SeeAllButton(
-                        onPressed: () {},
-                      ),
+                      title: Text('Trending Today'),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -62,7 +59,7 @@ class TvShowHomePage extends ConsumerWidget {
                     child: SectionTitle(
                       title: const Text('On The Air'),
                       trailing: SeeAllButton(
-                        onPressed: () {},
+                        onPressed: () => const OnTheAirTvShowsRouteData().go(context),
                       ),
                     ),
                   ),
@@ -80,9 +77,29 @@ class TvShowHomePage extends ConsumerWidget {
                   const SliverDivider(),
                   SliverToBoxAdapter(
                     child: SectionTitle(
+                      title: const Text('Popular'),
+                      trailing: SeeAllButton(
+                        onPressed: () => const PopularTvShowsRouteData().go(context),
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: AsyncValueCarousel(
+                      asyncItems: popularTvShows,
+                      itemAspectRatio: 5 / 9,
+                      itemBuilder: (context, itemIndex, tvShow) => TvShowCard(
+                        tvShow: tvShow,
+                        onTap: () => TvShowDetailsRouteData(tvShowId: tvShow.id).go(context),
+                      ),
+                      loadingBuilder: (context, index) => const TvShowSkeleton(),
+                    ),
+                  ),
+                  const SliverDivider(),
+                  SliverToBoxAdapter(
+                    child: SectionTitle(
                       title: const Text('Top Rated'),
                       trailing: SeeAllButton(
-                        onPressed: () {},
+                        onPressed: () => const TopRatedTvShowsRouteData().go(context),
                       ),
                     ),
                   ),

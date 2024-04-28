@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../tmdb/tmdb_client_provider.dart';
 import '../../../tmdb/tmdb_options.dart';
+import '../../common/models/paginated_response.dart';
 import '../../common/utils/riverpod.dart';
 import '../models/tv_show_details.dart';
 import '../models/tv_show_season_details.dart';
@@ -22,10 +23,23 @@ Future<List<TvShow>> trendingTvShows(
 }) async {
   final repo = ref.watch(tvShowRepoProvider);
   final language = ref.watch(tmdbLanguageProvider);
-  final tvShows = await repo.getTrendingTvShows(language: language, timeWindow: timeWindow);
+  final response = await repo.getTrendingTvShows(language: language, timeWindow: timeWindow);
   ref.delayDispose(const Duration(hours: 1));
 
-  return tvShows;
+  return response.results;
+}
+
+@riverpod
+Future<PaginatedResponse<TvShow>> airingTodayTvShowsResponse(
+  AiringTodayTvShowsResponseRef ref, {
+  int page = 1,
+}) async {
+  final repo = ref.watch(tvShowRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final response = await repo.getAiringTodayTvShows(page: page, language: language);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response;
 }
 
 @riverpod
@@ -33,12 +47,23 @@ Future<List<TvShow>> airingTodayTvShows(
   AiringTodayTvShowsRef ref, {
   int page = 1,
 }) async {
-  final repo = ref.watch(tvShowRepoProvider);
-  final language = ref.watch(tmdbLanguageProvider);
-  final tvShows = await repo.getAiringTodayTvShows(page: page, language: language);
+  final response = await ref.watch(airingTodayTvShowsResponseProvider(page: page).future);
   ref.delayDispose(const Duration(hours: 1));
 
-  return tvShows;
+  return response.results;
+}
+
+@riverpod
+Future<PaginatedResponse<TvShow>> onTheAirTvShowsResponse(
+  OnTheAirTvShowsResponseRef ref, {
+  int page = 1,
+}) async {
+  final repo = ref.watch(tvShowRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final response = await repo.getOnTheAirTvShows(page: page, language: language);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response;
 }
 
 @riverpod
@@ -46,12 +71,23 @@ Future<List<TvShow>> onTheAirTvShows(
   OnTheAirTvShowsRef ref, {
   int page = 1,
 }) async {
-  final repo = ref.watch(tvShowRepoProvider);
-  final language = ref.watch(tmdbLanguageProvider);
-  final tvShows = await repo.getOnTheAirTvShows(page: page, language: language);
+  final response = await ref.watch(onTheAirTvShowsResponseProvider(page: page).future);
   ref.delayDispose(const Duration(hours: 1));
 
-  return tvShows;
+  return response.results;
+}
+
+@riverpod
+Future<PaginatedResponse<TvShow>> popularTvShowsResponse(
+  PopularTvShowsResponseRef ref, {
+  int page = 1,
+}) async {
+  final repo = ref.watch(tvShowRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final response = await repo.getPopularTvShows(page: page, language: language);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response;
 }
 
 @riverpod
@@ -59,12 +95,23 @@ Future<List<TvShow>> popularTvShows(
   PopularTvShowsRef ref, {
   int page = 1,
 }) async {
-  final repo = ref.watch(tvShowRepoProvider);
-  final language = ref.watch(tmdbLanguageProvider);
-  final tvShows = await repo.getPopularTvShows(page: page, language: language);
+  final response = await ref.watch(popularTvShowsResponseProvider(page: page).future);
   ref.delayDispose(const Duration(hours: 1));
 
-  return tvShows;
+  return response.results;
+}
+
+@riverpod
+Future<PaginatedResponse<TvShow>> topRatedTvShowsResponse(
+  TopRatedTvShowsResponseRef ref, {
+  int page = 1,
+}) async {
+  final repo = ref.watch(tvShowRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final response = await repo.getTopRatedTvShows(page: page, language: language);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response;
 }
 
 @riverpod
@@ -72,12 +119,10 @@ Future<List<TvShow>> topRatedTvShows(
   TopRatedTvShowsRef ref, {
   int page = 1,
 }) async {
-  final repo = ref.watch(tvShowRepoProvider);
-  final language = ref.watch(tmdbLanguageProvider);
-  final tvShows = await repo.getTopRatedTvShows(page: page, language: language);
+  final response = await ref.watch(topRatedTvShowsResponseProvider(page: page).future);
   ref.delayDispose(const Duration(hours: 1));
 
-  return tvShows;
+  return response.results;
 }
 
 @riverpod
@@ -87,10 +132,10 @@ Future<TvShowDetails> tvShowDetails(
 }) async {
   final repo = ref.watch(tvShowRepoProvider);
   final language = ref.watch(tmdbLanguageProvider);
-  final tvShow = await repo.getTvShowDetails(tvShowId: tvShowId, language: language);
+  final details = await repo.getTvShowDetails(tvShowId: tvShowId, language: language);
   ref.delayDispose(const Duration(hours: 1));
 
-  return tvShow;
+  return details;
 }
 
 @riverpod
@@ -101,8 +146,9 @@ Future<TvShowSeasonDetails> tvShowSeasonDetails(
 }) async {
   final repo = ref.watch(tvShowRepoProvider);
   final language = ref.watch(tmdbLanguageProvider);
-  final season = await repo.getTvShowSeasonDetails(tvShowId: tvShowId, seasonNumber: seasonNumber, language: language);
+  final seasonDetails =
+      await repo.getTvShowSeasonDetails(tvShowId: tvShowId, seasonNumber: seasonNumber, language: language);
   ref.delayDispose(const Duration(hours: 1));
 
-  return season;
+  return seasonDetails;
 }

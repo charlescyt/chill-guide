@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../tmdb/tmdb_client_provider.dart';
 import '../../../tmdb/tmdb_options.dart';
+import '../../common/models/paginated_response.dart';
 import '../../common/utils/riverpod.dart';
 import '../models/movie_details.dart';
 import '../repos/movie_repo.dart';
@@ -21,10 +22,24 @@ Future<List<Movie>> trendingMovies(
 }) async {
   final repo = ref.watch(movieRepoProvider);
   final language = ref.watch(tmdbLanguageProvider);
-  final movies = await repo.getTrendingMovies(language: language, timeWindow: timeWindow);
+  final response = await repo.getTrendingMovies(language: language, timeWindow: timeWindow);
   ref.delayDispose(const Duration(hours: 1));
 
-  return movies;
+  return response.results;
+}
+
+@riverpod
+Future<PaginatedResponse<Movie>> popularMoviesResponse(
+  PopularMoviesResponseRef ref, {
+  int page = 1,
+}) async {
+  final repo = ref.watch(movieRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final region = ref.watch(tmdbRegionProvider);
+  final response = await repo.getPopularMovies(page: page, language: language, region: region);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response;
 }
 
 @riverpod
@@ -32,13 +47,24 @@ Future<List<Movie>> popularMovies(
   PopularMoviesRef ref, {
   int page = 1,
 }) async {
+  final response = await ref.watch(popularMoviesResponseProvider(page: page).future);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response.results;
+}
+
+@riverpod
+Future<PaginatedResponse<Movie>> upcomingMoviesResponse(
+  UpcomingMoviesResponseRef ref, {
+  int page = 1,
+}) async {
   final repo = ref.watch(movieRepoProvider);
   final language = ref.watch(tmdbLanguageProvider);
   final region = ref.watch(tmdbRegionProvider);
-  final movies = await repo.getPopularMovies(page: page, language: language, region: region);
+  final response = await repo.getUpcomingMovies(page: page, language: language, region: region);
   ref.delayDispose(const Duration(hours: 1));
 
-  return movies;
+  return response;
 }
 
 @riverpod
@@ -46,13 +72,24 @@ Future<List<Movie>> upcomingMovies(
   UpcomingMoviesRef ref, {
   int page = 1,
 }) async {
+  final response = await ref.watch(upcomingMoviesResponseProvider(page: page).future);
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response.results;
+}
+
+@riverpod
+Future<PaginatedResponse<Movie>> topRatedMoviesResponse(
+  TopRatedMoviesResponseRef ref, {
+  int page = 1,
+}) async {
   final repo = ref.watch(movieRepoProvider);
   final language = ref.watch(tmdbLanguageProvider);
   final region = ref.watch(tmdbRegionProvider);
-  final movies = await repo.getUpcomingMovies(page: page, language: language, region: region);
+  final response = await repo.getTopRatedMovies(page: page, language: language, region: region);
   ref.delayDispose(const Duration(hours: 1));
 
-  return movies;
+  return response;
 }
 
 @riverpod
@@ -60,13 +97,10 @@ Future<List<Movie>> topRatedMovies(
   TopRatedMoviesRef ref, {
   int page = 1,
 }) async {
-  final repo = ref.watch(movieRepoProvider);
-  final language = ref.watch(tmdbLanguageProvider);
-  final region = ref.watch(tmdbRegionProvider);
-  final movies = await repo.getTopRatedMovies(page: page, language: language, region: region);
+  final response = await ref.watch(topRatedMoviesResponseProvider(page: page).future);
   ref.delayDispose(const Duration(hours: 1));
 
-  return movies;
+  return response.results;
 }
 
 @riverpod

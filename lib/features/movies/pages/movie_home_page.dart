@@ -36,12 +36,9 @@ class MovieHomePage extends ConsumerWidget {
             Expanded(
               child: CustomScrollView(
                 slivers: [
-                  SliverToBoxAdapter(
+                  const SliverToBoxAdapter(
                     child: SectionTitle(
-                      title: const Text('Trending'),
-                      trailing: SeeAllButton(
-                        onPressed: () {},
-                      ),
+                      title: Text('Trending Today'),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -62,7 +59,7 @@ class MovieHomePage extends ConsumerWidget {
                     child: SectionTitle(
                       title: const Text('Popular'),
                       trailing: SeeAllButton(
-                        onPressed: () {},
+                        onPressed: () => const PopularMoviesRouteData().go(context),
                       ),
                     ),
                   ),
@@ -82,7 +79,7 @@ class MovieHomePage extends ConsumerWidget {
                     child: SectionTitle(
                       title: const Text('Upcoming'),
                       trailing: SeeAllButton(
-                        onPressed: () {},
+                        onPressed: () => const UpcomingMoviesRouteData().go(context),
                       ),
                     ),
                   ),
@@ -102,7 +99,7 @@ class MovieHomePage extends ConsumerWidget {
                     child: SectionTitle(
                       title: const Text('Top Rated'),
                       trailing: SeeAllButton(
-                        onPressed: () {},
+                        onPressed: () => const TopRatedMoviesRouteData().go(context),
                       ),
                     ),
                   ),

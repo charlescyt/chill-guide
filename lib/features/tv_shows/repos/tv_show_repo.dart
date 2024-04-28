@@ -2,6 +2,7 @@ import 'package:meta/meta.dart' show immutable;
 
 import '../../../tmdb/tmdb_client.dart';
 import '../../../tmdb/tmdb_options.dart';
+import '../../common/models/paginated_response.dart';
 import '../models/tv_show_details.dart';
 import '../models/tv_show_season_details.dart';
 
@@ -13,7 +14,7 @@ class TvShowRepo {
     required TmdbClient client,
   }) : _client = client;
 
-  Future<List<TvShow>> getTrendingTvShows({
+  Future<PaginatedResponse<TvShow>> getTrendingTvShows({
     String language = 'en-US',
     TimeWindow timeWindow = TimeWindow.day,
   }) async {
@@ -23,10 +24,10 @@ class TvShowRepo {
       timeWindow: timeWindow,
     );
 
-    return (json['results'] as List).cast<Json>().map(TvShow.fromTmdb).toList();
+    return PaginatedResponse.fromTmdb(json, TvShow.fromTmdb);
   }
 
-  Future<List<TvShow>> getAiringTodayTvShows({
+  Future<PaginatedResponse<TvShow>> getAiringTodayTvShows({
     int page = 1,
     String language = 'en-US',
   }) async {
@@ -36,10 +37,10 @@ class TvShowRepo {
       language: language,
     );
 
-    return (json['results'] as List).cast<Json>().map(TvShow.fromTmdb).toList();
+    return PaginatedResponse.fromTmdb(json, TvShow.fromTmdb);
   }
 
-  Future<List<TvShow>> getOnTheAirTvShows({
+  Future<PaginatedResponse<TvShow>> getOnTheAirTvShows({
     int page = 1,
     String language = 'en-US',
   }) async {
@@ -49,10 +50,10 @@ class TvShowRepo {
       language: language,
     );
 
-    return (json['results'] as List).cast<Json>().map(TvShow.fromTmdb).toList();
+    return PaginatedResponse.fromTmdb(json, TvShow.fromTmdb);
   }
 
-  Future<List<TvShow>> getPopularTvShows({
+  Future<PaginatedResponse<TvShow>> getPopularTvShows({
     int page = 1,
     String language = 'en-US',
   }) async {
@@ -62,10 +63,10 @@ class TvShowRepo {
       language: language,
     );
 
-    return (json['results'] as List).cast<Json>().map(TvShow.fromTmdb).toList();
+    return PaginatedResponse<TvShow>.fromTmdb(json, TvShow.fromTmdb);
   }
 
-  Future<List<TvShow>> getTopRatedTvShows({
+  Future<PaginatedResponse<TvShow>> getTopRatedTvShows({
     int page = 1,
     String language = 'en-US',
   }) async {
@@ -75,7 +76,7 @@ class TvShowRepo {
       language: language,
     );
 
-    return (json['results'] as List).cast<Json>().map(TvShow.fromTmdb).toList();
+    return PaginatedResponse<TvShow>.fromTmdb(json, TvShow.fromTmdb);
   }
 
   Future<TvShowDetails> getTvShowDetails({
