@@ -89,6 +89,12 @@ class PaginatedListView<T> extends ConsumerWidget {
 
           // Handle the case when the async value is still loading.
           default:
+            // If it is the first page, simply return the placeholder widget for
+            // all items in the current page using the provided placeholderBuilder.
+            if (page == 1) {
+              return placeholderBuilder(context);
+            }
+
             // Check if the next page of the paginated response has already been loaded.
             final isNextPageLoaded = isNextPageLoadedCb(ref, page);
 
@@ -198,6 +204,12 @@ class SliverPaginatedListView<T> extends ConsumerWidget {
 
           // Handle the case when the async value is still loading.
           default:
+            // If it is the first page, simply return the placeholder widget for
+            // all items in the current page using the provided placeholderBuilder.
+            if (page == 1) {
+              return placeholderBuilder(context);
+            }
+
             // Check if the next page of the paginated response has already been loaded.
             final isNextPageLoaded = isNextPageLoadedCb(ref, page);
 
