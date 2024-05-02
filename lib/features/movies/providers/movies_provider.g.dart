@@ -572,6 +572,158 @@ class _TopRatedMoviesProviderElement
   int get page => (origin as TopRatedMoviesProvider).page;
 }
 
+String _$discoverMoviesWithGenreHash() =>
+    r'5c2187f7f1d377b57ab2d64103dd55ca9a62938a';
+
+/// See also [discoverMoviesWithGenre].
+@ProviderFor(discoverMoviesWithGenre)
+const discoverMoviesWithGenreProvider = DiscoverMoviesWithGenreFamily();
+
+/// See also [discoverMoviesWithGenre].
+class DiscoverMoviesWithGenreFamily
+    extends Family<AsyncValue<PaginatedResponse<Movie>>> {
+  /// See also [discoverMoviesWithGenre].
+  const DiscoverMoviesWithGenreFamily();
+
+  /// See also [discoverMoviesWithGenre].
+  DiscoverMoviesWithGenreProvider call({
+    required int genreId,
+    int page = 1,
+  }) {
+    return DiscoverMoviesWithGenreProvider(
+      genreId: genreId,
+      page: page,
+    );
+  }
+
+  @override
+  DiscoverMoviesWithGenreProvider getProviderOverride(
+    covariant DiscoverMoviesWithGenreProvider provider,
+  ) {
+    return call(
+      genreId: provider.genreId,
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'discoverMoviesWithGenreProvider';
+}
+
+/// See also [discoverMoviesWithGenre].
+class DiscoverMoviesWithGenreProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<Movie>> {
+  /// See also [discoverMoviesWithGenre].
+  DiscoverMoviesWithGenreProvider({
+    required int genreId,
+    int page = 1,
+  }) : this._internal(
+          (ref) => discoverMoviesWithGenre(
+            ref as DiscoverMoviesWithGenreRef,
+            genreId: genreId,
+            page: page,
+          ),
+          from: discoverMoviesWithGenreProvider,
+          name: r'discoverMoviesWithGenreProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$discoverMoviesWithGenreHash,
+          dependencies: DiscoverMoviesWithGenreFamily._dependencies,
+          allTransitiveDependencies:
+              DiscoverMoviesWithGenreFamily._allTransitiveDependencies,
+          genreId: genreId,
+          page: page,
+        );
+
+  DiscoverMoviesWithGenreProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.genreId,
+    required this.page,
+  }) : super.internal();
+
+  final int genreId;
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<Movie>> Function(
+            DiscoverMoviesWithGenreRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: DiscoverMoviesWithGenreProvider._internal(
+        (ref) => create(ref as DiscoverMoviesWithGenreRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        genreId: genreId,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<Movie>> createElement() {
+    return _DiscoverMoviesWithGenreProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DiscoverMoviesWithGenreProvider &&
+        other.genreId == genreId &&
+        other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, genreId.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DiscoverMoviesWithGenreRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<Movie>> {
+  /// The parameter `genreId` of this provider.
+  int get genreId;
+
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _DiscoverMoviesWithGenreProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<Movie>>
+    with DiscoverMoviesWithGenreRef {
+  _DiscoverMoviesWithGenreProviderElement(super.provider);
+
+  @override
+  int get genreId => (origin as DiscoverMoviesWithGenreProvider).genreId;
+  @override
+  int get page => (origin as DiscoverMoviesWithGenreProvider).page;
+}
+
 String _$movieDetailsHash() => r'b2fb748d82c96ecfa1fd8dddeca81aed280c2103';
 
 /// See also [movieDetails].

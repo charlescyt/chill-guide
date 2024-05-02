@@ -129,7 +129,7 @@ class TvShowHomePage extends ConsumerWidget {
                       final genre = TvShowGenre.values[index];
                       return GenreCard.tvShow(
                         genre: genre,
-                        onTap: () {},
+                        onTap: () => GenreTvShowsRouteData(genreId: genre.tmdbId).go(context),
                       );
                     },
                   ),

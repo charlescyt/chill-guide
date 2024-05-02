@@ -130,7 +130,7 @@ class MovieHomePage extends ConsumerWidget {
                       final genre = MovieGenre.values[index];
                       return GenreCard.movie(
                         genre: genre,
-                        onTap: () {},
+                        onTap: () => GenreMoviesRouteData(genreId: genre.tmdbId).go(context),
                       );
                     },
                   ),

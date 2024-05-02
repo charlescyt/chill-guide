@@ -81,6 +81,23 @@ class TmdbClient {
     return json;
   }
 
+  Future<Json> discoverMovies({
+    int page = 1,
+    String language = 'en-US',
+    String region = 'US',
+    required Map<String, dynamic> filters,
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+      'region': region,
+      ...filters,
+    };
+    final json = await _get(TmdbConstants.discoverMovies, queryParameters: queryParameters);
+
+    return json;
+  }
+
   Future<Json> getMovieDetails({
     required int movieId,
     String language = 'en-US',
@@ -184,6 +201,23 @@ class TvShowEndpoint {
       'language': language,
     };
     final json = await _client._get(TmdbConstants.topRatedTvShows, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> discoverTvShows({
+    int page = 1,
+    String language = 'en-US',
+    String region = 'US',
+    required Map<String, dynamic> filters,
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+      'region': region,
+      ...filters,
+    };
+    final json = await _client._get(TmdbConstants.discoverTvShows, queryParameters: queryParameters);
 
     return json;
   }

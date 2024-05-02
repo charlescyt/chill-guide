@@ -74,6 +74,26 @@ Future<PaginatedResponse<Movie>> topRatedMovies(
 }
 
 @riverpod
+Future<PaginatedResponse<Movie>> discoverMoviesWithGenre(
+  DiscoverMoviesWithGenreRef ref, {
+  required int genreId,
+  int page = 1,
+}) async {
+  final repo = ref.watch(movieRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final region = ref.watch(tmdbRegionProvider);
+  final response = await repo.discoverMoviesWithGenre(
+    genreId: genreId,
+    page: page,
+    language: language,
+    region: region,
+  );
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response;
+}
+
+@riverpod
 Future<MovieDetails> movieDetails(
   MovieDetailsRef ref, {
   required int movieId,

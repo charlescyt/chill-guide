@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../features/movies/pages/genre_movies_page.dart';
 import '../../features/movies/pages/movie_details_page.dart';
 import '../../features/movies/pages/movie_home_page.dart';
 import '../../features/movies/pages/popular_movies_page.dart';
@@ -9,6 +10,7 @@ import '../../features/movies/pages/top_rated_movies_page.dart';
 import '../../features/movies/pages/upcoming_movies_page.dart';
 import '../../features/profile/pages/profile_page.dart';
 import '../../features/search/pages/search_page.dart';
+import '../../features/tv_shows/pages/genre_tv_shows_page.dart';
 import '../../features/tv_shows/pages/on_the_air_tv_shows_page.dart';
 import '../../features/tv_shows/pages/popular_tv_shows_page.dart';
 import '../../features/tv_shows/pages/top_rated_tv_shows_page.dart';
@@ -93,6 +95,7 @@ class MovieHomeRouteData extends GoRouteData {
         TypedGoRoute<UpcomingMoviesRouteData>(path: 'upcoming'),
         TypedGoRoute<TopRatedMoviesRouteData>(path: 'top-rated'),
         TypedGoRoute<MovieDetailsRouteData>(path: ':movieId'),
+        TypedGoRoute<GenreMoviesRouteData>(path: 'genre/:genreId'),
       ],
     ),
   ];
@@ -154,6 +157,21 @@ class TopRatedMoviesRouteData extends GoRouteData {
   }
 }
 
+class GenreMoviesRouteData extends GoRouteData {
+  const GenreMoviesRouteData({
+    required this.genreId,
+  });
+
+  final int genreId;
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return GenreMoviesPage(genreId: genreId);
+  }
+}
+
 class TvShowHomeRouteData extends GoRouteData {
   const TvShowHomeRouteData();
 
@@ -164,6 +182,7 @@ class TvShowHomeRouteData extends GoRouteData {
         TypedGoRoute<OnTheAirTvShowsRouteData>(path: 'on-the-air'),
         TypedGoRoute<PopularTvShowsRouteData>(path: 'popular'),
         TypedGoRoute<TopRatedTvShowsRouteData>(path: 'top-rated'),
+        TypedGoRoute<GenreTvShowsRouteData>(path: 'genre/:genreId'),
         TypedGoRoute<TvShowDetailsRouteData>(
           path: ':tvShowId',
           routes: [TypedGoRoute<TvShowSeasonDetailsRouteData>(path: 'season/:seasonNumber')],
@@ -249,6 +268,21 @@ class TopRatedTvShowsRouteData extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const TopRatedTvShowsPage();
+  }
+}
+
+class GenreTvShowsRouteData extends GoRouteData {
+  const GenreTvShowsRouteData({
+    required this.genreId,
+  });
+
+  final int genreId;
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return GenreTvShowsPage(genreId: genreId);
   }
 }
 

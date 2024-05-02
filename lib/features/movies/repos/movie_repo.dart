@@ -71,6 +71,26 @@ class MovieRepo {
     return PaginatedResponse.fromTmdb(json, Movie.fromTmdb);
   }
 
+  Future<PaginatedResponse<Movie>> discoverMoviesWithGenre({
+    required int genreId,
+    int page = 1,
+    String language = 'en-US',
+    String region = 'US',
+  }) async {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    final json = await _client.discoverMovies(
+      page: page,
+      language: language,
+      region: region,
+      filters: {
+        'with_genres': '$genreId',
+        'sort_by': 'popularity.desc',
+      },
+    );
+
+    return PaginatedResponse.fromTmdb(json, Movie.fromTmdb);
+  }
+
   Future<MovieDetails> getMovieDetails({
     required int movieId,
     String language = 'en-US',

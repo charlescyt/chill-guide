@@ -86,6 +86,26 @@ Future<PaginatedResponse<TvShow>> topRatedTvShows(
 }
 
 @riverpod
+Future<PaginatedResponse<TvShow>> discoverTvShowsWithGenre(
+  DiscoverTvShowsWithGenreRef ref, {
+  required int genreId,
+  int page = 1,
+}) async {
+  final repo = ref.watch(tvShowRepoProvider);
+  final language = ref.watch(tmdbLanguageProvider);
+  final region = ref.watch(tmdbRegionProvider);
+  final response = await repo.discoverTvShowsWithGenre(
+    genreId: genreId,
+    page: page,
+    region: region,
+    language: language,
+  );
+  ref.delayDispose(const Duration(hours: 1));
+
+  return response;
+}
+
+@riverpod
 Future<TvShowDetails> tvShowDetails(
   TvShowDetailsRef ref, {
   required int tvShowId,

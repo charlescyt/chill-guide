@@ -707,6 +707,158 @@ class _TopRatedTvShowsProviderElement
   int get page => (origin as TopRatedTvShowsProvider).page;
 }
 
+String _$discoverTvShowsWithGenreHash() =>
+    r'1dd6d33bdd996df016e760436e915029d4be6b75';
+
+/// See also [discoverTvShowsWithGenre].
+@ProviderFor(discoverTvShowsWithGenre)
+const discoverTvShowsWithGenreProvider = DiscoverTvShowsWithGenreFamily();
+
+/// See also [discoverTvShowsWithGenre].
+class DiscoverTvShowsWithGenreFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
+  /// See also [discoverTvShowsWithGenre].
+  const DiscoverTvShowsWithGenreFamily();
+
+  /// See also [discoverTvShowsWithGenre].
+  DiscoverTvShowsWithGenreProvider call({
+    required int genreId,
+    int page = 1,
+  }) {
+    return DiscoverTvShowsWithGenreProvider(
+      genreId: genreId,
+      page: page,
+    );
+  }
+
+  @override
+  DiscoverTvShowsWithGenreProvider getProviderOverride(
+    covariant DiscoverTvShowsWithGenreProvider provider,
+  ) {
+    return call(
+      genreId: provider.genreId,
+      page: provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'discoverTvShowsWithGenreProvider';
+}
+
+/// See also [discoverTvShowsWithGenre].
+class DiscoverTvShowsWithGenreProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
+  /// See also [discoverTvShowsWithGenre].
+  DiscoverTvShowsWithGenreProvider({
+    required int genreId,
+    int page = 1,
+  }) : this._internal(
+          (ref) => discoverTvShowsWithGenre(
+            ref as DiscoverTvShowsWithGenreRef,
+            genreId: genreId,
+            page: page,
+          ),
+          from: discoverTvShowsWithGenreProvider,
+          name: r'discoverTvShowsWithGenreProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$discoverTvShowsWithGenreHash,
+          dependencies: DiscoverTvShowsWithGenreFamily._dependencies,
+          allTransitiveDependencies:
+              DiscoverTvShowsWithGenreFamily._allTransitiveDependencies,
+          genreId: genreId,
+          page: page,
+        );
+
+  DiscoverTvShowsWithGenreProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.genreId,
+    required this.page,
+  }) : super.internal();
+
+  final int genreId;
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<PaginatedResponse<TvShow>> Function(
+            DiscoverTvShowsWithGenreRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: DiscoverTvShowsWithGenreProvider._internal(
+        (ref) => create(ref as DiscoverTvShowsWithGenreRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        genreId: genreId,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
+    return _DiscoverTvShowsWithGenreProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DiscoverTvShowsWithGenreProvider &&
+        other.genreId == genreId &&
+        other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, genreId.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DiscoverTvShowsWithGenreRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
+  /// The parameter `genreId` of this provider.
+  int get genreId;
+
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _DiscoverTvShowsWithGenreProviderElement
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
+    with DiscoverTvShowsWithGenreRef {
+  _DiscoverTvShowsWithGenreProviderElement(super.provider);
+
+  @override
+  int get genreId => (origin as DiscoverTvShowsWithGenreProvider).genreId;
+  @override
+  int get page => (origin as DiscoverTvShowsWithGenreProvider).page;
+}
+
 String _$tvShowDetailsHash() => r'13a5c6392eaad6552fa8f5d35bbbe858d8193b18';
 
 /// See also [tvShowDetails].

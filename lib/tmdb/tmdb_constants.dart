@@ -4,6 +4,10 @@ abstract final class TmdbConstants {
   static const String apiPath = '/3';
   static const String imageBaseUrl = 'https://image.tmdb.org/t/p';
 
+  // Discover endpoints
+  static const String discoverMovies = '/discover/movie';
+  static const String discoverTvShows = '/discover/tv';
+
   // Movie endpoints
   static const String trendingMovies = '/trending/movie';
   static const String popularMovies = '/movie/popular';

@@ -63,7 +63,7 @@ class TvShowRepo {
       language: language,
     );
 
-    return PaginatedResponse<TvShow>.fromTmdb(json, TvShow.fromTmdb);
+    return PaginatedResponse.fromTmdb(json, TvShow.fromTmdb);
   }
 
   Future<PaginatedResponse<TvShow>> getTopRatedTvShows({
@@ -76,7 +76,27 @@ class TvShowRepo {
       language: language,
     );
 
-    return PaginatedResponse<TvShow>.fromTmdb(json, TvShow.fromTmdb);
+    return PaginatedResponse.fromTmdb(json, TvShow.fromTmdb);
+  }
+
+  Future<PaginatedResponse<TvShow>> discoverTvShowsWithGenre({
+    required int genreId,
+    int page = 1,
+    String language = 'en-US',
+    String region = 'US',
+  }) async {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    final json = await _client.tvShow.discoverTvShows(
+      page: page,
+      language: language,
+      region: region,
+      filters: {
+        'with_genres': '$genreId',
+        'sort_by': 'popularity.desc',
+      },
+    );
+
+    return PaginatedResponse.fromTmdb(json, TvShow.fromTmdb);
   }
 
   Future<TvShowDetails> getTvShowDetails({
