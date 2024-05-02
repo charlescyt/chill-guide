@@ -21,10 +21,10 @@ class MovieHomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final padding = MediaQuery.paddingOf(context);
     // TODO(charlescyt): Should we let the user choose the time window?
-    final trendingMovies = ref.watch(trendingMoviesProvider(timeWindow: TimeWindow.day));
-    final popularMovies = ref.watch(popularMoviesProvider(page: 1));
-    final upcomingMovies = ref.watch(upcomingMoviesProvider(page: 1));
-    final topRatedMovies = ref.watch(topRatedMoviesProvider(page: 1));
+    final trendingMovies = ref.watch(trendingMoviesProvider(timeWindow: TimeWindow.day)).toAsyncValueResults();
+    final popularMovies = ref.watch(popularMoviesProvider(page: 1)).toAsyncValueResults();
+    final upcomingMovies = ref.watch(upcomingMoviesProvider(page: 1)).toAsyncValueResults();
+    final topRatedMovies = ref.watch(topRatedMoviesProvider(page: 1)).toAsyncValueResults();
 
     return SizedBox.expand(
       child: Material(

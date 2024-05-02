@@ -12,7 +12,6 @@ import '../../../app/widgets/placeholder_icon.dart';
 import '../../../app/widgets/rating_indicator.dart';
 import '../../../app/widgets/section.dart';
 import '../../common/widgets/company_list_tile.dart';
-import '../models/movie_details.dart';
 import '../providers/movies_provider.dart';
 import '../widgets/movie_card.dart';
 import '../widgets/movie_cast_card.dart';

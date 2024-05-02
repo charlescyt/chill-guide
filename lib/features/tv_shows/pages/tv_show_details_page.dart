@@ -12,7 +12,6 @@ import '../../../app/widgets/placeholder_icon.dart';
 import '../../../app/widgets/rating_indicator.dart';
 import '../../../app/widgets/section.dart';
 import '../../common/widgets/company_list_tile.dart';
-import '../models/tv_show_details.dart';
 import '../providers/tv_show_providers.dart';
 import '../widgets/network_list_tile.dart';
 import '../widgets/tv_show_card.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart' show describeIdentity, immutable;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../app/utils/exception_utils.dart';
 
@@ -56,4 +57,12 @@ class PaginatedResponse<T> {
       'results: $results, '
       'totalPages: $totalPages, '
       'totalResults: $totalResults';
+}
+
+extension AsyncValuePaginationResponseX<T> on AsyncValue<PaginatedResponse<T>> {
+  AsyncValue<List<T>> toAsyncValueResults() => when(
+        data: (value) => AsyncValue.data(value.results),
+        loading: () => const AsyncValue.loading(),
+        error: AsyncValue.error,
+      );
 }

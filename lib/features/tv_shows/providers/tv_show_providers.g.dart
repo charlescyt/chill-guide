@@ -20,7 +20,7 @@ final tvShowRepoProvider = AutoDisposeProvider<TvShowRepo>.internal(
 );
 
 typedef TvShowRepoRef = AutoDisposeProviderRef<TvShowRepo>;
-String _$trendingTvShowsHash() => r'a80b4991c5002cf0c2b3ba866b99da577c3f4b77';
+String _$trendingTvShowsHash() => r'6b4e1c028c12e66403dd0d9d86bf901a0a385539';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -48,7 +48,8 @@ class _SystemHash {
 const trendingTvShowsProvider = TrendingTvShowsFamily();
 
 /// See also [trendingTvShows].
-class TrendingTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
+class TrendingTvShowsFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
   /// See also [trendingTvShows].
   const TrendingTvShowsFamily();
 
@@ -86,7 +87,8 @@ class TrendingTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
 }
 
 /// See also [trendingTvShows].
-class TrendingTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
+class TrendingTvShowsProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
   /// See also [trendingTvShows].
   TrendingTvShowsProvider({
     TimeWindow timeWindow = TimeWindow.day,
@@ -121,7 +123,8 @@ class TrendingTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
 
   @override
   Override overrideWith(
-    FutureOr<List<TvShow>> Function(TrendingTvShowsRef provider) create,
+    FutureOr<PaginatedResponse<TvShow>> Function(TrendingTvShowsRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -138,7 +141,7 @@ class TrendingTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<TvShow>> createElement() {
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
     return _TrendingTvShowsProviderElement(this);
   }
 
@@ -156,13 +159,14 @@ class TrendingTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
   }
 }
 
-mixin TrendingTvShowsRef on AutoDisposeFutureProviderRef<List<TvShow>> {
+mixin TrendingTvShowsRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
   /// The parameter `timeWindow` of this provider.
   TimeWindow get timeWindow;
 }
 
 class _TrendingTvShowsProviderElement
-    extends AutoDisposeFutureProviderElement<List<TvShow>>
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
     with TrendingTvShowsRef {
   _TrendingTvShowsProviderElement(super.provider);
 
@@ -170,150 +174,16 @@ class _TrendingTvShowsProviderElement
   TimeWindow get timeWindow => (origin as TrendingTvShowsProvider).timeWindow;
 }
 
-String _$airingTodayTvShowsResponseHash() =>
-    r'b2895937a69558bfde23a6c5a0d5f6542b02b4fd';
-
-/// See also [airingTodayTvShowsResponse].
-@ProviderFor(airingTodayTvShowsResponse)
-const airingTodayTvShowsResponseProvider = AiringTodayTvShowsResponseFamily();
-
-/// See also [airingTodayTvShowsResponse].
-class AiringTodayTvShowsResponseFamily
-    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
-  /// See also [airingTodayTvShowsResponse].
-  const AiringTodayTvShowsResponseFamily();
-
-  /// See also [airingTodayTvShowsResponse].
-  AiringTodayTvShowsResponseProvider call({
-    int page = 1,
-  }) {
-    return AiringTodayTvShowsResponseProvider(
-      page: page,
-    );
-  }
-
-  @override
-  AiringTodayTvShowsResponseProvider getProviderOverride(
-    covariant AiringTodayTvShowsResponseProvider provider,
-  ) {
-    return call(
-      page: provider.page,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'airingTodayTvShowsResponseProvider';
-}
-
-/// See also [airingTodayTvShowsResponse].
-class AiringTodayTvShowsResponseProvider
-    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
-  /// See also [airingTodayTvShowsResponse].
-  AiringTodayTvShowsResponseProvider({
-    int page = 1,
-  }) : this._internal(
-          (ref) => airingTodayTvShowsResponse(
-            ref as AiringTodayTvShowsResponseRef,
-            page: page,
-          ),
-          from: airingTodayTvShowsResponseProvider,
-          name: r'airingTodayTvShowsResponseProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$airingTodayTvShowsResponseHash,
-          dependencies: AiringTodayTvShowsResponseFamily._dependencies,
-          allTransitiveDependencies:
-              AiringTodayTvShowsResponseFamily._allTransitiveDependencies,
-          page: page,
-        );
-
-  AiringTodayTvShowsResponseProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.page,
-  }) : super.internal();
-
-  final int page;
-
-  @override
-  Override overrideWith(
-    FutureOr<PaginatedResponse<TvShow>> Function(
-            AiringTodayTvShowsResponseRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: AiringTodayTvShowsResponseProvider._internal(
-        (ref) => create(ref as AiringTodayTvShowsResponseRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        page: page,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
-    return _AiringTodayTvShowsResponseProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is AiringTodayTvShowsResponseProvider && other.page == page;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, page.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin AiringTodayTvShowsResponseRef
-    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
-  /// The parameter `page` of this provider.
-  int get page;
-}
-
-class _AiringTodayTvShowsResponseProviderElement
-    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
-    with AiringTodayTvShowsResponseRef {
-  _AiringTodayTvShowsResponseProviderElement(super.provider);
-
-  @override
-  int get page => (origin as AiringTodayTvShowsResponseProvider).page;
-}
-
 String _$airingTodayTvShowsHash() =>
-    r'fb450dd2f9d44f50d24bb8274044b9ab3ebf9e53';
+    r'77f8d5232f898959343f08e9503d3e83a2a08f9b';
 
 /// See also [airingTodayTvShows].
 @ProviderFor(airingTodayTvShows)
 const airingTodayTvShowsProvider = AiringTodayTvShowsFamily();
 
 /// See also [airingTodayTvShows].
-class AiringTodayTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
+class AiringTodayTvShowsFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
   /// See also [airingTodayTvShows].
   const AiringTodayTvShowsFamily();
 
@@ -352,7 +222,7 @@ class AiringTodayTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
 
 /// See also [airingTodayTvShows].
 class AiringTodayTvShowsProvider
-    extends AutoDisposeFutureProvider<List<TvShow>> {
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
   /// See also [airingTodayTvShows].
   AiringTodayTvShowsProvider({
     int page = 1,
@@ -387,7 +257,8 @@ class AiringTodayTvShowsProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<TvShow>> Function(AiringTodayTvShowsRef provider) create,
+    FutureOr<PaginatedResponse<TvShow>> Function(AiringTodayTvShowsRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -404,7 +275,7 @@ class AiringTodayTvShowsProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<TvShow>> createElement() {
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
     return _AiringTodayTvShowsProviderElement(this);
   }
 
@@ -422,13 +293,14 @@ class AiringTodayTvShowsProvider
   }
 }
 
-mixin AiringTodayTvShowsRef on AutoDisposeFutureProviderRef<List<TvShow>> {
+mixin AiringTodayTvShowsRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
   /// The parameter `page` of this provider.
   int get page;
 }
 
 class _AiringTodayTvShowsProviderElement
-    extends AutoDisposeFutureProviderElement<List<TvShow>>
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
     with AiringTodayTvShowsRef {
   _AiringTodayTvShowsProviderElement(super.provider);
 
@@ -436,149 +308,15 @@ class _AiringTodayTvShowsProviderElement
   int get page => (origin as AiringTodayTvShowsProvider).page;
 }
 
-String _$onTheAirTvShowsResponseHash() =>
-    r'4d406e31d5a5f4d3e0c370b31eb39c84a7fa9b1e';
-
-/// See also [onTheAirTvShowsResponse].
-@ProviderFor(onTheAirTvShowsResponse)
-const onTheAirTvShowsResponseProvider = OnTheAirTvShowsResponseFamily();
-
-/// See also [onTheAirTvShowsResponse].
-class OnTheAirTvShowsResponseFamily
-    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
-  /// See also [onTheAirTvShowsResponse].
-  const OnTheAirTvShowsResponseFamily();
-
-  /// See also [onTheAirTvShowsResponse].
-  OnTheAirTvShowsResponseProvider call({
-    int page = 1,
-  }) {
-    return OnTheAirTvShowsResponseProvider(
-      page: page,
-    );
-  }
-
-  @override
-  OnTheAirTvShowsResponseProvider getProviderOverride(
-    covariant OnTheAirTvShowsResponseProvider provider,
-  ) {
-    return call(
-      page: provider.page,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'onTheAirTvShowsResponseProvider';
-}
-
-/// See also [onTheAirTvShowsResponse].
-class OnTheAirTvShowsResponseProvider
-    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
-  /// See also [onTheAirTvShowsResponse].
-  OnTheAirTvShowsResponseProvider({
-    int page = 1,
-  }) : this._internal(
-          (ref) => onTheAirTvShowsResponse(
-            ref as OnTheAirTvShowsResponseRef,
-            page: page,
-          ),
-          from: onTheAirTvShowsResponseProvider,
-          name: r'onTheAirTvShowsResponseProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$onTheAirTvShowsResponseHash,
-          dependencies: OnTheAirTvShowsResponseFamily._dependencies,
-          allTransitiveDependencies:
-              OnTheAirTvShowsResponseFamily._allTransitiveDependencies,
-          page: page,
-        );
-
-  OnTheAirTvShowsResponseProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.page,
-  }) : super.internal();
-
-  final int page;
-
-  @override
-  Override overrideWith(
-    FutureOr<PaginatedResponse<TvShow>> Function(
-            OnTheAirTvShowsResponseRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: OnTheAirTvShowsResponseProvider._internal(
-        (ref) => create(ref as OnTheAirTvShowsResponseRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        page: page,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
-    return _OnTheAirTvShowsResponseProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is OnTheAirTvShowsResponseProvider && other.page == page;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, page.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin OnTheAirTvShowsResponseRef
-    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
-  /// The parameter `page` of this provider.
-  int get page;
-}
-
-class _OnTheAirTvShowsResponseProviderElement
-    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
-    with OnTheAirTvShowsResponseRef {
-  _OnTheAirTvShowsResponseProviderElement(super.provider);
-
-  @override
-  int get page => (origin as OnTheAirTvShowsResponseProvider).page;
-}
-
-String _$onTheAirTvShowsHash() => r'6e7ac0fabcbdb9b959950a8462967daf804a6a18';
+String _$onTheAirTvShowsHash() => r'f4f37219c705f48ba44b5f06d7350e463d2ecaac';
 
 /// See also [onTheAirTvShows].
 @ProviderFor(onTheAirTvShows)
 const onTheAirTvShowsProvider = OnTheAirTvShowsFamily();
 
 /// See also [onTheAirTvShows].
-class OnTheAirTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
+class OnTheAirTvShowsFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
   /// See also [onTheAirTvShows].
   const OnTheAirTvShowsFamily();
 
@@ -616,7 +354,8 @@ class OnTheAirTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
 }
 
 /// See also [onTheAirTvShows].
-class OnTheAirTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
+class OnTheAirTvShowsProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
   /// See also [onTheAirTvShows].
   OnTheAirTvShowsProvider({
     int page = 1,
@@ -651,7 +390,8 @@ class OnTheAirTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
 
   @override
   Override overrideWith(
-    FutureOr<List<TvShow>> Function(OnTheAirTvShowsRef provider) create,
+    FutureOr<PaginatedResponse<TvShow>> Function(OnTheAirTvShowsRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -668,7 +408,7 @@ class OnTheAirTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<TvShow>> createElement() {
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
     return _OnTheAirTvShowsProviderElement(this);
   }
 
@@ -686,13 +426,14 @@ class OnTheAirTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
   }
 }
 
-mixin OnTheAirTvShowsRef on AutoDisposeFutureProviderRef<List<TvShow>> {
+mixin OnTheAirTvShowsRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
   /// The parameter `page` of this provider.
   int get page;
 }
 
 class _OnTheAirTvShowsProviderElement
-    extends AutoDisposeFutureProviderElement<List<TvShow>>
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
     with OnTheAirTvShowsRef {
   _OnTheAirTvShowsProviderElement(super.provider);
 
@@ -700,149 +441,15 @@ class _OnTheAirTvShowsProviderElement
   int get page => (origin as OnTheAirTvShowsProvider).page;
 }
 
-String _$popularTvShowsResponseHash() =>
-    r'eddb66a38ea36ed65a98ca39ed6bd820a8d632df';
-
-/// See also [popularTvShowsResponse].
-@ProviderFor(popularTvShowsResponse)
-const popularTvShowsResponseProvider = PopularTvShowsResponseFamily();
-
-/// See also [popularTvShowsResponse].
-class PopularTvShowsResponseFamily
-    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
-  /// See also [popularTvShowsResponse].
-  const PopularTvShowsResponseFamily();
-
-  /// See also [popularTvShowsResponse].
-  PopularTvShowsResponseProvider call({
-    int page = 1,
-  }) {
-    return PopularTvShowsResponseProvider(
-      page: page,
-    );
-  }
-
-  @override
-  PopularTvShowsResponseProvider getProviderOverride(
-    covariant PopularTvShowsResponseProvider provider,
-  ) {
-    return call(
-      page: provider.page,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'popularTvShowsResponseProvider';
-}
-
-/// See also [popularTvShowsResponse].
-class PopularTvShowsResponseProvider
-    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
-  /// See also [popularTvShowsResponse].
-  PopularTvShowsResponseProvider({
-    int page = 1,
-  }) : this._internal(
-          (ref) => popularTvShowsResponse(
-            ref as PopularTvShowsResponseRef,
-            page: page,
-          ),
-          from: popularTvShowsResponseProvider,
-          name: r'popularTvShowsResponseProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$popularTvShowsResponseHash,
-          dependencies: PopularTvShowsResponseFamily._dependencies,
-          allTransitiveDependencies:
-              PopularTvShowsResponseFamily._allTransitiveDependencies,
-          page: page,
-        );
-
-  PopularTvShowsResponseProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.page,
-  }) : super.internal();
-
-  final int page;
-
-  @override
-  Override overrideWith(
-    FutureOr<PaginatedResponse<TvShow>> Function(
-            PopularTvShowsResponseRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: PopularTvShowsResponseProvider._internal(
-        (ref) => create(ref as PopularTvShowsResponseRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        page: page,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
-    return _PopularTvShowsResponseProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is PopularTvShowsResponseProvider && other.page == page;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, page.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin PopularTvShowsResponseRef
-    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
-  /// The parameter `page` of this provider.
-  int get page;
-}
-
-class _PopularTvShowsResponseProviderElement
-    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
-    with PopularTvShowsResponseRef {
-  _PopularTvShowsResponseProviderElement(super.provider);
-
-  @override
-  int get page => (origin as PopularTvShowsResponseProvider).page;
-}
-
-String _$popularTvShowsHash() => r'2b60e26a1324f824b1a96d918fbd00f6f02be791';
+String _$popularTvShowsHash() => r'139356286e82e6c80b85b0bdf2f4877a7bb2d019';
 
 /// See also [popularTvShows].
 @ProviderFor(popularTvShows)
 const popularTvShowsProvider = PopularTvShowsFamily();
 
 /// See also [popularTvShows].
-class PopularTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
+class PopularTvShowsFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
   /// See also [popularTvShows].
   const PopularTvShowsFamily();
 
@@ -880,7 +487,8 @@ class PopularTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
 }
 
 /// See also [popularTvShows].
-class PopularTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
+class PopularTvShowsProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
   /// See also [popularTvShows].
   PopularTvShowsProvider({
     int page = 1,
@@ -915,7 +523,8 @@ class PopularTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
 
   @override
   Override overrideWith(
-    FutureOr<List<TvShow>> Function(PopularTvShowsRef provider) create,
+    FutureOr<PaginatedResponse<TvShow>> Function(PopularTvShowsRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -932,7 +541,7 @@ class PopularTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<TvShow>> createElement() {
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
     return _PopularTvShowsProviderElement(this);
   }
 
@@ -950,13 +559,14 @@ class PopularTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
   }
 }
 
-mixin PopularTvShowsRef on AutoDisposeFutureProviderRef<List<TvShow>> {
+mixin PopularTvShowsRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
   /// The parameter `page` of this provider.
   int get page;
 }
 
 class _PopularTvShowsProviderElement
-    extends AutoDisposeFutureProviderElement<List<TvShow>>
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
     with PopularTvShowsRef {
   _PopularTvShowsProviderElement(super.provider);
 
@@ -964,149 +574,15 @@ class _PopularTvShowsProviderElement
   int get page => (origin as PopularTvShowsProvider).page;
 }
 
-String _$topRatedTvShowsResponseHash() =>
-    r'353599ea6cb4e6696e9d9b5cd76f528dae97df2d';
-
-/// See also [topRatedTvShowsResponse].
-@ProviderFor(topRatedTvShowsResponse)
-const topRatedTvShowsResponseProvider = TopRatedTvShowsResponseFamily();
-
-/// See also [topRatedTvShowsResponse].
-class TopRatedTvShowsResponseFamily
-    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
-  /// See also [topRatedTvShowsResponse].
-  const TopRatedTvShowsResponseFamily();
-
-  /// See also [topRatedTvShowsResponse].
-  TopRatedTvShowsResponseProvider call({
-    int page = 1,
-  }) {
-    return TopRatedTvShowsResponseProvider(
-      page: page,
-    );
-  }
-
-  @override
-  TopRatedTvShowsResponseProvider getProviderOverride(
-    covariant TopRatedTvShowsResponseProvider provider,
-  ) {
-    return call(
-      page: provider.page,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'topRatedTvShowsResponseProvider';
-}
-
-/// See also [topRatedTvShowsResponse].
-class TopRatedTvShowsResponseProvider
-    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
-  /// See also [topRatedTvShowsResponse].
-  TopRatedTvShowsResponseProvider({
-    int page = 1,
-  }) : this._internal(
-          (ref) => topRatedTvShowsResponse(
-            ref as TopRatedTvShowsResponseRef,
-            page: page,
-          ),
-          from: topRatedTvShowsResponseProvider,
-          name: r'topRatedTvShowsResponseProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$topRatedTvShowsResponseHash,
-          dependencies: TopRatedTvShowsResponseFamily._dependencies,
-          allTransitiveDependencies:
-              TopRatedTvShowsResponseFamily._allTransitiveDependencies,
-          page: page,
-        );
-
-  TopRatedTvShowsResponseProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.page,
-  }) : super.internal();
-
-  final int page;
-
-  @override
-  Override overrideWith(
-    FutureOr<PaginatedResponse<TvShow>> Function(
-            TopRatedTvShowsResponseRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: TopRatedTvShowsResponseProvider._internal(
-        (ref) => create(ref as TopRatedTvShowsResponseRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        page: page,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
-    return _TopRatedTvShowsResponseProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is TopRatedTvShowsResponseProvider && other.page == page;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, page.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin TopRatedTvShowsResponseRef
-    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
-  /// The parameter `page` of this provider.
-  int get page;
-}
-
-class _TopRatedTvShowsResponseProviderElement
-    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
-    with TopRatedTvShowsResponseRef {
-  _TopRatedTvShowsResponseProviderElement(super.provider);
-
-  @override
-  int get page => (origin as TopRatedTvShowsResponseProvider).page;
-}
-
-String _$topRatedTvShowsHash() => r'e944fb552adbf951e18d4a562783b39c7ff52040';
+String _$topRatedTvShowsHash() => r'cb54510c7549bc94ea301990e98cc0fe62205674';
 
 /// See also [topRatedTvShows].
 @ProviderFor(topRatedTvShows)
 const topRatedTvShowsProvider = TopRatedTvShowsFamily();
 
 /// See also [topRatedTvShows].
-class TopRatedTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
+class TopRatedTvShowsFamily
+    extends Family<AsyncValue<PaginatedResponse<TvShow>>> {
   /// See also [topRatedTvShows].
   const TopRatedTvShowsFamily();
 
@@ -1144,7 +620,8 @@ class TopRatedTvShowsFamily extends Family<AsyncValue<List<TvShow>>> {
 }
 
 /// See also [topRatedTvShows].
-class TopRatedTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
+class TopRatedTvShowsProvider
+    extends AutoDisposeFutureProvider<PaginatedResponse<TvShow>> {
   /// See also [topRatedTvShows].
   TopRatedTvShowsProvider({
     int page = 1,
@@ -1179,7 +656,8 @@ class TopRatedTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
 
   @override
   Override overrideWith(
-    FutureOr<List<TvShow>> Function(TopRatedTvShowsRef provider) create,
+    FutureOr<PaginatedResponse<TvShow>> Function(TopRatedTvShowsRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -1196,7 +674,7 @@ class TopRatedTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<TvShow>> createElement() {
+  AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>> createElement() {
     return _TopRatedTvShowsProviderElement(this);
   }
 
@@ -1214,13 +692,14 @@ class TopRatedTvShowsProvider extends AutoDisposeFutureProvider<List<TvShow>> {
   }
 }
 
-mixin TopRatedTvShowsRef on AutoDisposeFutureProviderRef<List<TvShow>> {
+mixin TopRatedTvShowsRef
+    on AutoDisposeFutureProviderRef<PaginatedResponse<TvShow>> {
   /// The parameter `page` of this provider.
   int get page;
 }
 
 class _TopRatedTvShowsProviderElement
-    extends AutoDisposeFutureProviderElement<List<TvShow>>
+    extends AutoDisposeFutureProviderElement<PaginatedResponse<TvShow>>
     with TopRatedTvShowsRef {
   _TopRatedTvShowsProviderElement(super.provider);
 

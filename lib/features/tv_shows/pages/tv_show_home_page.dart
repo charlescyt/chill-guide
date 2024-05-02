@@ -20,11 +20,10 @@ class TvShowHomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final padding = MediaQuery.paddingOf(context);
-    final trendingTvShows = ref.watch(trendingTvShowsProvider(timeWindow: TimeWindow.day));
-    // final airingTodayTvShows = ref.watch(airingTodayTvShowsProvider(page: 1));
-    final onTheAirTvShows = ref.watch(onTheAirTvShowsProvider(page: 1));
-    final popularTvShows = ref.watch(popularTvShowsProvider(page: 1));
-    final topRatedTvShows = ref.watch(topRatedTvShowsProvider(page: 1));
+    final trendingTvShows = ref.watch(trendingTvShowsProvider(timeWindow: TimeWindow.day)).toAsyncValueResults();
+    final onTheAirTvShows = ref.watch(onTheAirTvShowsProvider(page: 1)).toAsyncValueResults();
+    final popularTvShows = ref.watch(popularTvShowsProvider(page: 1)).toAsyncValueResults();
+    final topRatedTvShows = ref.watch(topRatedTvShowsProvider(page: 1)).toAsyncValueResults();
 
     return SizedBox.expand(
       child: Material(

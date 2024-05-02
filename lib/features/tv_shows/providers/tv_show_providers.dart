@@ -8,6 +8,10 @@ import '../models/tv_show_details.dart';
 import '../models/tv_show_season_details.dart';
 import '../repos/tv_show_repo.dart';
 
+export '../../common/models/paginated_response.dart';
+export '../models/tv_show_details.dart';
+export '../models/tv_show_season_details.dart';
+
 part 'tv_show_providers.g.dart';
 
 @riverpod
@@ -17,7 +21,7 @@ TvShowRepo tvShowRepo(TvShowRepoRef ref) {
 }
 
 @riverpod
-Future<List<TvShow>> trendingTvShows(
+Future<PaginatedResponse<TvShow>> trendingTvShows(
   TrendingTvShowsRef ref, {
   TimeWindow timeWindow = TimeWindow.day,
 }) async {
@@ -26,12 +30,12 @@ Future<List<TvShow>> trendingTvShows(
   final response = await repo.getTrendingTvShows(language: language, timeWindow: timeWindow);
   ref.delayDispose(const Duration(hours: 1));
 
-  return response.results;
+  return response;
 }
 
 @riverpod
-Future<PaginatedResponse<TvShow>> airingTodayTvShowsResponse(
-  AiringTodayTvShowsResponseRef ref, {
+Future<PaginatedResponse<TvShow>> airingTodayTvShows(
+  AiringTodayTvShowsRef ref, {
   int page = 1,
 }) async {
   final repo = ref.watch(tvShowRepoProvider);
@@ -43,19 +47,8 @@ Future<PaginatedResponse<TvShow>> airingTodayTvShowsResponse(
 }
 
 @riverpod
-Future<List<TvShow>> airingTodayTvShows(
-  AiringTodayTvShowsRef ref, {
-  int page = 1,
-}) async {
-  final response = await ref.watch(airingTodayTvShowsResponseProvider(page: page).future);
-  ref.delayDispose(const Duration(hours: 1));
-
-  return response.results;
-}
-
-@riverpod
-Future<PaginatedResponse<TvShow>> onTheAirTvShowsResponse(
-  OnTheAirTvShowsResponseRef ref, {
+Future<PaginatedResponse<TvShow>> onTheAirTvShows(
+  OnTheAirTvShowsRef ref, {
   int page = 1,
 }) async {
   final repo = ref.watch(tvShowRepoProvider);
@@ -67,19 +60,8 @@ Future<PaginatedResponse<TvShow>> onTheAirTvShowsResponse(
 }
 
 @riverpod
-Future<List<TvShow>> onTheAirTvShows(
-  OnTheAirTvShowsRef ref, {
-  int page = 1,
-}) async {
-  final response = await ref.watch(onTheAirTvShowsResponseProvider(page: page).future);
-  ref.delayDispose(const Duration(hours: 1));
-
-  return response.results;
-}
-
-@riverpod
-Future<PaginatedResponse<TvShow>> popularTvShowsResponse(
-  PopularTvShowsResponseRef ref, {
+Future<PaginatedResponse<TvShow>> popularTvShows(
+  PopularTvShowsRef ref, {
   int page = 1,
 }) async {
   final repo = ref.watch(tvShowRepoProvider);
@@ -91,19 +73,8 @@ Future<PaginatedResponse<TvShow>> popularTvShowsResponse(
 }
 
 @riverpod
-Future<List<TvShow>> popularTvShows(
-  PopularTvShowsRef ref, {
-  int page = 1,
-}) async {
-  final response = await ref.watch(popularTvShowsResponseProvider(page: page).future);
-  ref.delayDispose(const Duration(hours: 1));
-
-  return response.results;
-}
-
-@riverpod
-Future<PaginatedResponse<TvShow>> topRatedTvShowsResponse(
-  TopRatedTvShowsResponseRef ref, {
+Future<PaginatedResponse<TvShow>> topRatedTvShows(
+  TopRatedTvShowsRef ref, {
   int page = 1,
 }) async {
   final repo = ref.watch(tvShowRepoProvider);
@@ -112,17 +83,6 @@ Future<PaginatedResponse<TvShow>> topRatedTvShowsResponse(
   ref.delayDispose(const Duration(hours: 1));
 
   return response;
-}
-
-@riverpod
-Future<List<TvShow>> topRatedTvShows(
-  TopRatedTvShowsRef ref, {
-  int page = 1,
-}) async {
-  final response = await ref.watch(topRatedTvShowsResponseProvider(page: page).future);
-  ref.delayDispose(const Duration(hours: 1));
-
-  return response.results;
 }
 
 @riverpod

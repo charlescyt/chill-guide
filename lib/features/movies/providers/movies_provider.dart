@@ -7,6 +7,9 @@ import '../../common/utils/riverpod.dart';
 import '../models/movie_details.dart';
 import '../repos/movie_repo.dart';
 
+export '../../common/models/paginated_response.dart';
+export '../models/movie_details.dart';
+
 part 'movies_provider.g.dart';
 
 @riverpod
@@ -16,7 +19,7 @@ MovieRepo movieRepo(MovieRepoRef ref) {
 }
 
 @riverpod
-Future<List<Movie>> trendingMovies(
+Future<PaginatedResponse<Movie>> trendingMovies(
   TrendingMoviesRef ref, {
   TimeWindow timeWindow = TimeWindow.day,
 }) async {
@@ -25,12 +28,12 @@ Future<List<Movie>> trendingMovies(
   final response = await repo.getTrendingMovies(language: language, timeWindow: timeWindow);
   ref.delayDispose(const Duration(hours: 1));
 
-  return response.results;
+  return response;
 }
 
 @riverpod
-Future<PaginatedResponse<Movie>> popularMoviesResponse(
-  PopularMoviesResponseRef ref, {
+Future<PaginatedResponse<Movie>> popularMovies(
+  PopularMoviesRef ref, {
   int page = 1,
 }) async {
   final repo = ref.watch(movieRepoProvider);
@@ -43,19 +46,8 @@ Future<PaginatedResponse<Movie>> popularMoviesResponse(
 }
 
 @riverpod
-Future<List<Movie>> popularMovies(
-  PopularMoviesRef ref, {
-  int page = 1,
-}) async {
-  final response = await ref.watch(popularMoviesResponseProvider(page: page).future);
-  ref.delayDispose(const Duration(hours: 1));
-
-  return response.results;
-}
-
-@riverpod
-Future<PaginatedResponse<Movie>> upcomingMoviesResponse(
-  UpcomingMoviesResponseRef ref, {
+Future<PaginatedResponse<Movie>> upcomingMovies(
+  UpcomingMoviesRef ref, {
   int page = 1,
 }) async {
   final repo = ref.watch(movieRepoProvider);
@@ -68,19 +60,8 @@ Future<PaginatedResponse<Movie>> upcomingMoviesResponse(
 }
 
 @riverpod
-Future<List<Movie>> upcomingMovies(
-  UpcomingMoviesRef ref, {
-  int page = 1,
-}) async {
-  final response = await ref.watch(upcomingMoviesResponseProvider(page: page).future);
-  ref.delayDispose(const Duration(hours: 1));
-
-  return response.results;
-}
-
-@riverpod
-Future<PaginatedResponse<Movie>> topRatedMoviesResponse(
-  TopRatedMoviesResponseRef ref, {
+Future<PaginatedResponse<Movie>> topRatedMovies(
+  TopRatedMoviesRef ref, {
   int page = 1,
 }) async {
   final repo = ref.watch(movieRepoProvider);
@@ -90,17 +71,6 @@ Future<PaginatedResponse<Movie>> topRatedMoviesResponse(
   ref.delayDispose(const Duration(hours: 1));
 
   return response;
-}
-
-@riverpod
-Future<List<Movie>> topRatedMovies(
-  TopRatedMoviesRef ref, {
-  int page = 1,
-}) async {
-  final response = await ref.watch(topRatedMoviesResponseProvider(page: page).future);
-  ref.delayDispose(const Duration(hours: 1));
-
-  return response.results;
 }
 
 @riverpod

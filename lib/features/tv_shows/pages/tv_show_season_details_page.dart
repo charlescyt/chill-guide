@@ -6,7 +6,6 @@ import '../../../app/widgets/placeholder_icon.dart';
 import '../../../app/widgets/rating_indicator.dart';
 import '../../../app/widgets/section.dart';
 import '../../../app/widgets/sliver_sized_box.dart';
-import '../models/tv_show_season_details.dart';
 import '../providers/tv_show_providers.dart';
 
 class TvShowSeasonDetailsPage extends ConsumerWidget {
