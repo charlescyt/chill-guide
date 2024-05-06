@@ -8,6 +8,7 @@ part of 'router.dart';
 
 List<RouteBase> get $appRoutes => [
       $mainShellRouteData,
+      $personDetailsRouteData,
     ];
 
 RouteBase get $mainShellRouteData => StatefulShellRouteData.$route(
@@ -406,11 +407,37 @@ extension $ProfileRouteDataExtension on ProfileRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+RouteBase get $personDetailsRouteData => GoRouteData.$route(
+      path: '/person/:personId',
+      parentNavigatorKey: PersonDetailsRouteData.$parentNavigatorKey,
+      factory: $PersonDetailsRouteDataExtension._fromState,
+    );
+
+extension $PersonDetailsRouteDataExtension on PersonDetailsRouteData {
+  static PersonDetailsRouteData _fromState(GoRouterState state) =>
+      PersonDetailsRouteData(
+        personId: int.parse(state.pathParameters['personId']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/person/${Uri.encodeComponent(personId.toString())}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'0c9ddf61a9792ef192881c2bffcd2c4301816e54';
+String _$routerHash() => r'6fadcb65fbbd3d049942ec0f64b3d1d033ca2980';
 
 /// See also [router].
 @ProviderFor(router)

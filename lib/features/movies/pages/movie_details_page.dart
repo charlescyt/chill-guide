@@ -201,9 +201,7 @@ class _Data extends StatelessWidget {
                           final cast = casts[index];
                           return MovieCastCard(
                             cast: cast,
-                            onTap: () {
-                              // TODO(charlescyt): Push to cast details page
-                            },
+                            onTap: () => PersonDetailsRouteData(personId: cast.id).push<void>(context),
                           );
                         },
                       ),
@@ -225,9 +223,7 @@ class _Data extends StatelessWidget {
                           final crew = crews[index];
                           return MovieCrewCard(
                             crew: crew,
-                            onTap: () {
-                              // TODO(charlescyt): Push to crew details page
-                            },
+                            onTap: () => PersonDetailsRouteData(personId: crew.id).push<void>(context),
                           );
                         },
                       ),

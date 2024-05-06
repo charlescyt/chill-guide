@@ -8,6 +8,7 @@ import '../../features/movies/pages/movie_home_page.dart';
 import '../../features/movies/pages/popular_movies_page.dart';
 import '../../features/movies/pages/top_rated_movies_page.dart';
 import '../../features/movies/pages/upcoming_movies_page.dart';
+import '../../features/people/pages/person_details_page.dart';
 import '../../features/profile/pages/profile_page.dart';
 import '../../features/search/pages/search_page.dart';
 import '../../features/tv_shows/pages/genre_tv_shows_page.dart';
@@ -29,7 +30,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shellNavigator
 GoRouter router(RouterRef ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: const TvShowHomeRouteData().location,
+    initialLocation: const MovieHomeRouteData().location,
     routes: $appRoutes,
   );
 }
@@ -283,6 +284,23 @@ class GenreTvShowsRouteData extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return GenreTvShowsPage(genreId: genreId);
+  }
+}
+
+// TODO(charlescyt): Do we want to have a person shell branch?
+@TypedGoRoute<PersonDetailsRouteData>(path: '/person/:personId')
+class PersonDetailsRouteData extends GoRouteData {
+  const PersonDetailsRouteData({
+    required this.personId,
+  });
+
+  final int personId;
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return PersonDetailsPage(personId: personId);
   }
 }
 

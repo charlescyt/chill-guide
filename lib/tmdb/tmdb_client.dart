@@ -14,6 +14,7 @@ class TmdbClient {
   final http.Client _client;
   final String _token;
   late final TvShowEndpoint tvShow;
+  late final PersonEndpoint person;
 
   TmdbClient({
     http.Client? client,
@@ -21,6 +22,7 @@ class TmdbClient {
   })  : _client = client ?? http.Client(),
         _token = token {
     tvShow = TvShowEndpoint(this);
+    person = PersonEndpoint(this);
   }
 
   Future<Json> getTrendingMovies({
@@ -247,6 +249,26 @@ class TvShowEndpoint {
     final queryParameters = {
       'language': language,
       'append_to_response': 'credits',
+    };
+    final json = await _client._get(endpoint, queryParameters: queryParameters);
+
+    return json;
+  }
+}
+
+class PersonEndpoint {
+  final TmdbClient _client;
+
+  const PersonEndpoint(this._client);
+
+  Future<Json> getPersonDetails({
+    required int personId,
+    String language = 'en-US',
+  }) async {
+    final endpoint = '${TmdbConstants.personDetails}/$personId';
+    final queryParameters = {
+      'language': language,
+      'append_to_response': 'images,movie_credits,tv_credits',
     };
     final json = await _client._get(endpoint, queryParameters: queryParameters);
 

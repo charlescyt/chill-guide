@@ -23,4 +23,7 @@ abstract final class TmdbConstants {
   static const String topRatedTvShows = '/tv/top_rated';
   static const String tvShowDetails = '/tv';
   static const String tvShowSeasonDetails = '/tv/{id}/season/{season_number}';
+
+  // Person endpoints
+  static const String personDetails = '/person';
 }

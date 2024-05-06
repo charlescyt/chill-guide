@@ -244,11 +244,10 @@ class _Data extends StatelessWidget {
                           height: 240,
                           aspectRatio: 9 / 16,
                           itemBuilder: (context, index) {
+                            final cast = casts[index];
                             return TvShowCastCard(
-                              cast: casts[index],
-                              onTap: () {
-                                // TODO(charlescyt): Push to cast details page
-                              },
+                              cast: cast,
+                              onTap: () => PersonDetailsRouteData(personId: cast.id).push<void>(context),
                             );
                           },
                         ),
