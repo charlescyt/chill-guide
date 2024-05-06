@@ -18,7 +18,7 @@ class MovieRepo {
     TimeWindow timeWindow = TimeWindow.day,
   }) async {
     await Future<void>.delayed(const Duration(seconds: 3));
-    final json = await _client.getTrendingMovies(
+    final json = await _client.movie.getTrendingMovies(
       language: language,
       timeWindow: timeWindow,
     );
@@ -32,7 +32,7 @@ class MovieRepo {
     String region = 'US',
   }) async {
     await Future<void>.delayed(const Duration(seconds: 3));
-    final json = await _client.getPopularMovies(
+    final json = await _client.movie.getPopularMovies(
       page: page,
       language: language,
       region: region,
@@ -47,7 +47,7 @@ class MovieRepo {
     String region = 'US',
   }) async {
     await Future<void>.delayed(const Duration(seconds: 3));
-    final json = await _client.getTopRatedMovies(
+    final json = await _client.movie.getTopRatedMovies(
       page: page,
       language: language,
       region: region,
@@ -62,7 +62,7 @@ class MovieRepo {
     String region = 'US',
   }) async {
     await Future<void>.delayed(const Duration(seconds: 3));
-    final json = await _client.getUpcomingMovies(
+    final json = await _client.movie.getUpcomingMovies(
       page: page,
       language: language,
       region: region,
@@ -78,7 +78,7 @@ class MovieRepo {
     String region = 'US',
   }) async {
     await Future<void>.delayed(const Duration(seconds: 3));
-    final json = await _client.discoverMovies(
+    final json = await _client.movie.discoverMovies(
       page: page,
       language: language,
       region: region,
@@ -96,7 +96,7 @@ class MovieRepo {
     String language = 'en-US',
   }) async {
     await Future<void>.delayed(const Duration(seconds: 3));
-    final json = await _client.getMovieDetails(
+    final json = await _client.movie.getMovieDetails(
       movieId: movieId,
       language: language,
     );

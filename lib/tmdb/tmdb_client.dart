@@ -13,6 +13,7 @@ typedef QueryParameters = Map<String, dynamic>;
 class TmdbClient {
   final http.Client _client;
   final String _token;
+  late final MovieEndpoint movie;
   late final TvShowEndpoint tvShow;
   late final PersonEndpoint person;
 
@@ -21,97 +22,9 @@ class TmdbClient {
     required String token,
   })  : _client = client ?? http.Client(),
         _token = token {
+    movie = MovieEndpoint(this);
     tvShow = TvShowEndpoint(this);
     person = PersonEndpoint(this);
-  }
-
-  Future<Json> getTrendingMovies({
-    String language = 'en-US',
-    TimeWindow timeWindow = TimeWindow.day,
-  }) async {
-    final endpoint = '${TmdbConstants.trendingMovies}/${timeWindow.name}';
-    final queryParameters = {
-      'language': language,
-    };
-    final json = await _get(endpoint, queryParameters: queryParameters);
-
-    return json;
-  }
-
-  Future<Json> getPopularMovies({
-    int page = 1,
-    String language = 'en-US',
-    String region = 'US',
-  }) async {
-    final queryParameters = {
-      'page': '$page',
-      'language': language,
-      'region': region,
-    };
-    final json = await _get(TmdbConstants.popularMovies, queryParameters: queryParameters);
-
-    return json;
-  }
-
-  Future<Json> getUpcomingMovies({
-    int page = 1,
-    String language = 'en-US',
-    String region = 'US',
-  }) async {
-    final queryParameters = {
-      'page': '$page',
-      'language': language,
-      'region': region,
-    };
-    final json = await _get(TmdbConstants.upcomingMovies, queryParameters: queryParameters);
-
-    return json;
-  }
-
-  Future<Json> getTopRatedMovies({
-    int page = 1,
-    String language = 'en-US',
-    String region = 'US',
-  }) async {
-    final queryParameters = {
-      'page': '$page',
-      'language': language,
-      'region': region,
-    };
-    final json = await _get(TmdbConstants.topRatedMovies, queryParameters: queryParameters);
-
-    return json;
-  }
-
-  Future<Json> discoverMovies({
-    int page = 1,
-    String language = 'en-US',
-    String region = 'US',
-    required Map<String, dynamic> filters,
-  }) async {
-    final queryParameters = {
-      'page': '$page',
-      'language': language,
-      'region': region,
-      ...filters,
-    };
-    final json = await _get(TmdbConstants.discoverMovies, queryParameters: queryParameters);
-
-    return json;
-  }
-
-  Future<Json> getMovieDetails({
-    required int movieId,
-    String language = 'en-US',
-  }) async {
-    final endpoint = '${TmdbConstants.movieDetails}/$movieId';
-    final queryParameters = {
-      'language': language,
-      'append_to_response': 'credits,recommendations',
-    };
-    final json = await _get(endpoint, queryParameters: queryParameters);
-
-    return json;
   }
 
   Future<Json> _get(
@@ -132,6 +45,101 @@ class TmdbClient {
     );
 
     final json = jsonDecode(utf8.decode(response.bodyBytes)) as Json;
+
+    return json;
+  }
+}
+
+class MovieEndpoint {
+  final TmdbClient _client;
+
+  const MovieEndpoint(this._client);
+
+  Future<Json> getTrendingMovies({
+    String language = 'en-US',
+    TimeWindow timeWindow = TimeWindow.day,
+  }) async {
+    final endpoint = '${TmdbConstants.trendingMovies}/${timeWindow.name}';
+    final queryParameters = {
+      'language': language,
+    };
+    final json = await _client._get(endpoint, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> getPopularMovies({
+    int page = 1,
+    String language = 'en-US',
+    String region = 'US',
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+      'region': region,
+    };
+    final json = await _client._get(TmdbConstants.popularMovies, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> getUpcomingMovies({
+    int page = 1,
+    String language = 'en-US',
+    String region = 'US',
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+      'region': region,
+    };
+    final json = await _client._get(TmdbConstants.upcomingMovies, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> getTopRatedMovies({
+    int page = 1,
+    String language = 'en-US',
+    String region = 'US',
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+      'region': region,
+    };
+    final json = await _client._get(TmdbConstants.topRatedMovies, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> discoverMovies({
+    int page = 1,
+    String language = 'en-US',
+    String region = 'US',
+    required Map<String, dynamic> filters,
+  }) async {
+    final queryParameters = {
+      'page': '$page',
+      'language': language,
+      'region': region,
+      ...filters,
+    };
+    final json = await _client._get(TmdbConstants.discoverMovies, queryParameters: queryParameters);
+
+    return json;
+  }
+
+  Future<Json> getMovieDetails({
+    required int movieId,
+    String language = 'en-US',
+  }) async {
+    final endpoint = '${TmdbConstants.movieDetails}/$movieId';
+    final queryParameters = {
+      'language': language,
+      'append_to_response': 'credits,recommendations',
+    };
+    final json = await _client._get(endpoint, queryParameters: queryParameters);
 
     return json;
   }
